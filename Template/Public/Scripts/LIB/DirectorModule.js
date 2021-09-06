@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 0.1.0
+// Version : 1.1.0
 // Authors : Gautier Jacquet
 
 
@@ -26,16 +26,8 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
     this._camBackEvent = this._script.createEvent("CameraBackEvent");
     this._camFrontEvent = this._script.createEvent("CameraFrontEvent");
 
-    if (this._useFrontBack)
-    {
-        this._camBackEvent.bind(function(){_this.OnCamBackInternal();_this.OnCamBack();});
-        this._camFrontEvent.bind(function(){_this.OnCamFrontInternal();_this.OnCamFront();});
-    }
-    else
-    {
-        this._camBackEvent.bind(function(){_this.OnCamBack();});
-        this._camFrontEvent.bind(function(){_this.OnCamFront();});
-    }
+    this._camBackEvent.bind(function(){_this.OnCamBack();});
+    this._camFrontEvent.bind(function(){_this.OnCamFront();});
     //#endregion
 
     //#region public events
@@ -47,8 +39,8 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
     //#region private events
     if (this._useFrontBack)
     {
-        this.OnCamFrontInternal = function(){this.GoToScene(this._scenesFrontNames[0], true);};
-        this.OnCamBackInternal = function(){this.GoToScene(this._scenesBackNames[0], true);};
+        this.OnCamFront = function(){this.GoToScene(this._scenesFrontNames[0], true);};
+        this.OnCamBack = function(){this.GoToScene(this._scenesBackNames[0], true);};
     }
     //#endregion
 
@@ -61,9 +53,9 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
     }
 
     //TODO add delay
-    this.GoToScene = function (name, instant)
+    this.GoToScene = function (name, instantShow, instantHide)
     {
-        if (instant)
+        if (instantHide)
         {
             for (var i = 0; i < this._subScenes.length; ++i)
             {
@@ -80,10 +72,10 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
         if(this._activeScene !== null)
         {
             subScenesOld = this._scenesAll[this._activeScene].GetSubScenes();
-            this._scenesAll[this._activeScene].Stop(instant, subScenesNew);
+            this._scenesAll[this._activeScene].Stop(instantHide, subScenesNew);
         }
         this._activeScene = name;
-        this._scenesAll[this._activeScene].Start(instant, subScenesOld);
+        this._scenesAll[this._activeScene].Start(instantShow, subScenesOld);
     }
 
     this.HideAllInstant = function ()
@@ -184,6 +176,11 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
     //#endregion
     this.Setup();
     this.HideAllInstant();
+
+    if (!this._useFrontBack)
+    {
+        this.GoToScene(this._scenesCommonNames[0], true);
+    }
 }
 
 
@@ -198,8 +195,9 @@ global.Scene = function (_script, _subScenesScript)
     //#endregion
     
     //#region public events
-    this.OnStart = function(r){};
-    this.OnStop = function(r){};
+    this.OnStart = function(){};
+    this.OnLateStart = function(){};
+    this.OnStop = function(){};
     //#endregion
 
     //#region public functions
@@ -211,17 +209,19 @@ global.Scene = function (_script, _subScenesScript)
 
     this.Start = function (showInstant, oldScenes)
     {
+        this.OnStart();
+
         this._active = true;
         for (var i = 0; i < this._subScenes.length; ++i)
         {
-            this._subScenes[i].SetSceneScript(this._script);
+            this._subScenes[i].ChangeScene(this._script);
             if (oldScenes === undefined || oldScenes.indexOf(this._subScenes[i]) === -1)
             {
                 this._subScenes[i].Start(showInstant);
             }
         }
-        
-        this.OnStart();
+
+        this.OnLateStart();
     }
 
     this.Stop = function (hideInstant, newScenes)
@@ -278,8 +278,9 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this.HideInstant = _hideInstant !== undefined ? _hideInstant :
                             function(){this._parent.enabled = false;};
 
-    this.OnStart = function(r){};
-    this.OnStop = function(r){};
+    this.OnStart = function(){};
+    this.OnSceneChanged = function(){};
+    this.OnStop = function(){};
     //#endregion
 
     //#region public functions
@@ -289,7 +290,12 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this.GetName = function(){return this._name;};
     this.GetParent = function(){return this._parent;};
     this.GetSceneScript = function(){return this._sceneScript;};
-    this.SetSceneScript = function(script){this._sceneScript = script};
+
+    this.ChangeScene = function (sceneScript)
+    {
+        this._sceneScript = script;
+        this.OnSceneChanged();
+    }
 
     this.Start = function (showInstant)
     {
