@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 1.1.0
+// Version : 1.1.1
 // Authors : Gautier Jacquet
 
 
@@ -293,7 +293,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
 
     this.ChangeScene = function (sceneScript)
     {
-        this._sceneScript = script;
+        this._sceneScript = sceneScript;
         this.OnSceneChanged();
     }
 
