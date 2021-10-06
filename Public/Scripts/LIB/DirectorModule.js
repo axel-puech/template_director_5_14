@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 1.1.1
+// Version : 1.2.0
 // Authors : Gautier Jacquet
 
 
@@ -199,6 +199,7 @@ global.Scene = function (_script, _subScenesScript)
     this.OnStart = function(){};
     this.OnLateStart = function(){};
     this.OnStop = function(){};
+    this.OnLateStop = function(){};
     //#endregion
 
     //#region public functions
@@ -210,9 +211,9 @@ global.Scene = function (_script, _subScenesScript)
 
     this.Start = function (showInstant, oldScenes)
     {
+        this._active = true;
         this.OnStart();
 
-        this._active = true;
         for (var i = 0; i < this._subScenes.length; ++i)
         {
             this._subScenes[i].ChangeScene(this._script);
@@ -228,6 +229,8 @@ global.Scene = function (_script, _subScenesScript)
     this.Stop = function (hideInstant, newScenes)
     {
         this._active = false;
+        this.OnStop();
+
         for (var i = 0; i < this._subScenes.length; ++i)
         {
             if (newScenes === undefined || newScenes.indexOf(this._subScenes[i]) === -1)
@@ -235,7 +238,8 @@ global.Scene = function (_script, _subScenesScript)
                 this._subScenes[i].Stop(hideInstant);
             }
         }
-        this.OnStop();
+
+        this.OnLateStop();
     }
 
     this.SceneEnded = function (params)
