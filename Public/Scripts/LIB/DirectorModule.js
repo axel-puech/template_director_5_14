@@ -77,7 +77,10 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
         this._activeScene = name;
         this._scenesAll[this._activeScene].Start(instantShow, subScenesOld);
     }
+    //#endregion
 
+
+    //#region private functions
     this.HideAllInstant = function ()
     {
         for (var i = 0; i < this._sceneNames.length; ++i)
@@ -85,10 +88,8 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
             this._scenesAll[this._sceneNames[i]].Stop(true);
         }
     }
-    //#endregion
 
 
-    //#region private functions
     this.AddScene = function (sceneName, sceneScript, isCommon, isFront)
     {
         this._scenesAll[sceneName] = sceneScript.api.scene;
