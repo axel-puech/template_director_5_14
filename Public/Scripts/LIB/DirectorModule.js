@@ -216,11 +216,11 @@ global.Scene = function (_script, _subScenesScript)
 
         for (var i = 0; i < this._subScenes.length; ++i)
         {
-            this._subScenes[i].ChangeScene(this._script);
             if (oldScenes === undefined || oldScenes.indexOf(this._subScenes[i]) === -1)
             {
                 this._subScenes[i].Start(showInstant);
             }
+            this._subScenes[i].ChangeScene(this._script);
         }
 
         this.OnLateStart();
