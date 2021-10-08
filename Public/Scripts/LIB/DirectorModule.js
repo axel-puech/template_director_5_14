@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 1.2.0
+// Version : 1.2.1
 // Authors : Gautier Jacquet
 
 
@@ -86,6 +86,15 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
         for (var i = 0; i < this._sceneNames.length; ++i)
         {
             this._scenesAll[this._sceneNames[i]].Stop(true);
+        }
+
+        for (var i = 0; i < this._subScenes.length; ++i)
+        {
+            if (this._subScenes[i].IsActive())
+            {
+                print("Warning : La sous scène " + this._subScenes[i].GetName() + " n'est présente dans aucune scène !");
+                this._subScenes[i].Stop();
+            }
         }
     }
 
