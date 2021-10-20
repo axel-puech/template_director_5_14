@@ -3,7 +3,7 @@
     "document_id": "h77w4ikrf-7JdSS117-S",
     "original_document_id": "wehy7duROn0crBtoDDvq",
     "version": "28",
-    "lastChanged": "1633687866943",
+    "lastChanged": "1634743050640",
     "preview": "icon.png",
     "videoPreview": "preview.mp4",
     "videoPreviewUpdateTime": "",
@@ -916,7 +916,7 @@
                     },
                     {
                         "k": "25962",
-                        "v": "afb21344bd3fb58a1ab6c1274c71c977"
+                        "v": "e4ee4200eebd748e5901ce22b6b86b73"
                     },
                     {
                         "k": "25963",
@@ -1064,7 +1064,7 @@
                         "isFolder": "true",
                         "lastModified": "2021-10-08T12:10:59",
                         "name": "Public",
-                        "hash": "0cb3321b6fd1044995ac2c57c7603d93",
+                        "hash": "360c5e668a005e767787915fcf4f49ed",
                         "children": [
                             {
                                 "isFolder": "false",
@@ -1077,7 +1077,7 @@
                                 "isFolder": "true",
                                 "lastModified": "2021-10-06T11:47:18",
                                 "name": "Scripts",
-                                "hash": "db0b8a90c3f5a1af6f5030859c18c877",
+                                "hash": "70309f771287896fe66097e35fffd11f",
                                 "children": [
                                     {
                                         "isFolder": "false",
@@ -1090,7 +1090,7 @@
                                         "isFolder": "true",
                                         "lastModified": "2021-10-06T11:47:18",
                                         "name": "LIB",
-                                        "hash": "2ef634b32fc5f2f475f6c0525a05bf28",
+                                        "hash": "5f265607f602a1b412c4b678f8d1d0f7",
                                         "children": [
                                             {
                                                 "isFolder": "false",
@@ -1101,9 +1101,9 @@
                                             },
                                             {
                                                 "isFolder": "false",
-                                                "lastModified": "2021-10-08T12:07:53",
+                                                "lastModified": "2021-10-20T17:17:03",
                                                 "name": "DirectorModule.js",
-                                                "hash": "afb21344bd3fb58a1ab6c1274c71c977",
+                                                "hash": "e4ee4200eebd748e5901ce22b6b86b73",
                                                 "children": ""
                                             },
                                             {
@@ -1568,7 +1568,18 @@
             }
         },
         "InspectorController": {
-            "selection": ""
+            "selection": {
+                "resources": [
+                    {
+                        "uid": "1623762237787476:134774",
+                        "path_list": [
+                            "Scripts",
+                            "LIB",
+                            "DirectorModule"
+                        ]
+                    }
+                ]
+            }
         },
         "EffectsController": {
             "1": "",
