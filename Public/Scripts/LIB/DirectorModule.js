@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 1.2.2
+// Version : 1.2.3
 // Authors : Gautier Jacquet
 
 
@@ -53,7 +53,7 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
     }
 
     //TODO add delay
-    this.GoToScene = function (name, instantShow, instantHide)
+    this.GoToScene = function (name, instantShow, instantHide, forceRestart)
     {
         if (instantHide)
         {
@@ -72,10 +72,10 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
         if(this._activeScene !== null)
         {
             subScenesOld = this._scenesAll[this._activeScene].GetSubScenes();
-            this._scenesAll[this._activeScene].Stop(instantHide, subScenesNew);
+            this._scenesAll[this._activeScene].Stop(instantHide, subScenesNew, forceRestart);
         }
         this._activeScene = name;
-        this._scenesAll[this._activeScene].Start(instantShow, subScenesOld);
+        this._scenesAll[this._activeScene].Start(instantShow, subScenesOld, forceRestart);
     }
     //#endregion
 
@@ -218,7 +218,7 @@ global.Scene = function (_script, _subScenesScript)
     this.SetDirector = function(director){this._director = director;};
     this.GetDirector = function(){return this._director};
 
-    this.Start = function (showInstant, oldScenes)
+    this.Start = function (showInstant, oldScenes, forceRestart)
     {
         this._active = true;
         this.OnStart();
@@ -226,7 +226,7 @@ global.Scene = function (_script, _subScenesScript)
         for (var i = 0; i < this._subScenes.length; ++i)
         {
             this._subScenes[i].SetSceneScript(this._script);
-            if (oldScenes === undefined || oldScenes.indexOf(this._subScenes[i]) === -1)
+            if (forceRestart || oldScenes === undefined || oldScenes.indexOf(this._subScenes[i]) === -1)
             {
                 this._subScenes[i].Start(showInstant);
             }
@@ -236,14 +236,14 @@ global.Scene = function (_script, _subScenesScript)
         this.OnLateStart();
     }
 
-    this.Stop = function (hideInstant, newScenes)
+    this.Stop = function (hideInstant, newScenes, forceRestart)
     {
         this._active = false;
         this.OnStop();
 
         for (var i = 0; i < this._subScenes.length; ++i)
         {
-            if (newScenes === undefined || newScenes.indexOf(this._subScenes[i]) === -1)
+            if (forceRestart || newScenes === undefined || newScenes.indexOf(this._subScenes[i]) === -1)
             {
                 this._subScenes[i].Stop(hideInstant);
             }
