@@ -3,7 +3,7 @@
     "document_id": "h77w4ikrf-7JdSS117-S",
     "original_document_id": "wehy7duROn0crBtoDDvq",
     "version": "28",
-    "lastChanged": "1637252616363",
+    "lastChanged": "1639991909484",
     "preview": "icon.png",
     "videoPreview": "preview.mp4",
     "videoPreviewUpdateTime": "",
@@ -1569,15 +1569,8 @@
         },
         "InspectorController": {
             "selection": {
-                "resources": [
-                    {
-                        "uid": "1623762237787476:134774",
-                        "path_list": [
-                            "Scripts",
-                            "LIB",
-                            "DirectorModule"
-                        ]
-                    }
+                "objects": [
+                    "1623762390122933:177915"
                 ]
             }
         },
