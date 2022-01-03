@@ -1,11 +1,26 @@
 // Lib Lens Atomic : Animation Module
-// Version : 1.0.2
-// Authors : Gautier Jacquet
+// Version : 1.1
+// Authors : Gautier Jacquet, Guillaume Bertrand
 
 
 // Enum to set the repeat rules
 global.RepeatMode = {None : 0, Loop : 1, PingPong : 2}
 
+// Enum to set the timecode mode
+global.TimeCodeMode = {Ratio : 0, FixedTime : 1}
+
+// Function TimecodeEvent, defined by a timeCode, the callback method
+global.TimeCodeEvent = function(_timeCode, _callback)
+{
+    //#region public vars
+    this.timeCode = _timeCode;
+    //#endregion
+    
+    //#region private vars
+    this.callback = _callback;    
+    //#endregion
+    
+}
 
 // Function Animation, defined by a duration, an update method and a repeatMode
 global.Animation = function (_duration, _update, _repeatMode)
@@ -24,7 +39,9 @@ global.Animation = function (_duration, _update, _repeatMode)
     this._goingUp = true;
     this._repeatCount = 0;
     this._paused = false;
-
+    this._arrayTimeCodeEvent = [];
+    this._indexTimeCode;
+    
     this._updateEvent = script.createEvent("UpdateEvent");
     this._updateEvent.enabled = false;
     this._updateEvent.bind(function(){_this._InternalUpdate()});
@@ -60,6 +77,7 @@ global.Animation = function (_duration, _update, _repeatMode)
         this._goingUp = true;
         this._updateEvent.enabled = true;
         this._paused = false;
+        this._ResetIndexTimeCode();
         this.OnStart(this._clampedRatio);
     }
 
@@ -67,6 +85,7 @@ global.Animation = function (_duration, _update, _repeatMode)
     {
         this._ratio = 0;
         this._clampedRatio = 0;
+        this._indexTimeCode = 0;
         this._targetRatio = 1;
         this._repeatCount = 0;
         this._goingUp = true;
@@ -98,7 +117,8 @@ global.Animation = function (_duration, _update, _repeatMode)
     {
         this._targetRatio = Math.min(Math.max(target, 0), 1);
         this._goingUp = this._ratio <= this._targetRatio;
-        
+        this._ResetIndexTimeCode();
+
         if (!this._updateEvent.enabled)
         {
             this.OnStart(this._ratio);
@@ -110,9 +130,48 @@ global.Animation = function (_duration, _update, _repeatMode)
     {
         this._ratio = Math.min(Math.max(target, 0), 1);
         this._clampedRatio = this._ratio;
+        this._ResetIndexTimeCode();
+        
         this.Update(this.Easing(this._clampedRatio));
         this._updateEvent.enabled = false;
     }
+            
+    this.AddTimeCodeEvent = function (_timeCode, _callback, _timeCodeType)
+    {
+        if(_timeCodeType === TimeCodeMode.FixedTime)
+        {
+            _timeCode = _timeCode/this.duration;
+        }
+
+        var ind = -1;
+        for (var i = 0; i < this._arrayTimeCodeEvent.length; ++i)
+        {
+            if (this._arrayTimeCodeEvent[i].timeCode > _timeCode)
+            {
+                ind = i;
+                break;
+            }
+        }
+        if (ind === -1)
+        {
+            this._arrayTimeCodeEvent.push(
+                new TimeCodeEvent(_timeCode, _callback));
+        }
+        else
+        {
+            this._arrayTimeCodeEvent.splice(ind, 0, new TimeCodeEvent(_timeCode, _callback));
+        }
+        if (this._clampedRatio > _timeCode && this._goingUp)
+        {
+           this._indexTimeCode = Math.min(this._arrayTimeCodeEvent.length,
+                this._indexTimeCode + 1);
+        }
+        else if (this.clampedRatio < _timeCode && !this._goingUp)
+        {
+           this._indexTimeCode = Math.max(this._indexTimeCode - 1, -1);         
+        }
+    }
+    
     //#endregion
 
 
@@ -125,11 +184,23 @@ global.Animation = function (_duration, _update, _repeatMode)
         {
             this._ratio += getDeltaTime() / this.duration;
             this._clampedRatio = Math.min(Math.max(this._ratio, 0), 1);
+            while (this._indexTimeCode < this._arrayTimeCodeEvent.length && 
+                this._clampedRatio >= this._arrayTimeCodeEvent[this._indexTimeCode].timeCode)
+            {
+                this._arrayTimeCodeEvent[this._indexTimeCode].callback();
+                this._indexTimeCode = this._indexTimeCode + 1;
+            }
         }
         else
         {
             this._ratio -= getDeltaTime() / this.duration;
             this._clampedRatio = Math.min(Math.max(this._ratio, 0), 1); 
+            while (this._indexTimeCode > -1 && 
+                this._clampedRatio <= this._arrayTimeCodeEvent[this._indexTimeCode].timeCode)
+            {
+                this._arrayTimeCodeEvent[this._indexTimeCode].callback();
+                this._indexTimeCode = this._indexTimeCode - 1;
+            }
         }
 
         do
@@ -151,6 +222,7 @@ global.Animation = function (_duration, _update, _repeatMode)
                         {
                             this._ratio = this._ratio - 1;
                             this._clampedRatio = Math.min(Math.max(this._ratio, 0), 1);
+                            this._indexTimeCode = 0;
                         }
                         else if (this.repeatMode === RepeatMode.PingPong)
                         {
@@ -158,6 +230,7 @@ global.Animation = function (_duration, _update, _repeatMode)
                             this._ratio = 2 - this._ratio; // for 1 - (ratio - 1), 1 being the anim end, (ratio - 1) being the overstep
                             this._clampedRatio = Math.min(Math.max(this._ratio, 0), 1);
                             this._targetRatio = 0;
+                            this._indexTimeCode = this._arrayTimeCodeEvent.length-1;
                         }
                         
                         if (this._repeatCount > 0)
@@ -186,6 +259,7 @@ global.Animation = function (_duration, _update, _repeatMode)
                         {
                             this._ratio = 1 + this._ratio; // ratio is negative, it is the inverse of the overstep, adding 1 makes it go from the other side.
                             this._clampedRatio = Math.min(Math.max(this._ratio, 0), 1);
+                            this._indexTimeCode = this._arrayTimeCodeEvent.length-1;
                         }
                         else if (this.repeatMode === RepeatMode.PingPong)
                         {
@@ -193,6 +267,7 @@ global.Animation = function (_duration, _update, _repeatMode)
                             this._ratio = -this._ratio;
                             this._clampedRatio = Math.min(Math.max(this._ratio, 0), 1);
                             this._targetRatio = 1;
+                            this._indexTimeCode = 0;
                         }
 
                         if (this._repeatCount > 0)
@@ -215,6 +290,31 @@ global.Animation = function (_duration, _update, _repeatMode)
         else if (looped)
         {
             this.OnLoop(this._clampedRatio);
+        }
+    }
+    
+    this._ResetIndexTimeCode = function()
+    {
+        var ind = -1;
+        for (var i = 0; i < this._arrayTimeCodeEvent.length; i++)
+        {
+            if (this._arrayTimeCodeEvent[i].timeCode > this._clampedRatio)
+            {
+                ind = i;
+                break;
+            }
+        }
+        if (ind === -1)
+        {
+            this._indexTimeCode = this._arrayTimeCodeEvent.length;
+        }
+        else
+        {
+            this._indexTimeCode = ind;
+        }
+        if (!this._goingUp)
+        {
+            this._indexTimeCode = this._indexTimeCode - 1;
         }
     }
     //#endregion
