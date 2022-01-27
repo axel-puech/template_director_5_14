@@ -1,5 +1,6 @@
 // Lib Lens Atomic : Director Module
-// Version : 1.2.3
+// Version : 2.0.0
+// Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
 
 
@@ -275,12 +276,16 @@ global.Scene = function (_script, _subScenesScript)
 global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideInstant)
 {
     //#region private vars
+    var _this = this;
     this._script = _script;
     this._sceneScript = null;
     this._name = this._script.getSceneObject().name;
     this._parent = _parent;
     this._active = true;
+    this._initialized = false;
     this._hiding = false;
+    this._update = new global.Update(function(){if (_this.Update) _this.Update()});
+    this._lateUpdate = new global.Update(function(){if (_this.LateUpdate) _this.LateUpdate()});
     //#endregion
 
     //#region public events
@@ -296,6 +301,8 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this.OnStart = function(){};
     this.OnSceneChanged = function(){};
     this.OnStop = function(){};
+    this.Update = null;
+    this.LateUpdate = null;
     //#endregion
 
     //#region public functions
@@ -314,6 +321,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
 
     this.Start = function (showInstant)
     {
+        this._initialized = true;
         if (!this._active)
         {
             this._hiding = false;
@@ -345,6 +353,9 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
                     this._parent.enabled = true;
                 }
             }
+
+            global.UpdateManager.AddUpdate(_this._update);
+            global.UpdateManager.AddLateUpdate(_this._lateUpdate);
             this._active = true;
         }
     }
@@ -353,6 +364,12 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     {
         if (this._active)
         {
+            if (this._initialized)
+            {
+                global.UpdateManager.RemoveUpdate(_this._update);
+                global.UpdateManager.RemoveLateUpdate(_this._lateUpdate);
+            }
+
             this._hiding = true;
             if (this.OnStop !== null && this.OnStop !== undefined)
             {
@@ -384,6 +401,40 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
             }
             this._active = false;
         }
+    }
+
+    this.ChangeUpdatePriority = function (_priority)
+    {
+        this._update.priority = _priority;
+
+        global.UpdateManager.ReorderUpdates();
+    }
+
+    this.ChangeLateUpdatePriority = function (_priority)
+    {
+        this._lateUpdate.priority = _priority;
+
+        global.UpdateManager.ReorderLateUpdates();
+    }
+
+    this.EnableUpdate = function ()
+    {
+        this._update.enabled = true;
+    }
+
+    this.EnableLateUpdate = function ()
+    {
+        this._lateUpdate.enabled = true;
+    }
+
+    this.DisableUpdate = function ()
+    {
+        this._update.enabled = false;
+    }
+
+    this.DisableLateUpdate = function ()
+    {
+        this._lateUpdate.enabled = false;
     }
     //#endregion
 }

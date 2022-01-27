@@ -1,7 +1,9 @@
 // Lib Lens Atomic : Animation Module
-// Version : 1.1
+// Version : 2.0
+// Dependencies : Update Manager Module
 // Authors : Gautier Jacquet, Guillaume Bertrand
 
+//TODO deal with update Manager module
 
 // Enum to set the repeat rules
 global.RepeatMode = {None : 0, Loop : 1, PingPong : 2}
