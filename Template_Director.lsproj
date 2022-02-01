@@ -3,7 +3,7 @@
     "document_id": "h77w4ikrf-7JdSS117-S",
     "original_document_id": "wehy7duROn0crBtoDDvq",
     "version": "28",
-    "lastChanged": "1643304395742",
+    "lastChanged": "1643726846075",
     "preview": "icon.png",
     "videoPreview": "preview.mp4",
     "videoPreviewUpdateTime": "",
@@ -32,6 +32,9 @@
             "collapsedList": [
                 [
                     [
+                        "Box"
+                    ],
+                    [
                         "Device Camera Texture"
                     ],
                     [
@@ -43,6 +46,16 @@
                         "Scripts",
                         "LIB",
                         "VideoController"
+                    ],
+                    [
+                        "Scripts",
+                        "Misc",
+                        "Box"
+                    ],
+                    [
+                        "Scripts",
+                        "Misc",
+                        "Box 2"
                     ],
                     [
                         "Scripts",
@@ -64,6 +77,10 @@
                     ],
                     [
                         "Textures",
+                        "Beauty"
+                    ],
+                    [
+                        "Textures",
                         "Envmaps"
                     ],
                     [
@@ -74,6 +91,10 @@
                         "Textures",
                         "RenderTargets",
                         "Render Target Live"
+                    ],
+                    [
+                        "Textures",
+                        "Screen Texture"
                     ]
                 ]
             ]
@@ -310,6 +331,46 @@
                     "sourceFilePath": "",
                     "additionalProperties": "",
                     "flags": "1"
+                },
+                {
+                    "resId": "179",
+                    "uid": "1643366331191046:55977",
+                    "name": "Files\/File380.mesh",
+                    "sourceFilePath": "",
+                    "additionalProperties": "",
+                    "flags": "1"
+                },
+                {
+                    "resId": "180",
+                    "uid": "1643367853312872:246364",
+                    "name": "Files\/File382.js",
+                    "sourceFilePath": "",
+                    "additionalProperties": "",
+                    "flags": "1"
+                },
+                {
+                    "resId": "181",
+                    "uid": "1643367866752022:249135",
+                    "name": "Box",
+                    "sourceFilePath": "",
+                    "additionalProperties": "",
+                    "flags": "0"
+                },
+                {
+                    "resId": "184",
+                    "uid": "1643724898647259:355170",
+                    "name": "Files\/File389.jpg",
+                    "sourceFilePath": "",
+                    "additionalProperties": "",
+                    "flags": "1"
+                },
+                {
+                    "resId": "185",
+                    "uid": "1643724898693381:355182",
+                    "name": "Screen Texture",
+                    "sourceFilePath": "",
+                    "additionalProperties": "",
+                    "flags": "0"
                 }
             ],
             "MaterialUpdateManager": {
@@ -454,6 +515,34 @@
                 {
                     "k": "379",
                     "v": "Files\/File379.js"
+                },
+                {
+                    "k": "380",
+                    "v": "Files\/File380.mesh"
+                },
+                {
+                    "k": "381",
+                    "v": "Files\/File381.mesh"
+                },
+                {
+                    "k": "382",
+                    "v": "Files\/File382.js"
+                },
+                {
+                    "k": "383",
+                    "v": "Files\/File383.oprfb"
+                },
+                {
+                    "k": "384",
+                    "v": "Files\/File384.oprfb"
+                },
+                {
+                    "k": "389",
+                    "v": "Files\/File389.png"
+                },
+                {
+                    "k": "390",
+                    "v": "Files\/File390.png"
                 }
             ]
         },
@@ -533,6 +622,22 @@
                     {
                         "k": "26009",
                         "v": "Scripts\/LIB\/UpdateManager.js"
+                    },
+                    {
+                        "k": "26010",
+                        "v": "Box.mesh"
+                    },
+                    {
+                        "k": "26011",
+                        "v": "Scripts\/Misc\/Box.js"
+                    },
+                    {
+                        "k": "26012",
+                        "v": "Scripts\/Misc\/Box 2.oprfb"
+                    },
+                    {
+                        "k": "26014",
+                        "v": "Textures\/Beauty.png"
                     }
                 ],
                 "hashes": [
@@ -566,7 +671,7 @@
                     },
                     {
                         "k": "973",
-                        "v": "dc99d16c127aaf06bf6a8c1262296e69"
+                        "v": "8e59661808659e13dab105caa0eee839"
                     },
                     {
                         "k": "974",
@@ -938,7 +1043,7 @@
                     },
                     {
                         "k": "25962",
-                        "v": "7dda511b9dd25243db4e2829d916cd18"
+                        "v": "78ac51bd277de5bf1c6ad35e6c4f796f"
                     },
                     {
                         "k": "25963",
@@ -1070,28 +1175,55 @@
                     },
                     {
                         "k": "26007",
-                        "v": "c595c2d1afd1f0db3da23b6bb70ce5fa"
+                        "v": "16b6fdf7be774d3ff1cd99a685a7adba"
                     },
                     {
                         "k": "26008",
-                        "v": "8901aad38afa222eddae7d2297a2ff8c"
+                        "v": "ff8d933657764dcfd9727504a4679d2d"
                     },
                     {
                         "k": "26009",
-                        "v": "801f93d9c066e503e80ccffb987b0938"
+                        "v": "33538355799b45c8da89d57571a01134"
                     },
                     {
                         "k": "26010",
                         "v": "621da74e06cc402b895f39376927a9d1"
+                    },
+                    {
+                        "k": "26011",
+                        "v": "73f6449525d6308189a7644a94bb3426"
+                    },
+                    {
+                        "k": "26012",
+                        "v": "d2e13f71c8e4ea77d952627da20f585d"
+                    },
+                    {
+                        "k": "26013",
+                        "v": "9a92be07f823945e5cf5c8cccf88473f"
+                    },
+                    {
+                        "k": "26014",
+                        "v": "a276acaed7d65e4c1b56181771677a77"
+                    },
+                    {
+                        "k": "26015",
+                        "v": "aef7c7f9cc4d17e2087eafddedc57238"
                     }
                 ],
                 "publicState": {
                     "tree": {
                         "isFolder": "true",
-                        "lastModified": "2022-01-27T17:04:10",
+                        "lastModified": "2022-02-01T15:19:43",
                         "name": "Public",
-                        "hash": "0c5914020e13619d26838367cc0d954f",
+                        "hash": "474eff3950345b0d33b5756b272ce9c4",
                         "children": [
+                            {
+                                "isFolder": "false",
+                                "lastModified": "2022-01-28T11:38:51",
+                                "name": "Box.mesh",
+                                "hash": "621da74e06cc402b895f39376927a9d1",
+                                "children": ""
+                            },
                             {
                                 "isFolder": "false",
                                 "lastModified": "2021-06-15T14:49:14",
@@ -1103,7 +1235,7 @@
                                 "isFolder": "true",
                                 "lastModified": "2021-08-17T16:04:16",
                                 "name": "Scripts",
-                                "hash": "ab08e88ac46d270da4fbb6ef81ed76f9",
+                                "hash": "8e2cf856b15d66ac325256e3ef1b7076",
                                 "children": [
                                     {
                                         "isFolder": "false",
@@ -1116,20 +1248,20 @@
                                         "isFolder": "true",
                                         "lastModified": "2022-01-27T15:38:23",
                                         "name": "LIB",
-                                        "hash": "1b377d0f3e6c3abb4d309228e89df5d1",
+                                        "hash": "50abdbd536daa17368db687c5941ee25",
                                         "children": [
                                             {
                                                 "isFolder": "false",
-                                                "lastModified": "2022-01-27T15:39:34",
+                                                "lastModified": "2022-02-01T14:30:47",
                                                 "name": "Animation.js",
-                                                "hash": "dc99d16c127aaf06bf6a8c1262296e69",
+                                                "hash": "8e59661808659e13dab105caa0eee839",
                                                 "children": ""
                                             },
                                             {
                                                 "isFolder": "false",
-                                                "lastModified": "2022-01-27T17:20:12",
+                                                "lastModified": "2022-02-01T14:36:58",
                                                 "name": "DirectorModule.js",
-                                                "hash": "7dda511b9dd25243db4e2829d916cd18",
+                                                "hash": "78ac51bd277de5bf1c6ad35e6c4f796f",
                                                 "children": ""
                                             },
                                             {
@@ -1155,9 +1287,9 @@
                                             },
                                             {
                                                 "isFolder": "false",
-                                                "lastModified": "2022-01-27T17:15:27",
+                                                "lastModified": "2022-02-01T15:38:17",
                                                 "name": "UpdateManager.js",
-                                                "hash": "801f93d9c066e503e80ccffb987b0938",
+                                                "hash": "33538355799b45c8da89d57571a01134",
                                                 "children": ""
                                             },
                                             {
@@ -1171,10 +1303,24 @@
                                     },
                                     {
                                         "isFolder": "true",
-                                        "lastModified": "2021-10-05T10:57:50",
+                                        "lastModified": "2022-01-28T12:08:44",
                                         "name": "Misc",
-                                        "hash": "8b5964e3390ccd536b14d26896ec872b",
+                                        "hash": "1c6064efeded4abbc647f15d1f52b6c4",
                                         "children": [
+                                            {
+                                                "isFolder": "false",
+                                                "lastModified": "2022-01-28T12:08:44",
+                                                "name": "Box 2.oprfb",
+                                                "hash": "d2e13f71c8e4ea77d952627da20f585d",
+                                                "children": ""
+                                            },
+                                            {
+                                                "isFolder": "false",
+                                                "lastModified": "2022-02-01T15:39:41",
+                                                "name": "Box.js",
+                                                "hash": "73f6449525d6308189a7644a94bb3426",
+                                                "children": ""
+                                            },
                                             {
                                                 "isFolder": "false",
                                                 "lastModified": "2022-01-27T15:45:40",
@@ -1198,16 +1344,16 @@
                                             },
                                             {
                                                 "isFolder": "false",
-                                                "lastModified": "2021-10-05T10:57:49",
+                                                "lastModified": "2022-02-01T14:36:54",
                                                 "name": "Scene.js",
-                                                "hash": "8901aad38afa222eddae7d2297a2ff8c",
+                                                "hash": "ff8d933657764dcfd9727504a4679d2d",
                                                 "children": ""
                                             },
                                             {
                                                 "isFolder": "false",
-                                                "lastModified": "2022-01-27T17:00:31",
+                                                "lastModified": "2022-02-01T14:41:27",
                                                 "name": "SubScene.js",
-                                                "hash": "c595c2d1afd1f0db3da23b6bb70ce5fa",
+                                                "hash": "16b6fdf7be774d3ff1cd99a685a7adba",
                                                 "children": ""
                                             }
                                         ]
@@ -1216,10 +1362,17 @@
                             },
                             {
                                 "isFolder": "true",
-                                "lastModified": "2021-08-17T16:04:16",
+                                "lastModified": "2022-02-01T15:14:58",
                                 "name": "Textures",
-                                "hash": "5d28815959cf0a6f54eb4461ca43940e",
+                                "hash": "4ad617cd925708e6cd74d878449c559d",
                                 "children": [
+                                    {
+                                        "isFolder": "false",
+                                        "lastModified": "2022-02-01T15:14:58",
+                                        "name": "Beauty.png",
+                                        "hash": "a276acaed7d65e4c1b56181771677a77",
+                                        "children": ""
+                                    },
                                     {
                                         "isFolder": "true",
                                         "lastModified": "2021-08-17T16:04:16",
@@ -1468,6 +1621,34 @@
                                         "publicId": "26008",
                                         "source": "E:\/Bureau\/Work\/StudioLens\/StudioLensTest\/Lens_JardinAstrolab_DirectorsCut\/Public\/Scripts\/Scenes\/FrontIntro.js",
                                         "additional": ""
+                                    },
+                                    {
+                                        "name": "Box",
+                                        "type": "4",
+                                        "subtype": "0",
+                                        "resourceId": "180",
+                                        "dependency": "0",
+                                        "hidden": "false",
+                                        "uid": "1643367853312872:246364",
+                                        "fileId": "382",
+                                        "originalId": "18446744073709551615",
+                                        "publicId": "26011",
+                                        "source": "C:\/Users\/Fuegan\/AppData\/Local\/Temp\/Lens Studio-sFQgcC\/\/system\/\/emergencyFiles\/emergencyJs.js",
+                                        "additional": ""
+                                    },
+                                    {
+                                        "name": "Box 2",
+                                        "type": "12",
+                                        "subtype": "-1",
+                                        "resourceId": "181",
+                                        "dependency": "0",
+                                        "hidden": "false",
+                                        "uid": "1643367866752022:249135",
+                                        "fileId": "383",
+                                        "originalId": "384",
+                                        "publicId": "26012",
+                                        "source": "",
+                                        "additional": ""
                                     }
                                 ]
                             }
@@ -1594,6 +1775,36 @@
                                         "additional": ""
                                     }
                                 ]
+                            },
+                            {
+                                "name": "Beauty",
+                                "type": "1",
+                                "subtype": "9",
+                                "resourceId": "184",
+                                "dependency": "0",
+                                "hidden": "false",
+                                "uid": "1643724898647259:355170",
+                                "fileId": "389",
+                                "originalId": "390",
+                                "publicId": "26014",
+                                "source": "C:\/Users\/Fuegan\/AppData\/Local\/Temp\/Lens Studio-SUOgfJ\/\/system\/\/emergencyFiles\/emergencyJpg.jpg",
+                                "additional": {
+                                    "originHash": "a276acaed7d65e4c1b56181771677a77"
+                                }
+                            },
+                            {
+                                "name": "Screen Texture",
+                                "type": "1",
+                                "subtype": "16",
+                                "resourceId": "185",
+                                "dependency": "0",
+                                "hidden": "false",
+                                "uid": "1643724898693381:355182",
+                                "fileId": "18446744073709551615",
+                                "originalId": "18446744073709551615",
+                                "publicId": "18446744073709551615",
+                                "source": "",
+                                "additional": ""
                             }
                         ]
                     },
@@ -1609,6 +1820,20 @@
                         "originalId": "18446744073709551615",
                         "publicId": "18446744073709551615",
                         "source": "",
+                        "additional": ""
+                    },
+                    {
+                        "name": "Box",
+                        "type": "3",
+                        "subtype": "0",
+                        "resourceId": "179",
+                        "dependency": "0",
+                        "hidden": "false",
+                        "uid": "1643366331191046:55977",
+                        "fileId": "380",
+                        "originalId": "381",
+                        "publicId": "26010",
+                        "source": "C:\/Users\/Fuegan\/AppData\/Local\/Temp\/Lens Studio-sFQgcC\/\/system\/\/emergencyFiles\/emergencyMesh.mesh",
                         "additional": ""
                     }
                 ]

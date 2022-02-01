@@ -4,15 +4,15 @@
 // Authors : Gautier Jacquet
 
 
-global.Update = function (_callback, _enabled, _priority)
+global.Update = function (_script, _callback, _enabled, _priority)
 {
-    var _this = this;
-
+    this.script = _script;
     this.callback = _callback;
     this.priority = _priority !== undefined ? _priority : 0;
     this.enabled = _enabled !== undefined ? _enabled : true;
 }
 
+global.frameCount = 0;
 
 function UpdateManagerClass ()
 {
@@ -93,6 +93,7 @@ function UpdateManagerClass ()
 
     this.ReorderInterUpdates = function ()
     {
+        print("hurpaDurp");
         this._interUpdates.sort(this._SortUpdate);
     }
 
@@ -121,9 +122,14 @@ function UpdateManagerClass ()
         }
         else
         {
-            for (var i = _array.length - 1; i > 0; --i)
+            for (var i = _array.length - 1; i >= 0; i--)
             {
                 if (_array[i].priority <= _update.priority)
+                {
+                    _array.splice(i+1, 0, _update);
+                    break;
+                }
+                else if (i == 0)
                 {
                     _array.splice(i, 0, _update);
                 }
@@ -158,29 +164,54 @@ function UpdateManagerClass ()
         for (var i = 0; i < _this._preUpdates.length; ++i)
         {
             var update = _this._preUpdates[i];
-            if (update.enabled)
+            try
             {
-                update.callback();
+                if (update.script.getSceneObject())
+                {
+                    update.callback();
+                }
+            }
+            catch (error)
+            {
+                _this._preUpdates.splice(i, 1);
+                i--;
             }
         }
 
         for (var i = 0; i < _this._updates.length; ++i)
         {
             var update = _this._updates[i];
-            if (update.enabled)
+            try
             {
-                update.callback();
+                if (update.script.getSceneObject())
+                {
+                    update.callback();
+                }
+            }
+            catch (error)
+            {
+                _this._updates.splice(i, 1);
+                i--;
             }
         }
 
         for (var i = 0; i < _this._interUpdates.length; ++i)
         {
             var update = _this._interUpdates[i];
-            if (update.enabled)
+            try
             {
-                update.callback();
+                if (update.script.getSceneObject())
+                {
+                    update.callback();
+                }
+            }
+            catch (error)
+            {
+                _this._interUpdates.splice(i, 1);
+                i--;
             }
         }
+        global.frameCount++;
     }
 
 
@@ -189,18 +220,34 @@ function UpdateManagerClass ()
         for (var i = 0; i < _this._lateUpdates.length; ++i)
         {
             var update = _this._lateUpdates[i];
-            if (update.enabled)
+            try
             {
-                update.callback();
+                if (update.script.getSceneObject())
+                {
+                    update.callback();
+                }
+            }
+            catch (error)
+            {
+                _this._lateUpdates.splice(i, 1);
+                i--;
             }
         }
 
         for (var i = 0; i < _this._postUpdates.length; ++i)
         {
             var update = _this._postUpdates[i];
-            if (update.enabled)
+            try
             {
-                update.callback();
+                if (update.script.getSceneObject())
+                {
+                    update.callback();
+                }
+            }
+            catch (error)
+            {
+                _this._postUpdates.splice(i, 1);
+                i--;
             }
         }
     }

@@ -1,9 +1,9 @@
 // Lib Lens Atomic : Animation Module
-// Version : 2.0
+// Version : 2.0.0
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet, Guillaume Bertrand
 
-//TODO deal with update Manager module
+
 
 // Enum to set the repeat rules
 global.RepeatMode = {None : 0, Loop : 1, PingPong : 2}
@@ -25,7 +25,7 @@ global.TimeCodeEvent = function(_timeCode, _callback)
 }
 
 // Function Animation, defined by a duration, an update method and a repeatMode
-global.Animation = function (_duration, _update, _repeatMode)
+global.Animation = function (_script, _duration, _update, _repeatMode)
 {
     //#region public vars
     this.duration = _duration;
@@ -44,9 +44,8 @@ global.Animation = function (_duration, _update, _repeatMode)
     this._arrayTimeCodeEvent = [];
     this._indexTimeCode;
     
-    this._updateEvent = script.createEvent("UpdateEvent");
-    this._updateEvent.enabled = false;
-    this._updateEvent.bind(function(){_this._InternalUpdate()});
+    this._updateEvent = new global.Update(_script, function(){_this._InternalUpdate()}, false);
+    global.UpdateManager.AddInterUpdate(_this._updateEvent);
     //#endregion
 
 

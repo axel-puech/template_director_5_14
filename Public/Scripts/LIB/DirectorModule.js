@@ -198,11 +198,15 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
 global.Scene = function (_script, _subScenesScript)
 {
     //#region private vars
+    var _this = this;
     this._director = null;
     this._script = _script;
     this._name = this._script.getSceneObject().name;
     this._subScenes = [];
     this._active = true;
+    this._initialized = true;
+    this._update = new global.Update(_script, function(){if (_this.Update) _this.Update()});
+    this._lateUpdate = new global.Update(_script, function(){if (_this.LateUpdate) _this.LateUpdate()});
     //#endregion
     
     //#region public events
@@ -210,6 +214,8 @@ global.Scene = function (_script, _subScenesScript)
     this.OnLateStart = function(){};
     this.OnStop = function(){};
     this.OnLateStop = function(){};
+    this.Update = null;
+    this.LateUpdate = null;
     //#endregion
 
     //#region public functions
@@ -221,6 +227,7 @@ global.Scene = function (_script, _subScenesScript)
 
     this.Start = function (showInstant, oldScenes, forceRestart)
     {
+        this._initialized = true;
         this._active = true;
         this.OnStart();
 
@@ -235,10 +242,19 @@ global.Scene = function (_script, _subScenesScript)
         }
 
         this.OnLateStart();
+
+        global.UpdateManager.AddUpdate(_this._update);
+        global.UpdateManager.AddLateUpdate(_this._lateUpdate);
     }
 
     this.Stop = function (hideInstant, newScenes, forceRestart)
     {
+        if (this._initialized)
+        {
+            global.UpdateManager.RemoveUpdate(_this._update);
+            global.UpdateManager.RemoveLateUpdate(_this._lateUpdate);
+        }
+
         this._active = false;
         this.OnStop();
 
@@ -256,6 +272,40 @@ global.Scene = function (_script, _subScenesScript)
     this.SceneEnded = function (params)
     {
         this._director.OnSceneEnded(this._name, params);
+    }
+
+    this.ChangeUpdatePriority = function (_priority)
+    {
+        this._update.priority = _priority;
+
+        global.UpdateManager.ReorderUpdates();
+    }
+
+    this.ChangeLateUpdatePriority = function (_priority)
+    {
+        this._lateUpdate.priority = _priority;
+
+        global.UpdateManager.ReorderLateUpdates();
+    }
+
+    this.EnableUpdate = function ()
+    {
+        this._update.enabled = true;
+    }
+
+    this.EnableLateUpdate = function ()
+    {
+        this._lateUpdate.enabled = true;
+    }
+
+    this.DisableUpdate = function ()
+    {
+        this._update.enabled = false;
+    }
+
+    this.DisableLateUpdate = function ()
+    {
+        this._lateUpdate.enabled = false;
     }
     //#endregion
 
@@ -284,8 +334,8 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this._active = true;
     this._initialized = false;
     this._hiding = false;
-    this._update = new global.Update(function(){if (_this.Update) _this.Update()});
-    this._lateUpdate = new global.Update(function(){if (_this.LateUpdate) _this.LateUpdate()});
+    this._update = new global.Update(_script, function(){if (_this.Update) _this.Update()});
+    this._lateUpdate = new global.Update(_script, function(){if (_this.LateUpdate) _this.LateUpdate()});
     //#endregion
 
     //#region public events
