@@ -4,15 +4,130 @@
 // Authors : Gautier Jacquet
 
 
-global.Update = function (_script, _callback, _enabled, _priority)
+global.UpdateType = {PreUpdate : 0, Update : 10, InterUpdate : 20, LateUpdate : 30, PostUpdate : 40}
+
+
+global.Update = function (_obj, _type, _callback, _enabled, _priority)
 {
-    this.script = _script;
+    var _this = this;
+
+    this.added = false;
     this.callback = _callback;
-    this.priority = _priority !== undefined ? _priority : 0;
     this.enabled = _enabled !== undefined ? _enabled : true;
+    this.obj = _obj;
+    this.type = _type;
+    this.priority = _priority !== undefined ? _priority : 0;
+
+    this.ChangePriority = function (_priority)
+    {
+        this.priority = _priority;
+
+        if (this.added)
+        {
+            switch (this.type)
+            {
+                case UpdateType.PreUpdate:
+                    global.UpdateManager.ReorderPreUpdates();
+                    break;
+                case UpdateType.Update:
+                    global.UpdateManager.ReorderUpdates();
+                    break;
+                case UpdateType.InterUpdate:
+                    global.UpdateManager.ReorderInterUpdates();
+                    break;
+                case UpdateType.LateUpdate:
+                    global.UpdateManager.ReorderLateUpdates();
+                    break;
+                case UpdateType.PostUpdate:
+                    global.UpdateManager.ReorderPostUpdates();
+                    break;
+                default:
+            }
+        }
+    }
+
+    this.ChangeType = function (_type)
+    {
+        if (this.added)
+        {
+            this.Remove();
+            this.type = _type;
+            this.Add();
+        }
+        else
+        {
+            this.type = _type;
+        }
+    }
+
+    this.Remove = function ()
+    {
+        if (this.added)
+        {
+            switch (this.type)
+            {
+                case UpdateType.PreUpdate:
+                    global.UpdateManager.RemovePreUpdate(_this);
+                    break;
+                case UpdateType.Update:
+                    global.UpdateManager.RemoveUpdate(_this);
+                    break;
+                case UpdateType.InterUpdate:
+                    global.UpdateManager.RemoveInterUpdate(_this);
+                    break;
+                case UpdateType.LateUpdate:
+                    global.UpdateManager.RemoveLateUpdate(_this);
+                    break;
+                case UpdateType.PostUpdate:
+                    global.UpdateManager.RemovePostUpdate(_this);
+                    break;
+                default:
+                    print("Warning : update wasn't removed -> no valid type ! object is : " + this.obj.name);
+            }
+            this.added = false;
+        }
+        else
+        {
+            print("Warning : update wasn't added -> not currently added ! object is : " + this.obj.name);
+        }
+    }
+
+    this.Add = function ()
+    {
+        if (!this.added)
+        {
+            var _added = true;
+            switch (this.type)
+            {
+                case UpdateType.PreUpdate:
+                    global.UpdateManager.AddPreUpdate(_this);
+                    break;
+                case UpdateType.Update:
+                    global.UpdateManager.AddUpdate(_this);
+                    break;
+                case UpdateType.InterUpdate:
+                    global.UpdateManager.AddInterUpdate(_this);
+                    break;
+                case UpdateType.LateUpdate:
+                    global.UpdateManager.AddLateUpdate(_this);
+                    break;
+                case UpdateType.PostUpdate:
+                    global.UpdateManager.AddPostUpdate(_this);
+                    break;
+                default:
+                    print("Warning : update wasn't added -> no valid type ! obj object is : " + this.obj.name);
+                    _added = false;
+            }
+            this.added = _added;
+        }
+        else
+        {
+            print("Warning : update wasn't added -> already added ! obj object is : " + this.obj.name);
+        }
+    }
 }
 
-global.frameCount = 0;
+
 
 function UpdateManagerClass ()
 {
@@ -24,6 +139,11 @@ function UpdateManagerClass ()
     this._lateUpdates = [];
     this._postUpdates = []; 
 
+    this._preUpdatesReorder = false;
+    this._updatesReorder = false;
+    this._interUpdatesReorder = false;
+    this._lateUpdatesReorder = false;
+    this._postUpdatesReorder = false;
 
     this._updateEvent = script.createEvent("UpdateEvent");
     this._lateUpdateEvent = script.createEvent("LateUpdateEvent");
@@ -83,34 +203,33 @@ function UpdateManagerClass ()
 
     this.ReorderPreUpdates = function ()
     {
-        this._preUpdates.sort(this._SortUpdate);
+        this._preUpdatesReorder = true;
     }
 
     this.ReorderUpdates = function ()
     {
-        this._updates.sort(this._SortUpdate);
+        this._updatesReorder = true;
     }
 
     this.ReorderInterUpdates = function ()
     {
-        print("hurpaDurp");
-        this._interUpdates.sort(this._SortUpdate);
+        this._interUpdatesReorder = true;
     }
 
     this.ReorderLateUpdates = function ()
     {
-        this._lateUpdates.sort(this._SortUpdate);
+        this._lateUpdatesReorder = true;
     }
 
     this.ReorderPostUpdates = function ()
     {
-        this._postUpdates.sort(this._SortUpdate);
+        this._postUpdatesReorder = true;
     }
 
 
     this._SortUpdate = function (a, b)
     {
-        a.priority - b.priority;
+        return a.priority - b.priority;
     }
 
 
@@ -124,7 +243,7 @@ function UpdateManagerClass ()
         {
             for (var i = _array.length - 1; i >= 0; i--)
             {
-                if (_array[i].priority <= _update.priority)
+                if (_array[i] && _array[i].priority <= _update.priority)
                 {
                     _array.splice(i+1, 0, _update);
                     break;
@@ -149,7 +268,7 @@ function UpdateManagerClass ()
             var i = _array.indexOf(_update);
             if (i >= 0)
             {
-                _array.splice(i, 1);
+                _array[i] = null;
             }
             else
             {
@@ -161,51 +280,57 @@ function UpdateManagerClass ()
 
     this._InternalUpdate = function ()
     {
+        if (_this._preUpdatesReorder)
+        {
+            _this._preUpdates.sort(_this._SortUpdate);
+            _this._preUpdatesReorder = false;
+        }
         for (var i = 0; i < _this._preUpdates.length; ++i)
         {
             var update = _this._preUpdates[i];
-            try
+            if (update && !isNull(update.obj))
             {
-                if (update.script.getSceneObject())
-                {
-                    update.callback();
-                }
+                update.callback();
             }
-            catch (error)
+            else
             {
                 _this._preUpdates.splice(i, 1);
                 i--;
             }
         }
 
+        if (_this._updatesReorder)
+        {
+            _this._updates.sort(_this._SortUpdate);
+            _this._updatesReorder = false;
+        }
         for (var i = 0; i < _this._updates.length; ++i)
         {
             var update = _this._updates[i];
-            try
+            if (update && !isNull(update.obj))
             {
-                if (update.script.getSceneObject())
-                {
-                    update.callback();
-                }
+                update.callback();
             }
-            catch (error)
+            else
             {
                 _this._updates.splice(i, 1);
                 i--;
             }
         }
 
+        if (_this._interUpdatesReorder)
+        {
+            _this._interUpdates.sort(_this._SortUpdate);
+            _this._interUpdatesReorder = false;
+        }
         for (var i = 0; i < _this._interUpdates.length; ++i)
         {
             var update = _this._interUpdates[i];
-            try
+            if (update && !isNull(update.obj))
             {
-                if (update.script.getSceneObject())
-                {
-                    update.callback();
-                }
+                update.callback();
             }
-            catch (error)
+            else
             {
                 _this._interUpdates.splice(i, 1);
                 i--;
@@ -217,34 +342,39 @@ function UpdateManagerClass ()
 
     this._InternalLateUpdate = function ()
     {
+        if (_this._lateUpdatesReorder)
+        {
+            _this._lateUpdates.sort(_this._SortUpdate);
+            _this._lateUpdatesReorder = false;
+        }
         for (var i = 0; i < _this._lateUpdates.length; ++i)
         {
             var update = _this._lateUpdates[i];
-            try
+            if (update && !isNull(update.obj))
             {
-                if (update.script.getSceneObject())
-                {
-                    update.callback();
-                }
+                update.callback();
             }
-            catch (error)
+            else
             {
                 _this._lateUpdates.splice(i, 1);
                 i--;
             }
         }
 
+        if (_this._postUpdatesReorder)
+        {
+            _this._postUpdates.sort(_this._SortUpdate);
+            _this._postUpdatesReorder = false;
+        }
         for (var i = 0; i < _this._postUpdates.length; ++i)
         {
             var update = _this._postUpdates[i];
-            try
+            //TODO Check si on peut faire que ça kill bien directement
+            if (update && !isNull(update.obj))
             {
-                if (update.script.getSceneObject())
-                {
-                    update.callback();
-                }
+                update.callback();
             }
-            catch (error)
+            else
             {
                 _this._postUpdates.splice(i, 1);
                 i--;

@@ -204,9 +204,9 @@ global.Scene = function (_script, _subScenesScript)
     this._name = this._script.getSceneObject().name;
     this._subScenes = [];
     this._active = true;
-    this._initialized = true;
-    this._update = new global.Update(_script, function(){if (_this.Update) _this.Update()});
-    this._lateUpdate = new global.Update(_script, function(){if (_this.LateUpdate) _this.LateUpdate()});
+    this._initialized = false;
+    this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, function(){if (_this.Update) _this.Update()});;
+    this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, function(){if (_this.LateUpdate) _this.LateUpdate()});
     //#endregion
     
     //#region public events
@@ -243,16 +243,16 @@ global.Scene = function (_script, _subScenesScript)
 
         this.OnLateStart();
 
-        global.UpdateManager.AddUpdate(_this._update);
-        global.UpdateManager.AddLateUpdate(_this._lateUpdate);
+        this._update.Add();
+        this._lateUpdate.Add();
     }
 
     this.Stop = function (hideInstant, newScenes, forceRestart)
     {
         if (this._initialized)
         {
-            global.UpdateManager.RemoveUpdate(_this._update);
-            global.UpdateManager.RemoveLateUpdate(_this._lateUpdate);
+            this._update.Remove();
+            this._lateUpdate.Remove();
         }
 
         this._active = false;
@@ -276,16 +276,12 @@ global.Scene = function (_script, _subScenesScript)
 
     this.ChangeUpdatePriority = function (_priority)
     {
-        this._update.priority = _priority;
-
-        global.UpdateManager.ReorderUpdates();
+        this._update.ChangePriority(_priority);
     }
 
     this.ChangeLateUpdatePriority = function (_priority)
     {
-        this._lateUpdate.priority = _priority;
-
-        global.UpdateManager.ReorderLateUpdates();
+        this._lateUpdate.ChangePriority(_priority);
     }
 
     this.EnableUpdate = function ()
@@ -334,8 +330,8 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this._active = true;
     this._initialized = false;
     this._hiding = false;
-    this._update = new global.Update(_script, function(){if (_this.Update) _this.Update()});
-    this._lateUpdate = new global.Update(_script, function(){if (_this.LateUpdate) _this.LateUpdate()});
+    this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, function(){if (_this.Update) _this.Update()});
+    this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, function(){if (_this.LateUpdate) _this.LateUpdate()});
     //#endregion
 
     //#region public events
@@ -404,8 +400,8 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
                 }
             }
 
-            global.UpdateManager.AddUpdate(_this._update);
-            global.UpdateManager.AddLateUpdate(_this._lateUpdate);
+            this._update.Add();
+            this._lateUpdate.Add();
             this._active = true;
         }
     }
@@ -416,8 +412,8 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         {
             if (this._initialized)
             {
-                global.UpdateManager.RemoveUpdate(_this._update);
-                global.UpdateManager.RemoveLateUpdate(_this._lateUpdate);
+                this._update.Remove();
+                this._lateUpdate.Remove();
             }
 
             this._hiding = true;
@@ -455,16 +451,12 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
 
     this.ChangeUpdatePriority = function (_priority)
     {
-        this._update.priority = _priority;
-
-        global.UpdateManager.ReorderUpdates();
+        this._update.ChangePriority(_priority);
     }
 
     this.ChangeLateUpdatePriority = function (_priority)
     {
-        this._lateUpdate.priority = _priority;
-
-        global.UpdateManager.ReorderLateUpdates();
+        this._lateUpdate.ChangePriority(_priority);
     }
 
     this.EnableUpdate = function ()
