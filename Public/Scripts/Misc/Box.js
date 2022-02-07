@@ -11,7 +11,7 @@ anim.Start(-1);
 
 function AnimUpdate (ratio)
 {
-    // print(script.box.name + " count : " + frameCount);
+    print(script.box.name + " count : " + frameCount);
     // print(tr.getSceneObject().name + " count 2 : " + frameCount);
     tr.setLocalPosition(new vec3(0, ratio * 5, 0));
     print("Update Anim " + frameCount);
@@ -22,7 +22,7 @@ function UpdateFrameCounter ()
 {
     print("-------------------------------- " + frameCount);
     frameCount++;
-    print(script.getSceneObject().name);
+    // print(script.getSceneObject().name);
 }
 
 

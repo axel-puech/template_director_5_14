@@ -205,8 +205,8 @@ global.Scene = function (_script, _subScenesScript)
     this._subScenes = [];
     this._active = true;
     this._initialized = false;
-    this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, function(){if (_this.Update) _this.Update()});;
-    this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, function(){if (_this.LateUpdate) _this.LateUpdate()});
+    this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, function(){_this._Update()});;
+    this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, function(){_this._LateUpdate()});
     //#endregion
     
     //#region public events
@@ -214,8 +214,11 @@ global.Scene = function (_script, _subScenesScript)
     this.OnLateStart = function(){};
     this.OnStop = function(){};
     this.OnLateStop = function(){};
-    this.Update = null;
-    this.LateUpdate = null;
+    //#endregion
+
+    //#region private events
+    this._Update = null;
+    this._LateUpdate = null;
     //#endregion
 
     //#region public functions
@@ -243,16 +246,28 @@ global.Scene = function (_script, _subScenesScript)
 
         this.OnLateStart();
 
-        this._update.Add();
-        this._lateUpdate.Add();
+        if (this._Update && !this._update.IsAdded())
+        {
+            this._update.Add();
+        }
+        if (this._LateUpdate && !this._lateUpdate.IsAdded())
+        {
+            this._lateUpdate.Add();
+        }
     }
 
     this.Stop = function (hideInstant, newScenes, forceRestart)
     {
         if (this._initialized)
         {
-            this._update.Remove();
-            this._lateUpdate.Remove();
+            if (this._Update && this._update.IsAdded())
+            {
+                this._update.Remove();
+            }
+            if (this._LateUpdate && this._lateUpdate.IsAdded())
+            {
+                this._lateUpdate.Remove();
+            }
         }
 
         this._active = false;
@@ -272,6 +287,32 @@ global.Scene = function (_script, _subScenesScript)
     this.SceneEnded = function (params)
     {
         this._director.OnSceneEnded(this._name, params);
+    }
+
+    this.SetUpdate = function (_function)
+    {
+        this._Update = _function;
+        if (_function && this._active && this.initialized && !this._update.IsAdded())
+        {
+            this._update.Add();
+        }
+        else if (!_function && this._update.IsAdded())
+        {
+            this._update.Remove();
+        }
+    }
+
+    this.SetLateUpdate = function (_function)
+    {
+        this._LateUpdate = _function;
+        if (_function && this._active && this.initialized && !this._lateUpdate.IsAdded())
+        {
+            this._lateUpdate.Add();
+        }
+        else if (!_function && this._lateUpdate.IsAdded())
+        {
+            this._lateUpdate.Remove();
+        }
     }
 
     this.ChangeUpdatePriority = function (_priority)
@@ -330,8 +371,8 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this._active = true;
     this._initialized = false;
     this._hiding = false;
-    this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, function(){if (_this.Update) _this.Update()});
-    this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, function(){if (_this.LateUpdate) _this.LateUpdate()});
+    this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, function(){_this._Update()});
+    this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, function(){_this._LateUpdate()});
     //#endregion
 
     //#region public events
@@ -347,8 +388,11 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this.OnStart = function(){};
     this.OnSceneChanged = function(){};
     this.OnStop = function(){};
-    this.Update = null;
-    this.LateUpdate = null;
+    //#endregion
+
+    //#region private events
+    this._Update = null;
+    this._LateUpdate = null;
     //#endregion
 
     //#region public functions
@@ -400,8 +444,14 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
                 }
             }
 
-            this._update.Add();
-            this._lateUpdate.Add();
+            if (this._Update && !this._update.IsAdded())
+            {
+                this._update.Add();
+            }
+            if (this._LateUpdate && !this._lateUpdate.IsAdded())
+            {
+                this._lateUpdate.Add();
+            }
             this._active = true;
         }
     }
@@ -412,8 +462,14 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         {
             if (this._initialized)
             {
-                this._update.Remove();
-                this._lateUpdate.Remove();
+                if (this._update.IsAdded())
+                {
+                    this._update.Remove();
+                }
+                if (this._lateUpdate.IsAdded())
+                {
+                    this._lateUpdate.Remove();
+                }
             }
 
             this._hiding = true;
@@ -446,6 +502,32 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
                 }
             }
             this._active = false;
+        }
+    }
+
+    this.SetUpdate = function (_function)
+    {
+        this._Update = _function;
+        if (_function && this._active && this.initialized && !this._update.IsAdded())
+        {
+            this._update.Add();
+        }
+        else if (!_function && this._update.IsAdded())
+        {
+            this._update.Remove();
+        }
+    }
+
+    this.SetLateUpdate = function (_function)
+    {
+        this._LateUpdate = _function;
+        if (_function && this._active && this.initialized && !this._lateUpdate.IsAdded())
+        {
+            this._lateUpdate.Add();
+        }
+        else if (!_function && this._lateUpdate.IsAdded())
+        {
+            this._lateUpdate.Remove();
         }
     }
 

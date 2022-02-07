@@ -9,20 +9,63 @@ global.UpdateType = {PreUpdate : 0, Update : 10, InterUpdate : 20, LateUpdate : 
 
 global.Update = function (_obj, _type, _callback, _enabled, _priority)
 {
-    var _this = this;
-
-    this.added = false;
+    //#region public vars
     this.callback = _callback;
     this.enabled = _enabled !== undefined ? _enabled : true;
     this.obj = _obj;
-    this.type = _type;
+    //#endregion
+
+
+    //#region private vars
+    var _this = this;
+    this._added = false;
     this.priority = _priority !== undefined ? _priority : 0;
+    this.type = _type;
+    //#endregion
+
+    
+    //#region public functions
+    this.IsAdded = function(){return this._added;};
+
+    this.Add = function ()
+    {
+        if (!this._added)
+        {
+            var added = true;
+            switch (this.type)
+            {
+                case UpdateType.PreUpdate:
+                    global.UpdateManager.AddPreUpdate(_this);
+                    break;
+                case UpdateType.Update:
+                    global.UpdateManager.AddUpdate(_this);
+                    break;
+                case UpdateType.InterUpdate:
+                    global.UpdateManager.AddInterUpdate(_this);
+                    break;
+                case UpdateType.LateUpdate:
+                    global.UpdateManager.AddLateUpdate(_this);
+                    break;
+                case UpdateType.PostUpdate:
+                    global.UpdateManager.AddPostUpdate(_this);
+                    break;
+                default:
+                    print("Warning : update wasn't added -> no valid type ! obj object is : " + this.obj.name);
+                    added = false;
+            }
+            this._added = added;
+        }
+        else
+        {
+            print("Warning : update wasn't added -> already added ! obj object is : " + this.obj.name);
+        }
+    }
 
     this.ChangePriority = function (_priority)
     {
         this.priority = _priority;
 
-        if (this.added)
+        if (this._added)
         {
             switch (this.type)
             {
@@ -48,7 +91,7 @@ global.Update = function (_obj, _type, _callback, _enabled, _priority)
 
     this.ChangeType = function (_type)
     {
-        if (this.added)
+        if (this._added)
         {
             this.Remove();
             this.type = _type;
@@ -62,7 +105,7 @@ global.Update = function (_obj, _type, _callback, _enabled, _priority)
 
     this.Remove = function ()
     {
-        if (this.added)
+        if (this._added)
         {
             switch (this.type)
             {
@@ -84,53 +127,21 @@ global.Update = function (_obj, _type, _callback, _enabled, _priority)
                 default:
                     print("Warning : update wasn't removed -> no valid type ! object is : " + this.obj.name);
             }
-            this.added = false;
+            this._added = false;
         }
         else
         {
             print("Warning : update wasn't added -> not currently added ! object is : " + this.obj.name);
         }
     }
-
-    this.Add = function ()
-    {
-        if (!this.added)
-        {
-            var _added = true;
-            switch (this.type)
-            {
-                case UpdateType.PreUpdate:
-                    global.UpdateManager.AddPreUpdate(_this);
-                    break;
-                case UpdateType.Update:
-                    global.UpdateManager.AddUpdate(_this);
-                    break;
-                case UpdateType.InterUpdate:
-                    global.UpdateManager.AddInterUpdate(_this);
-                    break;
-                case UpdateType.LateUpdate:
-                    global.UpdateManager.AddLateUpdate(_this);
-                    break;
-                case UpdateType.PostUpdate:
-                    global.UpdateManager.AddPostUpdate(_this);
-                    break;
-                default:
-                    print("Warning : update wasn't added -> no valid type ! obj object is : " + this.obj.name);
-                    _added = false;
-            }
-            this.added = _added;
-        }
-        else
-        {
-            print("Warning : update wasn't added -> already added ! obj object is : " + this.obj.name);
-        }
-    }
+    //#endregion
 }
 
 
 
 function UpdateManagerClass ()
 {
+    //#region private vars
     var _this = this;
 
     this._preUpdates = [];
@@ -144,11 +155,16 @@ function UpdateManagerClass ()
     this._interUpdatesReorder = false;
     this._lateUpdatesReorder = false;
     this._postUpdatesReorder = false;
+    //#endregion 
 
+
+    //#region private events
     this._updateEvent = script.createEvent("UpdateEvent");
     this._lateUpdateEvent = script.createEvent("LateUpdateEvent");
+    //#endregion
 
 
+    //#region public functions
     this.AddPreUpdate = function (_update)
     {
         this._InternalAddUpdate(_this._preUpdates, _update);
@@ -225,8 +241,10 @@ function UpdateManagerClass ()
     {
         this._postUpdatesReorder = true;
     }
+    //#endregion
 
 
+    //#region private functions
     this._SortUpdate = function (a, b)
     {
         return a.priority - b.priority;
@@ -369,7 +387,6 @@ function UpdateManagerClass ()
         for (var i = 0; i < _this._postUpdates.length; ++i)
         {
             var update = _this._postUpdates[i];
-            //TODO Check si on peut faire que ça kill bien directement
             if (update && !isNull(update.obj))
             {
                 update.callback();
@@ -381,10 +398,12 @@ function UpdateManagerClass ()
             }
         }
     }
+    //#endregion
 
-
+    //#region setup
     this._updateEvent.bind(_this._InternalUpdate);
     this._lateUpdateEvent.bind(_this._InternalLateUpdate);
+    //#endregion
 }
 
 
