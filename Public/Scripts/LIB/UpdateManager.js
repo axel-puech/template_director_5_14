@@ -10,7 +10,7 @@ var UpdateManager = new UpdateManagerClass();
 global.UpdateType = {PreUpdate : 0, Update : 10, InterUpdate : 20, LateUpdate : 30, PostUpdate : 40}
 
 
-global.Update = function (_obj, _type, _callback, _enabled, _priority)
+global.Update = function (_obj, _type, _callback, _enabled, _order)
 {
     //#region public vars
     this.callback = _callback;
@@ -22,14 +22,14 @@ global.Update = function (_obj, _type, _callback, _enabled, _priority)
     //#region private vars
     var _this = this;
     this._added = false;
-    this._priority = _priority !== undefined ? _priority : 0;
+    this._order = _order !== undefined ? _order : 0;
     this._type = _type;
     //#endregion
 
     
     //#region public functions
     this.IsAdded = function(){return this._added;};
-    this.GetPriority = function(){return this._priority};
+    this.GetOrder = function(){return this._order};
 
     this.Add = function ()
     {
@@ -65,9 +65,9 @@ global.Update = function (_obj, _type, _callback, _enabled, _priority)
         }
     }
 
-    this.ChangePriority = function (_priority)
+    this.ChangeOrder = function (_order)
     {
-        this._priority = _priority;
+        this._order = _order;
 
         if (this._added)
         {
@@ -248,7 +248,7 @@ function UpdateManagerClass ()
     //#region private functions
     this._SortUpdate = function (a, b)
     {
-        return a.GetPriority() - b.GetPriority();
+        return a.GetOrder() - b.GetOrder();
     }
 
 
@@ -262,7 +262,7 @@ function UpdateManagerClass ()
         {
             for (var i = _array.length - 1; i >= 0; i--)
             {
-                if (_array[i] && _array[i].GetPriority() <= _update.GetPriority())
+                if (_array[i] && _array[i].GetOrder() <= _update.GetOrder())
                 {
                     _array.splice(i+1, 0, _update);
                     break;

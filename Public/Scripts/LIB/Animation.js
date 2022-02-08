@@ -25,7 +25,7 @@ global.TimeCodeEvent = function(_timeCode, _callback)
 }
 
 // Function Animation, defined by a duration, an update method and a repeatMode
-global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType, _priority)
+global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType, _order)
 {
     //#region public vars
     this.duration = _duration;
@@ -44,9 +44,9 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
     this._arrayTimeCodeEvent = [];
     this._indexTimeCode;
     this._updateType = _updateType !== undefined ? _updateType : UpdateType.InterUpdate;
-    this._priority = _priority !== undefined ? _priority : 100;
+    this._order = _order !== undefined ? _order : 100;
     
-    this._updateEvent = new global.Update(_obj, this._updateType, function(){_this._InternalUpdate();}, false, this._priority);
+    this._updateEvent = new global.Update(_obj, this._updateType, function(){_this._InternalUpdate();}, false, this._order);
     this._updateEvent.Add();
     //#endregion
 
@@ -180,9 +180,9 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
         this._updateEvent.ChangeType(_type);
     }
 
-    this.ChangeUpdatePriority = function (_priority)
+    this.ChangeUpdateOrder = function (_order)
     {
-        this._updateEvent.ChangeUpdatePriority(_priority);
+        this._updateEvent.ChangeUpdateOrder(_order);
     }
     //#endregion
 

@@ -315,14 +315,14 @@ global.Scene = function (_script, _subScenesScript)
         }
     }
 
-    this.ChangeUpdatePriority = function (_priority)
+    this.ChangeUpdateOrder = function (_order)
     {
-        this._update.ChangePriority(_priority);
+        this._update.ChangeOrder(_order);
     }
 
-    this.ChangeLateUpdatePriority = function (_priority)
+    this.ChangeLateUpdateOrder = function (_order)
     {
-        this._lateUpdate.ChangePriority(_priority);
+        this._lateUpdate.ChangeOrder(_order);
     }
 
     this.SetEnableUpdate = function (_enabled)
@@ -521,14 +521,14 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         }
     }
 
-    this.ChangeUpdatePriority = function (_priority)
+    this.ChangeUpdateOrder = function (_order)
     {
-        this._update.ChangePriority(_priority);
+        this._update.ChangeOrder(_order);
     }
 
-    this.ChangeLateUpdatePriority = function (_priority)
+    this.ChangeLateUpdateOrder = function (_order)
     {
-        this._lateUpdate.ChangePriority(_priority);
+        this._lateUpdate.ChangeOrder(_order);
     }
 
     this.SetEnableUpdate = function (_enabled)
