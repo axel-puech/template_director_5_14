@@ -4,6 +4,9 @@
 // Authors : Gautier Jacquet
 
 
+var UpdateManager = new UpdateManagerClass();
+
+
 global.UpdateType = {PreUpdate : 0, Update : 10, InterUpdate : 20, LateUpdate : 30, PostUpdate : 40}
 
 
@@ -19,35 +22,36 @@ global.Update = function (_obj, _type, _callback, _enabled, _priority)
     //#region private vars
     var _this = this;
     this._added = false;
-    this.priority = _priority !== undefined ? _priority : 0;
-    this.type = _type;
+    this._priority = _priority !== undefined ? _priority : 0;
+    this._type = _type;
     //#endregion
 
     
     //#region public functions
     this.IsAdded = function(){return this._added;};
+    this.GetPriority = function(){return this._priority};
 
     this.Add = function ()
     {
         if (!this._added)
         {
             var added = true;
-            switch (this.type)
+            switch (this._type)
             {
                 case UpdateType.PreUpdate:
-                    global.UpdateManager.AddPreUpdate(_this);
+                    UpdateManager.AddPreUpdate(_this);
                     break;
                 case UpdateType.Update:
-                    global.UpdateManager.AddUpdate(_this);
+                    UpdateManager.AddUpdate(_this);
                     break;
                 case UpdateType.InterUpdate:
-                    global.UpdateManager.AddInterUpdate(_this);
+                    UpdateManager.AddInterUpdate(_this);
                     break;
                 case UpdateType.LateUpdate:
-                    global.UpdateManager.AddLateUpdate(_this);
+                    UpdateManager.AddLateUpdate(_this);
                     break;
                 case UpdateType.PostUpdate:
-                    global.UpdateManager.AddPostUpdate(_this);
+                    UpdateManager.AddPostUpdate(_this);
                     break;
                 default:
                     print("Warning : update wasn't added -> no valid type ! obj object is : " + this.obj.name);
@@ -63,26 +67,26 @@ global.Update = function (_obj, _type, _callback, _enabled, _priority)
 
     this.ChangePriority = function (_priority)
     {
-        this.priority = _priority;
+        this._priority = _priority;
 
         if (this._added)
         {
-            switch (this.type)
+            switch (this._type)
             {
                 case UpdateType.PreUpdate:
-                    global.UpdateManager.ReorderPreUpdates();
+                    UpdateManager.ReorderPreUpdates();
                     break;
                 case UpdateType.Update:
-                    global.UpdateManager.ReorderUpdates();
+                    UpdateManager.ReorderUpdates();
                     break;
                 case UpdateType.InterUpdate:
-                    global.UpdateManager.ReorderInterUpdates();
+                    UpdateManager.ReorderInterUpdates();
                     break;
                 case UpdateType.LateUpdate:
-                    global.UpdateManager.ReorderLateUpdates();
+                    UpdateManager.ReorderLateUpdates();
                     break;
                 case UpdateType.PostUpdate:
-                    global.UpdateManager.ReorderPostUpdates();
+                    UpdateManager.ReorderPostUpdates();
                     break;
                 default:
             }
@@ -94,12 +98,12 @@ global.Update = function (_obj, _type, _callback, _enabled, _priority)
         if (this._added)
         {
             this.Remove();
-            this.type = _type;
+            this._type = _type;
             this.Add();
         }
         else
         {
-            this.type = _type;
+            this._type = _type;
         }
     }
 
@@ -107,22 +111,22 @@ global.Update = function (_obj, _type, _callback, _enabled, _priority)
     {
         if (this._added)
         {
-            switch (this.type)
+            switch (this._type)
             {
                 case UpdateType.PreUpdate:
-                    global.UpdateManager.RemovePreUpdate(_this);
+                    UpdateManager.RemovePreUpdate(_this);
                     break;
                 case UpdateType.Update:
-                    global.UpdateManager.RemoveUpdate(_this);
+                    UpdateManager.RemoveUpdate(_this);
                     break;
                 case UpdateType.InterUpdate:
-                    global.UpdateManager.RemoveInterUpdate(_this);
+                    UpdateManager.RemoveInterUpdate(_this);
                     break;
                 case UpdateType.LateUpdate:
-                    global.UpdateManager.RemoveLateUpdate(_this);
+                    UpdateManager.RemoveLateUpdate(_this);
                     break;
                 case UpdateType.PostUpdate:
-                    global.UpdateManager.RemovePostUpdate(_this);
+                    UpdateManager.RemovePostUpdate(_this);
                     break;
                 default:
                     print("Warning : update wasn't removed -> no valid type ! object is : " + this.obj.name);
@@ -155,10 +159,7 @@ function UpdateManagerClass ()
     this._interUpdatesReorder = false;
     this._lateUpdatesReorder = false;
     this._postUpdatesReorder = false;
-    //#endregion 
 
-
-    //#region private events
     this._updateEvent = script.createEvent("UpdateEvent");
     this._lateUpdateEvent = script.createEvent("LateUpdateEvent");
     //#endregion
@@ -247,7 +248,7 @@ function UpdateManagerClass ()
     //#region private functions
     this._SortUpdate = function (a, b)
     {
-        return a.priority - b.priority;
+        return a.GetPriority() - b.GetPriority();
     }
 
 
@@ -261,7 +262,7 @@ function UpdateManagerClass ()
         {
             for (var i = _array.length - 1; i >= 0; i--)
             {
-                if (_array[i] && _array[i].priority <= _update.priority)
+                if (_array[i] && _array[i].GetPriority() <= _update.GetPriority())
                 {
                     _array.splice(i+1, 0, _update);
                     break;
@@ -354,7 +355,6 @@ function UpdateManagerClass ()
                 i--;
             }
         }
-        global.frameCount++;
     }
 
 
@@ -405,6 +405,3 @@ function UpdateManagerClass ()
     this._lateUpdateEvent.bind(_this._InternalLateUpdate);
     //#endregion
 }
-
-
-global.UpdateManager = new UpdateManagerClass();

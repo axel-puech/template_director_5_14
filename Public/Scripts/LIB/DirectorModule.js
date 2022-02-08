@@ -325,24 +325,14 @@ global.Scene = function (_script, _subScenesScript)
         this._lateUpdate.ChangePriority(_priority);
     }
 
-    this.EnableUpdate = function ()
+    this.SetEnableUpdate = function (_enabled)
     {
-        this._update.enabled = true;
+        this._update.enabled = _enabled;
     }
 
-    this.EnableLateUpdate = function ()
+    this.SetEnableLateUpdate = function (_enabled)
     {
-        this._lateUpdate.enabled = true;
-    }
-
-    this.DisableUpdate = function ()
-    {
-        this._update.enabled = false;
-    }
-
-    this.DisableLateUpdate = function ()
-    {
-        this._lateUpdate.enabled = false;
+        this._lateUpdate.enabled = _enabled;
     }
     //#endregion
 
@@ -541,24 +531,14 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         this._lateUpdate.ChangePriority(_priority);
     }
 
-    this.EnableUpdate = function ()
+    this.SetEnableUpdate = function (_enabled)
     {
-        this._update.enabled = true;
+        this._update.enabled = _enabled;
     }
 
-    this.EnableLateUpdate = function ()
+    this.SetEnableLateUpdate = function (_enabled)
     {
-        this._lateUpdate.enabled = true;
-    }
-
-    this.DisableUpdate = function ()
-    {
-        this._update.enabled = false;
-    }
-
-    this.DisableLateUpdate = function ()
-    {
-        this._lateUpdate.enabled = false;
+        this._lateUpdate.enabled = _enabled;
     }
     //#endregion
 }
