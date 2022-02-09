@@ -307,7 +307,7 @@ function UpdateManagerClass ()
         for (var i = 0; i < _this._preUpdates.length; ++i)
         {
             var update = _this._preUpdates[i];
-            if (update && !isNull(update.obj))
+            if (update && !isNull(update.obj) && update.enabled)
             {
                 update.callback();
             }
@@ -326,7 +326,7 @@ function UpdateManagerClass ()
         for (var i = 0; i < _this._updates.length; ++i)
         {
             var update = _this._updates[i];
-            if (update && !isNull(update.obj))
+            if (update && !isNull(update.obj) && update.enabled)
             {
                 update.callback();
             }
@@ -345,7 +345,7 @@ function UpdateManagerClass ()
         for (var i = 0; i < _this._interUpdates.length; ++i)
         {
             var update = _this._interUpdates[i];
-            if (update && !isNull(update.obj))
+            if (update && !isNull(update.obj) && update.enabled)
             {
                 update.callback();
             }
@@ -368,7 +368,7 @@ function UpdateManagerClass ()
         for (var i = 0; i < _this._lateUpdates.length; ++i)
         {
             var update = _this._lateUpdates[i];
-            if (update && !isNull(update.obj))
+            if (update && !isNull(update.obj) && update.enabled)
             {
                 update.callback();
             }
@@ -387,7 +387,7 @@ function UpdateManagerClass ()
         for (var i = 0; i < _this._postUpdates.length; ++i)
         {
             var update = _this._postUpdates[i];
-            if (update && !isNull(update.obj))
+            if (update && !isNull(update.obj) && update.enabled)
             {
                 update.callback();
             }
