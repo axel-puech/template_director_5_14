@@ -348,7 +348,6 @@ function UpdateManagerClass ()
             _this._interUpdates.sort(_this._SortUpdate);
             _this._interUpdatesReorder = false;
         }
-        print(_this._interUpdates.length);
         for (var i = 0; i < _this._interUpdates.length; ++i)
         {
             var update = _this._interUpdates[i];
