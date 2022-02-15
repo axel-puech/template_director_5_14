@@ -307,9 +307,12 @@ function UpdateManagerClass ()
         for (var i = 0; i < _this._preUpdates.length; ++i)
         {
             var update = _this._preUpdates[i];
-            if (update && !isNull(update.obj) && update.enabled)
+            if (update && !isNull(update.obj))
             {
-                update.callback();
+                if (update.enabled)
+                {
+                    update.callback();
+                }
             }
             else
             {
@@ -326,9 +329,12 @@ function UpdateManagerClass ()
         for (var i = 0; i < _this._updates.length; ++i)
         {
             var update = _this._updates[i];
-            if (update && !isNull(update.obj) && update.enabled)
+            if (update && !isNull(update.obj))
             {
-                update.callback();
+                if (update.enabled)
+                {
+                    update.callback();
+                }
             }
             else
             {
@@ -342,12 +348,16 @@ function UpdateManagerClass ()
             _this._interUpdates.sort(_this._SortUpdate);
             _this._interUpdatesReorder = false;
         }
+        print(_this._interUpdates.length);
         for (var i = 0; i < _this._interUpdates.length; ++i)
         {
             var update = _this._interUpdates[i];
-            if (update && !isNull(update.obj) && update.enabled)
+            if (update && !isNull(update.obj))
             {
-                update.callback();
+                if (update.enabled)
+                {
+                    update.callback();
+                }
             }
             else
             {
@@ -368,9 +378,12 @@ function UpdateManagerClass ()
         for (var i = 0; i < _this._lateUpdates.length; ++i)
         {
             var update = _this._lateUpdates[i];
-            if (update && !isNull(update.obj) && update.enabled)
+            if (update && !isNull(update.obj))
             {
-                update.callback();
+                if (update.enabled)
+                {
+                    update.callback();
+                }
             }
             else
             {
@@ -387,9 +400,12 @@ function UpdateManagerClass ()
         for (var i = 0; i < _this._postUpdates.length; ++i)
         {
             var update = _this._postUpdates[i];
-            if (update && !isNull(update.obj) && update.enabled)
+            if (update && !isNull(update.obj))
             {
-                update.callback();
+                if (update.enabled)
+                {
+                    update.callback();
+                }
             }
             else
             {
