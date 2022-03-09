@@ -292,7 +292,7 @@ global.Scene = function (_script, _subScenesScript)
     this.SetUpdate = function (_function)
     {
         this._Update = _function;
-        if (_function && this._active && this.initialized && !this._update.IsAdded())
+        if (_function && this._active && this._initialized && !this._update.IsAdded())
         {
             this._update.Add();
         }
@@ -305,7 +305,7 @@ global.Scene = function (_script, _subScenesScript)
     this.SetLateUpdate = function (_function)
     {
         this._LateUpdate = _function;
-        if (_function && this._active && this.initialized && !this._lateUpdate.IsAdded())
+        if (_function && this._active && this._initialized && !this._lateUpdate.IsAdded())
         {
             this._lateUpdate.Add();
         }
@@ -498,7 +498,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this.SetUpdate = function (_function)
     {
         this._Update = _function;
-        if (_function && this._active && this.initialized && !this._update.IsAdded())
+        if (_function && this._active && this._initialized && !this._update.IsAdded())
         {
             this._update.Add();
         }
@@ -511,7 +511,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this.SetLateUpdate = function (_function)
     {
         this._LateUpdate = _function;
-        if (_function && this._active && this.initialized && !this._lateUpdate.IsAdded())
+        if (_function && this._active && this._initialized && !this._lateUpdate.IsAdded())
         {
             this._lateUpdate.Add();
         }
