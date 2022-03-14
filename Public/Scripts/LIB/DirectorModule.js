@@ -1,7 +1,41 @@
 // Lib Lens Atomic : Director Module
-// Version : 2.0.0
+// Version : 2.1.0
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
+
+
+function DirectorEvent (_script, _type, _callback)
+{
+    //#region private vars
+    this._script = _script;
+    this._type = _type;
+    //#endregion
+
+    //#region public vars
+    this.event = null;
+    this.callback = _callback;
+    //#endregion
+
+    //#region public functions
+    this.AddEvent = function ()
+    {
+        if (this.event === null)
+        {
+            this.event = this._script.createEvent(this._type);
+            this.event.bind(this.callback);
+        }
+    }
+
+    this.RemoveEvent = function ()
+    {
+        if (this.event !== null)
+        {
+            this._script.removeEvent(this.event);
+            this.event = null;
+        }
+    }
+    //#endregion
+}
 
 
 global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEndFunction)
@@ -177,11 +211,25 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
             }
         }
 
-        childCount = this._subSceneParent.getChildrenCount();
+        this.GetSubScenes(this._subSceneParent);
+    }
+
+    this.GetSubScenes = function (parent)
+    {
+        childCount = parent.getChildrenCount();
         for (var i = 0; i < childCount; ++i)
         {
-            var obj = this._subSceneParent.getChild(i);
-            this._subScenes.push(obj.getComponent("Component.ScriptComponent").api.subScene);
+            var obj = parent.getChild(i);
+            var script = obj.getComponent("Component.ScriptComponent");
+            if (script !== undefined)
+            {
+                var subScene = script.api.subScene;
+                if (subScene !== undefined)
+                {
+                    _this._subScenes.push(subScene);
+                }
+            }
+            _this.GetSubScenes(obj);
         }
     }
     //#endregion
@@ -207,6 +255,7 @@ global.Scene = function (_script, _subScenesScript)
     this._initialized = false;
     this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, function(){_this._Update()});;
     this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, function(){_this._LateUpdate()});
+    this._events = [];
     //#endregion
     
     //#region public events
@@ -244,8 +293,6 @@ global.Scene = function (_script, _subScenesScript)
             this._subScenes[i].ChangeScene();
         }
 
-        this.OnLateStart();
-
         if (this._Update && !this._update.IsAdded())
         {
             this._update.Add();
@@ -254,6 +301,13 @@ global.Scene = function (_script, _subScenesScript)
         {
             this._lateUpdate.Add();
         }
+
+        for (var i = 0; i < this._events.length; ++i)
+        {
+            this._events[i].AddEvent();
+        }
+
+        this.OnLateStart();
     }
 
     this.Stop = function (hideInstant, newScenes, forceRestart)
@@ -267,6 +321,11 @@ global.Scene = function (_script, _subScenesScript)
             if (this._LateUpdate && this._lateUpdate.IsAdded())
             {
                 this._lateUpdate.Remove();
+            }
+
+            for (var i = 0; i < this._events.length; ++i)
+            {
+                this._events[i].RemoveEvent();
             }
         }
 
@@ -334,6 +393,34 @@ global.Scene = function (_script, _subScenesScript)
     {
         this._lateUpdate.enabled = _enabled;
     }
+
+    this.CreateEvent = function (_type, _callback)
+    {
+        var event = new DirectorEvent(_this._script, _type, _callback);
+
+        if (_this.IsActive())
+        {
+            event.AddEvent();
+        }
+
+        _this._events.push(event);
+
+        return event;
+    }
+
+    this.DeleteEvent = function (_event)
+    {
+        if (_this.IsActive())
+        {
+            _event.RemoveEvent();
+        }
+
+        var i = _this._events.indexOf(_event);
+        if (i >= 0)
+        {
+            _this._events.splice(i, 1);
+        }
+    }
     //#endregion
 
     //#region private functions
@@ -363,6 +450,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this._hiding = false;
     this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, function(){_this._Update()});
     this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, function(){_this._LateUpdate()});
+    this._events = [];
     //#endregion
 
     //#region public events
@@ -376,6 +464,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
                             function(){this._parent.enabled = false;};
 
     this.OnStart = function(){};
+    this.OnLateStart = function(){};
     this.OnSceneChanged = function(){};
     this.OnStop = function(){};
     //#endregion
@@ -442,6 +531,17 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
             {
                 this._lateUpdate.Add();
             }
+
+            for (var i = 0; i < this._events.length; ++i)
+            {
+                this._events[i].AddEvent();
+            }
+
+            if (this.OnLateStart !== null && this.OnLateStart !== undefined)
+            {
+                this.OnLateStart();
+            }
+
             this._active = true;
         }
     }
@@ -459,6 +559,11 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
                 if (this._lateUpdate.IsAdded())
                 {
                     this._lateUpdate.Remove();
+                }
+
+                for (var i = 0; i < this._events.length; ++i)
+                {
+                    this._events[i].RemoveEvent();
                 }
             }
 
@@ -539,6 +644,34 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this.SetEnableLateUpdate = function (_enabled)
     {
         this._lateUpdate.enabled = _enabled;
+    }
+
+    this.CreateEvent = function (_type, _callback)
+    {
+        var event = new DirectorEvent(_this._script, _type, _callback);
+
+        if (_this.IsActive())
+        {
+            event.AddEvent();
+        }
+
+        _this._events.push(event);
+
+        return event;
+    }
+
+    this.DeleteEvent = function (_event)
+    {
+        if (_this.IsActive())
+        {
+            _event.RemoveEvent();
+        }
+
+        var i = _this._events.indexOf(_event);
+        if (i >= 0)
+        {
+            _this._events.splice(i, 1);
+        }
     }
     //#endregion
 }
