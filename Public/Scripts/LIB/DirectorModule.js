@@ -398,7 +398,7 @@ global.Scene = function (_script, _subScenesScript)
     {
         var event = new DirectorEvent(_this._script, _type, _callback);
 
-        if (_this.IsActive())
+        if (_this._active && _this._initialized)
         {
             event.AddEvent();
         }
@@ -410,7 +410,7 @@ global.Scene = function (_script, _subScenesScript)
 
     this.DeleteEvent = function (_event)
     {
-        if (_this.IsActive())
+        if (_this._active && _this._initialized)
         {
             _event.RemoveEvent();
         }
@@ -650,7 +650,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     {
         var event = new DirectorEvent(_this._script, _type, _callback);
 
-        if (_this.IsActive())
+        if (_this._active && _this._initialized)
         {
             event.AddEvent();
         }
@@ -662,7 +662,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
 
     this.DeleteEvent = function (_event)
     {
-        if (_this.IsActive())
+        if (_this._active && _this._initialized)
         {
             _event.RemoveEvent();
         }
