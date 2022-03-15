@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 2.1.0
+// Version : 2.1.1
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
 
