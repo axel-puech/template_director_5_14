@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 2.1.1
+// Version : 2.1.2
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
 
@@ -221,10 +221,10 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
         {
             var obj = parent.getChild(i);
             var script = obj.getComponent("Component.ScriptComponent");
-            if (script !== undefined)
+            if (script !== undefined && script !== null)
             {
                 var subScene = script.api.subScene;
-                if (subScene !== undefined)
+                if (subScene !== undefined && subScene !== null)
                 {
                     _this._subScenes.push(subScene);
                 }
@@ -650,7 +650,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     {
         var event = new DirectorEvent(_this._script, _type, _callback);
 
-        if (_this._active && _this._initialized)
+        if (this._active && this._initialized)
         {
             event.AddEvent();
         }
