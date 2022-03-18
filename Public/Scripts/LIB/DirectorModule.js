@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 2.1.2
+// Version : 2.2.0
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
 
@@ -256,6 +256,7 @@ global.Scene = function (_script, _subScenesScript)
     this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, function(){_this._Update()});;
     this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, function(){_this._LateUpdate()});
     this._events = [];
+    this._activationCount = 0;
     //#endregion
     
     //#region public events
@@ -276,11 +277,13 @@ global.Scene = function (_script, _subScenesScript)
     this.GetSubScenes = function(){return this._subScenes;};
     this.SetDirector = function(director){this._director = director;};
     this.GetDirector = function(){return this._director};
+    this.GetActivationCount = function(){return this._activationCount;};
 
     this.Start = function (showInstant, oldScenes, forceRestart)
     {
         this._initialized = true;
         this._active = true;
+        this._activationCount++;
         this.OnStart();
 
         for (var i = 0; i < this._subScenes.length; ++i)
@@ -451,6 +454,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, function(){_this._Update()});
     this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, function(){_this._LateUpdate()});
     this._events = [];
+    this._activationCount = 0;
     //#endregion
 
     //#region public events
@@ -478,6 +482,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this.IsActive = function(){return this._active;};
     this.IsVisible = function(){return this._parent.enabled;};
     this.IsHiding = function(){return this._hiding;};
+    this.GetActivationCount = function(){return this._activationCount;};
     this.GetName = function(){return this._name;};
     this.GetParent = function(){return this._parent;};
     this.GetSceneScript = function(){return this._sceneScript;};
@@ -491,6 +496,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this.Start = function (showInstant)
     {
         this._initialized = true;
+        this._activationCount++;
         if (!this._active)
         {
             this._hiding = false;
