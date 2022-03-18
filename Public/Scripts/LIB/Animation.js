@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Animation Module
-// Version : 2.0.0
+// Version : 2.1.0
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet, Guillaume Bertrand
 
@@ -29,6 +29,7 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
 {
     //#region public vars
     this.duration = _duration;
+    this.durationDown = _duration;
     this.repeatMode = _repeatMode !== undefined ? _repeatMode : RepeatMode.None;
     //#endregion
 
@@ -205,7 +206,7 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
         }
         else
         {
-            this._ratio -= getDeltaTime() / this.duration;
+            this._ratio -= getDeltaTime() / this.durationDown;
             this._clampedRatio = Math.min(Math.max(this._ratio, 0), 1); 
             while (this._indexTimeCode > -1 && 
                 this._clampedRatio <= this._arrayTimeCodeEvent[this._indexTimeCode].timeCode)
