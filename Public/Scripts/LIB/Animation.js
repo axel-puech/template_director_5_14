@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Animation Module
-// Version : 2.1.0
+// Version : 2.1.1
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet, Guillaume Bertrand
 
@@ -119,6 +119,7 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
 
     this.GoTo = function (target)
     {
+        this._repeatCount = 0;
         this._targetRatio = Math.min(Math.max(target, 0), 1);
         this._goingUp = this._ratio <= this._targetRatio;
         this._ResetIndexTimeCode();
