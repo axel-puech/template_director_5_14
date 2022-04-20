@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 2.2.0
+// Version : 2.2.1
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
 
@@ -74,8 +74,8 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
     //#region private events
     if (this._useFrontBack)
     {
-        this.OnCamFront = function(){this.GoToScene(this._scenesFrontNames[0], true);};
-        this.OnCamBack = function(){this.GoToScene(this._scenesBackNames[0], true);};
+        this.OnCamFront = function(){this.GoToScene(this._scenesFrontNames[0], true, true);};
+        this.OnCamBack = function(){this.GoToScene(this._scenesBackNames[0], true, true);};
     }
     //#endregion
 
