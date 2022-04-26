@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 2.2.1
+// Version : 2.2.2
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
 
@@ -293,7 +293,6 @@ global.Scene = function (_script, _subScenesScript)
             {
                 this._subScenes[i].Start(showInstant);
             }
-            this._subScenes[i].ChangeScene();
         }
 
         if (this._Update && !this._update.IsAdded())
@@ -311,6 +310,16 @@ global.Scene = function (_script, _subScenesScript)
         }
 
         this.OnLateStart();
+
+        for (var i = 0; i < this._subScenes.length; ++i)
+        {
+            this._subScenes[i].SetSceneScript(this._script);
+            if (forceRestart || oldScenes === undefined || oldScenes.indexOf(this._subScenes[i]) === -1)
+            {
+                this._subScenes[i].LateStart();
+            }
+            this._subScenes[i].ChangeScene();
+        }
     }
 
     this.Stop = function (hideInstant, newScenes, forceRestart)
@@ -542,14 +551,17 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
             {
                 this._events[i].AddEvent();
             }
-
-            if (this.OnLateStart !== null && this.OnLateStart !== undefined)
-            {
-                this.OnLateStart();
-            }
-
-            this._active = true;
         }
+    }
+
+    this.LateStart = function()
+    {
+        if (this.OnLateStart !== null && this.OnLateStart !== undefined)
+        {
+            this.OnLateStart();
+        }
+
+        this._active = true;
     }
 
     this.Stop = function (hideInstant)
