@@ -317,14 +317,25 @@ global.BounceInOut = function (k)
 //////////////////////////////////////////
 global.CubicBezier = function (k, B, C)
 {
-	var d = -k;
-	var c = 3*B.x;
-	var b = -6*B.x + 3*C.x;
-	var a = 3*B.x - 3*C.x + 1;
-
-	var root = getCorrectRoot(solveCubic(a, b, c, d));
-
-	return B.y * (3 * Math.pow(1-root, 2) * root) + (C.y * (3 * (1-root) * root * root)) + (root * root * root);
+	if (k === 0)
+	{
+		return 0;
+	}
+	else if (k === 1)
+	{
+		return 1;
+	}
+	else
+	{
+		var d = -k;
+		var c = 3*B.x;
+		var b = -6*B.x + 3*C.x;
+		var a = 3*B.x - 3*C.x + 1;
+	
+		var root = getCorrectRoot(solveCubic(a, b, c, d));
+	
+		return B.y * (3 * Math.pow(1-root, 2) * root) + (C.y * (3 * (1-root) * root * root)) + (root * root * root);
+	}
 }
 
 
