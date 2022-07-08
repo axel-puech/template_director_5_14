@@ -3,7 +3,7 @@
     "document_id": "h77w4ikrf-7JdSS117-S",
     "original_document_id": "wehy7duROn0crBtoDDvq",
     "version": "29",
-    "lastChanged": "1657294744208",
+    "lastChanged": "1657295230066",
     "preview": "icon.png",
     "videoPreview": "preview.mp4",
     "videoPreviewUpdateTime": "",
@@ -133,7 +133,7 @@
             "hints": [
                 ""
             ],
-            "lens": "Astro DirectorsCut",
+            "lens": "Template Director",
             "applicability": "3",
             "lens_descriptors": "",
             "Spectacles2021UseAllowed": "false"
@@ -1160,7 +1160,7 @@
                                             },
                                             {
                                                 "isFolder": "false",
-                                                "lastModified": "2022-07-08T17:38:32",
+                                                "lastModified": "2022-07-08T17:38:38",
                                                 "name": "DirectorModule.js",
                                                 "hash": "006691fbdc9fb4d3497169bcee847516",
                                                 "children": ""
@@ -1238,7 +1238,7 @@
                                             },
                                             {
                                                 "isFolder": "false",
-                                                "lastModified": "2022-03-15T10:26:36",
+                                                "lastModified": "2022-07-08T17:46:58",
                                                 "name": "SubScene.js",
                                                 "hash": "479e3292dc3e959a1665acf65d39d11b",
                                                 "children": ""
@@ -1665,11 +1665,11 @@
             "selection": {
                 "resources": [
                     {
-                        "uid": "1623762237787476:134774",
+                        "uid": "1624896167648872:85372",
                         "path_list": [
                             "Scripts",
-                            "LIB",
-                            "DirectorModule"
+                            "Misc",
+                            "SubScene"
                         ]
                     }
                 ]
