@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 3.0.0
+// Version : 3.0.1
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
 
@@ -392,6 +392,7 @@ global.Scene = function (_script, _subScenesScript)
 
     //#region public functions
     this.IsActive = function(){return this._active;};
+    this.IsInitialized = function(){return this._initialized;};
     this.GetName = function(){return this._name;};
     this.GetSubScenes = function(){return this._subScenes;};
     this.SetDirector = function(director){this._director = director;};
@@ -711,6 +712,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
 
     //#region public functions
     this.IsActive = function(){return this._active;};
+    this.IsInitialized = function(){return this._initialized;};
     this.IsVisible = function(){return this._parent.enabled;};
     this.IsHiding = function(){return this._hiding;};
     this.GetActivationCount = function(){return this._activationCount;};

@@ -2,8 +2,8 @@
     "lens_id": "",
     "document_id": "h77w4ikrf-7JdSS117-S",
     "original_document_id": "wehy7duROn0crBtoDDvq",
-    "version": "28",
-    "lastChanged": "1650979592900",
+    "version": "29",
+    "lastChanged": "1657294744208",
     "preview": "icon.png",
     "videoPreview": "preview.mp4",
     "videoPreviewUpdateTime": "",
@@ -22,8 +22,8 @@
         "lastSavedWith": {
             "type": "Public",
             "major": "4",
-            "minor": "4",
-            "patch": "1",
+            "minor": "13",
+            "patch": "0",
             "build": "0"
         }
     },
@@ -136,7 +136,7 @@
             "lens": "Astro DirectorsCut",
             "applicability": "3",
             "lens_descriptors": "",
-            "HermosaUseAllowed": "false"
+            "Spectacles2021UseAllowed": "false"
         },
         "PreviewUiComponent": {
             "preview_descriptor": {
@@ -312,6 +312,14 @@
                     "sourceFilePath": "",
                     "additionalProperties": "",
                     "flags": "1"
+                },
+                {
+                    "resId": "179",
+                    "uid": "8675309:9035768",
+                    "name": "Physics Root World Settings Asset",
+                    "sourceFilePath": "",
+                    "additionalProperties": "",
+                    "flags": "0"
                 }
             ],
             "MaterialUpdateManager": {
@@ -458,6 +466,9 @@
                     "v": "Files\/File379.js"
                 }
             ]
+        },
+        "RemoteApi::ModelManager": {
+            "api_specs": ""
         },
         "WorldComponent": {
             "sceneFile": "scene.scn",
@@ -940,11 +951,11 @@
                     },
                     {
                         "k": "25962",
-                        "v": "c5d57d48853ce129303c2425f295f652"
+                        "v": "006691fbdc9fb4d3497169bcee847516"
                     },
                     {
                         "k": "25963",
-                        "v": "71f1930923be5317755d2bb7e9600a74"
+                        "v": "10f7de52c8728e10d5c1d4d38d8d2522"
                     },
                     {
                         "k": "25964",
@@ -1112,7 +1123,7 @@
                         "isFolder": "true",
                         "lastModified": "2022-03-15T10:26:36",
                         "name": "Public",
-                        "hash": "15314621617641ee846e4497d81f779f",
+                        "hash": "d3d2a01740889360d20af8589478222a",
                         "children": [
                             {
                                 "isFolder": "false",
@@ -1125,7 +1136,7 @@
                                 "isFolder": "true",
                                 "lastModified": "2022-03-15T10:26:36",
                                 "name": "Scripts",
-                                "hash": "a277c8e1c2d1bddf35c78251380c0575",
+                                "hash": "7d82b638ba81c906befc98aa0b1bb7cc",
                                 "children": [
                                     {
                                         "isFolder": "false",
@@ -1136,9 +1147,9 @@
                                     },
                                     {
                                         "isFolder": "true",
-                                        "lastModified": "2022-04-21T16:07:10",
+                                        "lastModified": "2022-07-07T13:23:53",
                                         "name": "LIB",
-                                        "hash": "557b82813fc2266bc6e9d7ec0bd3b426",
+                                        "hash": "9728c692f9df9f98f1e0a7822b35bafd",
                                         "children": [
                                             {
                                                 "isFolder": "false",
@@ -1149,16 +1160,16 @@
                                             },
                                             {
                                                 "isFolder": "false",
-                                                "lastModified": "2022-04-26T15:10:34",
+                                                "lastModified": "2022-07-08T17:38:32",
                                                 "name": "DirectorModule.js",
-                                                "hash": "c5d57d48853ce129303c2425f295f652",
+                                                "hash": "006691fbdc9fb4d3497169bcee847516",
                                                 "children": ""
                                             },
                                             {
                                                 "isFolder": "false",
-                                                "lastModified": "2022-03-15T10:26:36",
+                                                "lastModified": "2022-07-07T13:23:53",
                                                 "name": "Easings.js",
-                                                "hash": "71f1930923be5317755d2bb7e9600a74",
+                                                "hash": "10f7de52c8728e10d5c1d4d38d8d2522",
                                                 "children": ""
                                             },
                                             {
@@ -1632,14 +1643,35 @@
                                 ]
                             }
                         ]
+                    },
+                    {
+                        "name": "Physics Root World Settings",
+                        "type": "36",
+                        "subtype": "1",
+                        "resourceId": "179",
+                        "dependency": "0",
+                        "hidden": "false",
+                        "uid": "8675309:9035768",
+                        "fileId": "18446744073709551615",
+                        "originalId": "18446744073709551615",
+                        "publicId": "18446744073709551615",
+                        "source": "",
+                        "additional": ""
                     }
                 ]
             }
         },
         "InspectorController": {
             "selection": {
-                "objects": [
-                    "1624895933193099:52144"
+                "resources": [
+                    {
+                        "uid": "1623762237787476:134774",
+                        "path_list": [
+                            "Scripts",
+                            "LIB",
+                            "DirectorModule"
+                        ]
+                    }
                 ]
             }
         },
@@ -1705,7 +1737,7 @@
             ]
         },
         "Compression::IController": {
-            "compression_info": ""
+            "new_compression_info": ""
         },
         "AssetLibController": {
             "itemUidToID": [
