@@ -3,7 +3,7 @@
     "document_id": "h77w4ikrf-7JdSS117-S",
     "original_document_id": "wehy7duROn0crBtoDDvq",
     "version": "29",
-    "lastChanged": "1657295230066",
+    "lastChanged": "1659619863548",
     "preview": "icon.png",
     "videoPreview": "preview.mp4",
     "videoPreviewUpdateTime": "",
@@ -22,8 +22,8 @@
         "lastSavedWith": {
             "type": "Public",
             "major": "4",
-            "minor": "13",
-            "patch": "0",
+            "minor": "22",
+            "patch": "1",
             "build": "0"
         }
     },
@@ -34,12 +34,44 @@
                     [
                         "Scripts",
                         "LIB",
+                        "Localization",
+                        "LocalizationDatas"
+                    ],
+                    [
+                        "Scripts",
+                        "LIB",
+                        "Localization",
+                        "LocalizationModule"
+                    ],
+                    [
+                        "Scripts",
+                        "LIB",
+                        "Main",
                         "UpdateManager"
                     ],
                     [
                         "Scripts",
                         "LIB",
+                        "Main",
                         "VideoController"
+                    ],
+                    [
+                        "Scripts",
+                        "LIB",
+                        "Others",
+                        "ParallaxManager"
+                    ],
+                    [
+                        "Scripts",
+                        "LIB",
+                        "Others",
+                        "PoolManager"
+                    ],
+                    [
+                        "Scripts",
+                        "LIB",
+                        "Others",
+                        "TextToTexture"
                     ],
                     [
                         "Scripts",
@@ -58,14 +90,6 @@
                     ],
                     [
                         "Textures"
-                    ],
-                    [
-                        "Textures",
-                        "Envmaps"
-                    ],
-                    [
-                        "Textures",
-                        "RenderTargets"
                     ],
                     [
                         "Textures",
@@ -149,25 +173,19 @@
                 "back_preview_id": "bundle:Preview\/Images\/Beach.jpg",
                 "back_preview_is_favorite": "false",
                 "front_preview_id": "bundle:Preview\/Images\/Person 1.jpg",
-                "front_preview_is_favorite": "false",
-                "spectacles_preview_id": "bundle:Preview\/Images\/Pavement\/Pavement.jpg",
-                "spectacles_preview_is_favorite": "false"
+                "front_preview_is_favorite": "false"
             },
             "preview_videos_project_config": {
                 "back_preview_id": "bundle:Preview\/Videos\/Sky.webm",
                 "back_preview_is_favorite": "false",
                 "front_preview_id": "bundle:Preview\/Videos\/Idle Person 1.webm",
-                "front_preview_is_favorite": "false",
-                "spectacles_preview_id": "",
-                "spectacles_preview_is_favorite": "false"
+                "front_preview_is_favorite": "false"
             },
             "preview_ie_project_config": {
                 "back_preview_id": "bundle:Preview\/InteractiveEnvironments\/Home",
                 "back_preview_is_favorite": "false",
                 "front_preview_id": "bundle:Preview\/InteractiveEnvironments\/Home",
-                "front_preview_is_favorite": "false",
-                "spectacles_preview_id": "bundle:Preview\/InteractiveEnvironments\/Home",
-                "spectacles_preview_is_favorite": "false"
+                "front_preview_is_favorite": "false"
             }
         },
         "InspectorUiComponent": {
@@ -179,6 +197,9 @@
         },
         "ObjectTracking3DUIComponent": {
             "foldedOwnerSceneObjects": ""
+        },
+        "MapUiComponent": {
+            "mapPinPoints": ""
         },
         "Material::UiComponent": {
             "active_graph_asset": "-1:-1"
@@ -320,6 +341,46 @@
                     "sourceFilePath": "",
                     "additionalProperties": "",
                     "flags": "0"
+                },
+                {
+                    "resId": "180",
+                    "uid": "1659618201347539:49405",
+                    "name": "Files\/File380.js",
+                    "sourceFilePath": "",
+                    "additionalProperties": "",
+                    "flags": "1"
+                },
+                {
+                    "resId": "181",
+                    "uid": "1659618201370573:49421",
+                    "name": "Files\/File381.js",
+                    "sourceFilePath": "",
+                    "additionalProperties": "",
+                    "flags": "1"
+                },
+                {
+                    "resId": "185",
+                    "uid": "1659618861075110:164888",
+                    "name": "Files\/File388.js",
+                    "sourceFilePath": "",
+                    "additionalProperties": "",
+                    "flags": "1"
+                },
+                {
+                    "resId": "186",
+                    "uid": "1659618861096529:164901",
+                    "name": "Files\/File389.js",
+                    "sourceFilePath": "",
+                    "additionalProperties": "",
+                    "flags": "1"
+                },
+                {
+                    "resId": "187",
+                    "uid": "1659618896902930:170932",
+                    "name": "Files\/File390.js",
+                    "sourceFilePath": "",
+                    "additionalProperties": "",
+                    "flags": "1"
                 }
             ],
             "MaterialUpdateManager": {
@@ -336,7 +397,120 @@
                     "uidsToFeatureNamesWithIntensity": ""
                 },
                 "ScreenTransform": {
-                    "uidData": "",
+                    "uidData": [
+                        {
+                            "k": "1659618442610772:82083",
+                            "v": {
+                                "isBasicMode": "true",
+                                "basicModeSetup": {
+                                    "fixWidth": "false",
+                                    "fixHeight": "false",
+                                    "attachBottom": "false",
+                                    "attachLeft": "false",
+                                    "attachRight": "false",
+                                    "attachTop": "false"
+                                }
+                            }
+                        },
+                        {
+                            "k": "1659618442656562:82242",
+                            "v": {
+                                "isBasicMode": "true",
+                                "basicModeSetup": {
+                                    "fixWidth": "false",
+                                    "fixHeight": "false",
+                                    "attachBottom": "false",
+                                    "attachLeft": "false",
+                                    "attachRight": "false",
+                                    "attachTop": "false"
+                                }
+                            }
+                        },
+                        {
+                            "k": "1659618446008365:83818",
+                            "v": {
+                                "isBasicMode": "true",
+                                "basicModeSetup": {
+                                    "fixWidth": "false",
+                                    "fixHeight": "false",
+                                    "attachBottom": "false",
+                                    "attachLeft": "false",
+                                    "attachRight": "false",
+                                    "attachTop": "false"
+                                }
+                            }
+                        },
+                        {
+                            "k": "1659618446038252:83973",
+                            "v": {
+                                "isBasicMode": "true",
+                                "basicModeSetup": {
+                                    "fixWidth": "false",
+                                    "fixHeight": "false",
+                                    "attachBottom": "false",
+                                    "attachLeft": "false",
+                                    "attachRight": "false",
+                                    "attachTop": "false"
+                                }
+                            }
+                        },
+                        {
+                            "k": "1659618656940646:121210",
+                            "v": {
+                                "isBasicMode": "true",
+                                "basicModeSetup": {
+                                    "fixWidth": "false",
+                                    "fixHeight": "false",
+                                    "attachBottom": "false",
+                                    "attachLeft": "false",
+                                    "attachRight": "false",
+                                    "attachTop": "false"
+                                }
+                            }
+                        },
+                        {
+                            "k": "1659618656952935:121367",
+                            "v": {
+                                "isBasicMode": "true",
+                                "basicModeSetup": {
+                                    "fixWidth": "false",
+                                    "fixHeight": "false",
+                                    "attachBottom": "false",
+                                    "attachLeft": "false",
+                                    "attachRight": "false",
+                                    "attachTop": "false"
+                                }
+                            }
+                        },
+                        {
+                            "k": "1659618669441244:128187",
+                            "v": {
+                                "isBasicMode": "true",
+                                "basicModeSetup": {
+                                    "fixWidth": "false",
+                                    "fixHeight": "false",
+                                    "attachBottom": "false",
+                                    "attachLeft": "false",
+                                    "attachRight": "false",
+                                    "attachTop": "false"
+                                }
+                            }
+                        },
+                        {
+                            "k": "1659618669452663:128340",
+                            "v": {
+                                "isBasicMode": "true",
+                                "basicModeSetup": {
+                                    "fixWidth": "false",
+                                    "fixHeight": "false",
+                                    "attachBottom": "false",
+                                    "attachLeft": "false",
+                                    "attachRight": "false",
+                                    "attachTop": "false"
+                                }
+                            }
+                        }
+                    ],
                     "generalData": ""
                 }
             }
@@ -348,29 +522,37 @@
                 "2": "1623762238769865:135013",
                 "3": "1623762238771834:135018",
                 "4": "1623762238774560:135023",
-                "5": "1623762238777173:135028",
-                "6": "1623762238779956:135033",
-                "7": "1623762238809614:135084",
-                "8": "1623762238812267:135086",
-                "9": "1623762238814922:135095",
-                "10": "1623762314300513:152180",
-                "11": "1623762320198986:152947",
-                "12": "1623762320491139:154829",
-                "13": "1623763944591341:342664",
-                "14": "1623764338545109:427342",
-                "15": "1623764338546890:427344",
-                "16": "1623764338550700:427359",
-                "17": "1623771461141115:450171",
-                "18": "1623858487350455:2487470",
-                "19": "1623935284798451:429736",
-                "20": "1624028738474472:793156",
-                "21": "1624895878614175:43855",
-                "22": "1624895896454814:46032",
-                "23": "1624895925551797:49581",
-                "24": "1624895933192459:52142",
-                "25": "1624895933193099:52144",
-                "26": "1624896192652958:89304",
-                "27": "1643294473705647:639064"
+                "5": "1623762238779956:135033",
+                "6": "1623762238809614:135084",
+                "7": "1623762238812267:135086",
+                "8": "1623762238814922:135095",
+                "9": "1623762320198986:152947",
+                "10": "1623762320491139:154829",
+                "11": "1623764338545109:427342",
+                "12": "1623764338546890:427344",
+                "13": "1623764338550700:427359",
+                "14": "1623771461141115:450171",
+                "15": "1623858487350455:2487470",
+                "16": "1623935284798451:429736",
+                "17": "1624028738474472:793156",
+                "18": "1624895878614175:43855",
+                "19": "1624895896454814:46032",
+                "20": "1624895925551797:49581",
+                "21": "1624895933192459:52142",
+                "22": "1624895933193099:52144",
+                "23": "1624896192652958:89304",
+                "24": "1643294473705647:639064",
+                "25": "1659618201455542:49481",
+                "26": "1659618201456062:49483",
+                "27": "1659618201456419:49485",
+                "28": "1659618442609763:82081",
+                "29": "1659618442656276:82241",
+                "30": "1659618446007194:83816",
+                "31": "1659618446038023:83972",
+                "32": "1659618656891348:120616",
+                "33": "1659618656924282:120915",
+                "34": "1659618669407646:127593",
+                "35": "1659618669424924:127892"
             }
         },
         "LayerComponent": {
@@ -391,15 +573,9 @@
                 },
                 {
                     "layerId": "2",
-                    "layerName": "Persp Gyro",
+                    "layerName": "Ortho LiveOnly",
                     "layerMask": "2",
                     "colorCode": "0"
-                },
-                {
-                    "layerId": "3",
-                    "layerName": "Ortho LiveOnly",
-                    "layerMask": "4",
-                    "colorCode": "1"
                 }
             ]
         },
@@ -464,6 +640,26 @@
                 {
                     "k": "379",
                     "v": "Files\/File379.js"
+                },
+                {
+                    "k": "380",
+                    "v": "Files\/File380.js"
+                },
+                {
+                    "k": "381",
+                    "v": "Files\/File381.js"
+                },
+                {
+                    "k": "388",
+                    "v": "Files\/File388.js"
+                },
+                {
+                    "k": "389",
+                    "v": "Files\/File389.js"
+                },
+                {
+                    "k": "390",
+                    "v": "Files\/File390.js"
                 }
             ]
         },
@@ -489,7 +685,7 @@
                     },
                     {
                         "k": "973",
-                        "v": "Scripts\/LIB\/Animation.js"
+                        "v": "Scripts\/LIB\/Main\/Animation.js"
                     },
                     {
                         "k": "7803",
@@ -505,15 +701,15 @@
                     },
                     {
                         "k": "25962",
-                        "v": "Scripts\/LIB\/DirectorModule.js"
+                        "v": "Scripts\/LIB\/Main\/DirectorModule.js"
                     },
                     {
                         "k": "25963",
-                        "v": "Scripts\/LIB\/Easings.js"
+                        "v": "Scripts\/LIB\/Main\/Easings.js"
                     },
                     {
                         "k": "25964",
-                        "v": "Scripts\/LIB\/SubSceneCreator.js"
+                        "v": "Scripts\/LIB\/Others\/SubSceneCreator.js"
                     },
                     {
                         "k": "25970",
@@ -529,7 +725,7 @@
                     },
                     {
                         "k": "25990",
-                        "v": "Scripts\/LIB\/VideoController.js"
+                        "v": "Scripts\/LIB\/Main\/VideoController.js"
                     },
                     {
                         "k": "25998",
@@ -545,7 +741,39 @@
                     },
                     {
                         "k": "26009",
-                        "v": "Scripts\/LIB\/UpdateManager.js"
+                        "v": "Scripts\/LIB\/Main\/UpdateManager.js"
+                    },
+                    {
+                        "k": "26023",
+                        "v": "Scripts\/LIB\/Localization\/LocalizationModule.js"
+                    },
+                    {
+                        "k": "26024",
+                        "v": "Scripts\/LIB\/Localization\/LocalizationDatas.js"
+                    },
+                    {
+                        "k": "26028",
+                        "v": "Scripts\/LIB\/Localization"
+                    },
+                    {
+                        "k": "26030",
+                        "v": "Scripts\/LIB\/Main"
+                    },
+                    {
+                        "k": "26031",
+                        "v": "Scripts\/LIB\/Others"
+                    },
+                    {
+                        "k": "26032",
+                        "v": "Scripts\/LIB\/Others\/PoolManager.js"
+                    },
+                    {
+                        "k": "26033",
+                        "v": "Scripts\/LIB\/Others\/ParallaxManager.js"
+                    },
+                    {
+                        "k": "26034",
+                        "v": "Scripts\/LIB\/Others\/TextToTexture.js"
                     }
                 ],
                 "hashes": [
@@ -579,7 +807,7 @@
                     },
                     {
                         "k": "973",
-                        "v": "735be48410ee52e4795f711f9ceba43d"
+                        "v": "d2bba8d1f42800b61504e2f0ebd640ac"
                     },
                     {
                         "k": "974",
@@ -951,11 +1179,11 @@
                     },
                     {
                         "k": "25962",
-                        "v": "006691fbdc9fb4d3497169bcee847516"
+                        "v": "afe03a500b8718b77c3e5d01d27c1265"
                     },
                     {
                         "k": "25963",
-                        "v": "10f7de52c8728e10d5c1d4d38d8d2522"
+                        "v": "a1ab7b182764f4da5a26ae274360d040"
                     },
                     {
                         "k": "25964",
@@ -1091,7 +1319,7 @@
                     },
                     {
                         "k": "26009",
-                        "v": "6674455da8abfaa2ab004971d000522a"
+                        "v": "c3735dead1f73f3a767548298be70c94"
                     },
                     {
                         "k": "26010",
@@ -1116,6 +1344,38 @@
                     {
                         "k": "26015",
                         "v": "aef7c7f9cc4d17e2087eafddedc57238"
+                    },
+                    {
+                        "k": "26023",
+                        "v": "f933b2414eebdb9294d1d8f666b87bf4"
+                    },
+                    {
+                        "k": "26024",
+                        "v": "5aa2b284813b86efb9adc7127ad49b37"
+                    },
+                    {
+                        "k": "26025",
+                        "v": "3599057450ee6953ef5b82daf86a525e"
+                    },
+                    {
+                        "k": "26026",
+                        "v": "1e272aee348d11a9a38a2a2f773a4cfa"
+                    },
+                    {
+                        "k": "26027",
+                        "v": "1d260176ed77185276de2d9f108a5082"
+                    },
+                    {
+                        "k": "26032",
+                        "v": "1151d6ee1ac0de4c244bc90acbc3bbce"
+                    },
+                    {
+                        "k": "26033",
+                        "v": "b659e95af3a3b3852bae354ca4f9d3a0"
+                    },
+                    {
+                        "k": "26034",
+                        "v": "e84f91956864a5c8ffda3cba86806657"
                     }
                 ],
                 "publicState": {
@@ -1123,7 +1383,7 @@
                         "isFolder": "true",
                         "lastModified": "2022-03-15T10:26:36",
                         "name": "Public",
-                        "hash": "d3d2a01740889360d20af8589478222a",
+                        "hash": "d24c7123ab82da563b66fa3e929d6f10",
                         "children": [
                             {
                                 "isFolder": "false",
@@ -1134,9 +1394,9 @@
                             },
                             {
                                 "isFolder": "true",
-                                "lastModified": "2022-03-15T10:26:36",
+                                "lastModified": "2022-08-04T15:18:30",
                                 "name": "Scripts",
-                                "hash": "7d82b638ba81c906befc98aa0b1bb7cc",
+                                "hash": "67b5fb57f2589fe733c172635dff31f5",
                                 "children": [
                                     {
                                         "isFolder": "false",
@@ -1147,31 +1407,10 @@
                                     },
                                     {
                                         "isFolder": "true",
-                                        "lastModified": "2022-07-07T13:23:53",
+                                        "lastModified": "2022-08-04T15:19:01",
                                         "name": "LIB",
-                                        "hash": "9728c692f9df9f98f1e0a7822b35bafd",
+                                        "hash": "e1dee65d4becbfbc2427daefa1764092",
                                         "children": [
-                                            {
-                                                "isFolder": "false",
-                                                "lastModified": "2022-04-21T16:07:10",
-                                                "name": "Animation.js",
-                                                "hash": "735be48410ee52e4795f711f9ceba43d",
-                                                "children": ""
-                                            },
-                                            {
-                                                "isFolder": "false",
-                                                "lastModified": "2022-07-08T17:38:38",
-                                                "name": "DirectorModule.js",
-                                                "hash": "006691fbdc9fb4d3497169bcee847516",
-                                                "children": ""
-                                            },
-                                            {
-                                                "isFolder": "false",
-                                                "lastModified": "2022-07-07T13:23:53",
-                                                "name": "Easings.js",
-                                                "hash": "10f7de52c8728e10d5c1d4d38d8d2522",
-                                                "children": ""
-                                            },
                                             {
                                                 "isFolder": "false",
                                                 "lastModified": "2022-03-15T10:26:36",
@@ -1180,31 +1419,132 @@
                                                 "children": ""
                                             },
                                             {
-                                                "isFolder": "false",
-                                                "lastModified": "2022-03-15T10:26:36",
-                                                "name": "SubSceneCreator.js",
-                                                "hash": "30dfe87a8bc42d8fe400477fe277d4ba",
-                                                "children": ""
+                                                "isFolder": "true",
+                                                "lastModified": "2022-08-04T15:04:22",
+                                                "name": "Localization",
+                                                "hash": "885f8a90f8425e168b7d384d9a01af9d",
+                                                "children": [
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-08-04T15:04:14",
+                                                        "name": "folder.lock",
+                                                        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+                                                        "children": ""
+                                                    },
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-08-04T15:18:09",
+                                                        "name": "LocalizationDatas.js",
+                                                        "hash": "5aa2b284813b86efb9adc7127ad49b37",
+                                                        "children": ""
+                                                    },
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-08-04T15:18:10",
+                                                        "name": "LocalizationModule.js",
+                                                        "hash": "f933b2414eebdb9294d1d8f666b87bf4",
+                                                        "children": ""
+                                                    }
+                                                ]
                                             },
                                             {
-                                                "isFolder": "false",
-                                                "lastModified": "2022-03-15T10:26:36",
-                                                "name": "UpdateManager.js",
-                                                "hash": "6674455da8abfaa2ab004971d000522a",
-                                                "children": ""
+                                                "isFolder": "true",
+                                                "lastModified": "2022-08-04T15:14:07",
+                                                "name": "Main",
+                                                "hash": "66e9b5155093b42a2fb3de60d174eec0",
+                                                "children": [
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-08-04T15:20:46",
+                                                        "name": "Animation.js",
+                                                        "hash": "d2bba8d1f42800b61504e2f0ebd640ac",
+                                                        "children": ""
+                                                    },
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-08-04T15:19:48",
+                                                        "name": "DirectorModule.js",
+                                                        "hash": "afe03a500b8718b77c3e5d01d27c1265",
+                                                        "children": ""
+                                                    },
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-08-04T15:20:21",
+                                                        "name": "Easings.js",
+                                                        "hash": "a1ab7b182764f4da5a26ae274360d040",
+                                                        "children": ""
+                                                    },
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-08-04T15:13:15",
+                                                        "name": "folder.lock",
+                                                        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+                                                        "children": ""
+                                                    },
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-08-04T15:21:00",
+                                                        "name": "UpdateManager.js",
+                                                        "hash": "c3735dead1f73f3a767548298be70c94",
+                                                        "children": ""
+                                                    },
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-03-15T10:26:36",
+                                                        "name": "VideoController.js",
+                                                        "hash": "d1507a21614cc60bc4eada6105c97ed8",
+                                                        "children": ""
+                                                    }
+                                                ]
                                             },
                                             {
-                                                "isFolder": "false",
-                                                "lastModified": "2022-03-15T10:26:36",
-                                                "name": "VideoController.js",
-                                                "hash": "d1507a21614cc60bc4eada6105c97ed8",
-                                                "children": ""
+                                                "isFolder": "true",
+                                                "lastModified": "2022-08-04T15:19:01",
+                                                "name": "Others",
+                                                "hash": "2015973870b0d3456e79fa44b78cfc51",
+                                                "children": [
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-08-04T15:14:10",
+                                                        "name": "folder.lock",
+                                                        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+                                                        "children": ""
+                                                    },
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-08-04T15:18:11",
+                                                        "name": "ParallaxManager.js",
+                                                        "hash": "b659e95af3a3b3852bae354ca4f9d3a0",
+                                                        "children": ""
+                                                    },
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-08-04T15:18:11",
+                                                        "name": "PoolManager.js",
+                                                        "hash": "1151d6ee1ac0de4c244bc90acbc3bbce",
+                                                        "children": ""
+                                                    },
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-03-15T10:26:36",
+                                                        "name": "SubSceneCreator.js",
+                                                        "hash": "30dfe87a8bc42d8fe400477fe277d4ba",
+                                                        "children": ""
+                                                    },
+                                                    {
+                                                        "isFolder": "false",
+                                                        "lastModified": "2022-03-15T10:32:39",
+                                                        "name": "TextToTexture.js",
+                                                        "hash": "e84f91956864a5c8ffda3cba86806657",
+                                                        "children": ""
+                                                    }
+                                                ]
                                             }
                                         ]
                                     },
                                     {
                                         "isFolder": "true",
-                                        "lastModified": "2022-04-26T15:26:24",
+                                        "lastModified": "2022-08-04T15:04:22",
                                         "name": "Misc",
                                         "hash": "372b986f6faf67c06a607c4c124ad88c",
                                         "children": [
@@ -1249,7 +1589,7 @@
                             },
                             {
                                 "isFolder": "true",
-                                "lastModified": "2022-03-15T10:26:36",
+                                "lastModified": "2022-08-04T15:13:50",
                                 "name": "Textures",
                                 "hash": "5d28815959cf0a6f54eb4461ca43940e",
                                 "children": [
@@ -1347,88 +1687,206 @@
                                 "additional": "",
                                 "resources": [
                                     {
-                                        "name": "DirectorModule",
-                                        "type": "4",
-                                        "subtype": "0",
-                                        "resourceId": "138",
+                                        "name": "Main",
+                                        "type": "0",
+                                        "subtype": "-1",
+                                        "resourceId": "-1",
                                         "dependency": "0",
                                         "hidden": "false",
-                                        "uid": "1623762237787476:134774",
-                                        "fileId": "329",
+                                        "uid": "-1:-1",
+                                        "fileId": "18446744073709551615",
                                         "originalId": "18446744073709551615",
-                                        "publicId": "25962",
-                                        "source": "C:\/Users\/Fuegan\/AppData\/Local\/Temp\/Lens Studio-JrjkcQ\/\/system\/\/emergencyFiles\/emergencyJs.js",
-                                        "additional": ""
+                                        "publicId": "26030",
+                                        "source": "",
+                                        "additional": "",
+                                        "resources": [
+                                            {
+                                                "name": "DirectorModule",
+                                                "type": "4",
+                                                "subtype": "0",
+                                                "resourceId": "138",
+                                                "dependency": "0",
+                                                "hidden": "false",
+                                                "uid": "1623762237787476:134774",
+                                                "fileId": "329",
+                                                "originalId": "18446744073709551615",
+                                                "publicId": "25962",
+                                                "source": "C:\/Users\/Fuegan\/AppData\/Local\/Temp\/Lens Studio-JrjkcQ\/\/system\/\/emergencyFiles\/emergencyJs.js",
+                                                "additional": ""
+                                            },
+                                            {
+                                                "name": "Easings",
+                                                "type": "4",
+                                                "subtype": "0",
+                                                "resourceId": "139",
+                                                "dependency": "0",
+                                                "hidden": "false",
+                                                "uid": "1623762237831427:134790",
+                                                "fileId": "330",
+                                                "originalId": "18446744073709551615",
+                                                "publicId": "25963",
+                                                "source": "C:\/Users\/Fuegan\/AppData\/Local\/Temp\/Lens Studio-JrjkcQ\/\/system\/\/emergencyFiles\/emergencyJs.js",
+                                                "additional": ""
+                                            },
+                                            {
+                                                "name": "VideoController",
+                                                "type": "4",
+                                                "subtype": "0",
+                                                "resourceId": "161",
+                                                "dependency": "0",
+                                                "hidden": "false",
+                                                "uid": "1623935325336765:434634",
+                                                "fileId": "355",
+                                                "originalId": "18446744073709551615",
+                                                "publicId": "25990",
+                                                "source": "E:\/Bureau\/Work\/StudioLens\/yaqoot-music\/Version 4\/Public\/Script\/LIB\/VideoController.js",
+                                                "additional": ""
+                                            },
+                                            {
+                                                "name": "Animation",
+                                                "type": "4",
+                                                "subtype": "0",
+                                                "resourceId": "16",
+                                                "dependency": "0",
+                                                "hidden": "false",
+                                                "uid": "1614606656188431:149054",
+                                                "fileId": "12",
+                                                "originalId": "18446744073709551615",
+                                                "publicId": "973",
+                                                "source": "D:\/ADD\/Projects\/Lens_LeMonde_SnapFr\/Public\/Scripts\/LIB\/Animation.js",
+                                                "additional": ""
+                                            },
+                                            {
+                                                "name": "UpdateManager",
+                                                "type": "4",
+                                                "subtype": "0",
+                                                "resourceId": "178",
+                                                "dependency": "0",
+                                                "hidden": "false",
+                                                "uid": "1643294299716055:614851",
+                                                "fileId": "379",
+                                                "originalId": "18446744073709551615",
+                                                "publicId": "26009",
+                                                "source": "C:\/Users\/Fuegan\/AppData\/Local\/Temp\/Lens Studio-fVFFeE\/\/system\/\/emergencyFiles\/emergencyJs.js",
+                                                "additional": ""
+                                            }
+                                        ]
                                     },
                                     {
-                                        "name": "Easings",
-                                        "type": "4",
-                                        "subtype": "0",
-                                        "resourceId": "139",
+                                        "name": "Others",
+                                        "type": "0",
+                                        "subtype": "-1",
+                                        "resourceId": "-1",
                                         "dependency": "0",
                                         "hidden": "false",
-                                        "uid": "1623762237831427:134790",
-                                        "fileId": "330",
+                                        "uid": "-1:-1",
+                                        "fileId": "18446744073709551615",
                                         "originalId": "18446744073709551615",
-                                        "publicId": "25963",
-                                        "source": "C:\/Users\/Fuegan\/AppData\/Local\/Temp\/Lens Studio-JrjkcQ\/\/system\/\/emergencyFiles\/emergencyJs.js",
-                                        "additional": ""
+                                        "publicId": "26031",
+                                        "source": "",
+                                        "additional": "",
+                                        "resources": [
+                                            {
+                                                "name": "SubSceneCreator",
+                                                "type": "4",
+                                                "subtype": "0",
+                                                "resourceId": "140",
+                                                "dependency": "0",
+                                                "hidden": "false",
+                                                "uid": "1623762237875691:134811",
+                                                "fileId": "331",
+                                                "originalId": "18446744073709551615",
+                                                "publicId": "25964",
+                                                "source": "C:\/Users\/Fuegan\/AppData\/Local\/Temp\/Lens Studio-JrjkcQ\/\/system\/\/emergencyFiles\/emergencyJs.js",
+                                                "additional": ""
+                                            },
+                                            {
+                                                "name": "PoolManager",
+                                                "type": "4",
+                                                "subtype": "0",
+                                                "resourceId": "185",
+                                                "dependency": "0",
+                                                "hidden": "false",
+                                                "uid": "1659618861075110:164888",
+                                                "fileId": "388",
+                                                "originalId": "18446744073709551615",
+                                                "publicId": "26032",
+                                                "source": "F:\/Bureau\/Work\/StudioLens\/LIB_Lens\/Scripts\/Misc\/PoolManager.js",
+                                                "additional": ""
+                                            },
+                                            {
+                                                "name": "ParallaxManager",
+                                                "type": "4",
+                                                "subtype": "0",
+                                                "resourceId": "186",
+                                                "dependency": "0",
+                                                "hidden": "false",
+                                                "uid": "1659618861096529:164901",
+                                                "fileId": "389",
+                                                "originalId": "18446744073709551615",
+                                                "publicId": "26033",
+                                                "source": "F:\/Bureau\/Work\/StudioLens\/LIB_Lens\/Scripts\/Misc\/ParallaxManager.js",
+                                                "additional": ""
+                                            },
+                                            {
+                                                "name": "TextToTexture",
+                                                "type": "4",
+                                                "subtype": "0",
+                                                "resourceId": "187",
+                                                "dependency": "0",
+                                                "hidden": "false",
+                                                "uid": "1659618896902930:170932",
+                                                "fileId": "390",
+                                                "originalId": "18446744073709551615",
+                                                "publicId": "26034",
+                                                "source": "F:\/Bureau\/Work\/StudioLens\/LIB_Lens\/Scripts\/Misc\/TextToTexture.js",
+                                                "additional": ""
+                                            }
+                                        ]
                                     },
                                     {
-                                        "name": "SubSceneCreator",
-                                        "type": "4",
-                                        "subtype": "0",
-                                        "resourceId": "140",
+                                        "name": "Localization",
+                                        "type": "0",
+                                        "subtype": "-1",
+                                        "resourceId": "-1",
                                         "dependency": "0",
                                         "hidden": "false",
-                                        "uid": "1623762237875691:134811",
-                                        "fileId": "331",
+                                        "uid": "-1:-1",
+                                        "fileId": "18446744073709551615",
                                         "originalId": "18446744073709551615",
-                                        "publicId": "25964",
-                                        "source": "C:\/Users\/Fuegan\/AppData\/Local\/Temp\/Lens Studio-JrjkcQ\/\/system\/\/emergencyFiles\/emergencyJs.js",
-                                        "additional": ""
-                                    },
-                                    {
-                                        "name": "VideoController",
-                                        "type": "4",
-                                        "subtype": "0",
-                                        "resourceId": "161",
-                                        "dependency": "0",
-                                        "hidden": "false",
-                                        "uid": "1623935325336765:434634",
-                                        "fileId": "355",
-                                        "originalId": "18446744073709551615",
-                                        "publicId": "25990",
-                                        "source": "E:\/Bureau\/Work\/StudioLens\/yaqoot-music\/Version 4\/Public\/Script\/LIB\/VideoController.js",
-                                        "additional": ""
-                                    },
-                                    {
-                                        "name": "Animation",
-                                        "type": "4",
-                                        "subtype": "0",
-                                        "resourceId": "16",
-                                        "dependency": "0",
-                                        "hidden": "false",
-                                        "uid": "1614606656188431:149054",
-                                        "fileId": "12",
-                                        "originalId": "18446744073709551615",
-                                        "publicId": "973",
-                                        "source": "D:\/ADD\/Projects\/Lens_LeMonde_SnapFr\/Public\/Scripts\/LIB\/Animation.js",
-                                        "additional": ""
-                                    },
-                                    {
-                                        "name": "UpdateManager",
-                                        "type": "4",
-                                        "subtype": "0",
-                                        "resourceId": "178",
-                                        "dependency": "0",
-                                        "hidden": "false",
-                                        "uid": "1643294299716055:614851",
-                                        "fileId": "379",
-                                        "originalId": "18446744073709551615",
-                                        "publicId": "26009",
-                                        "source": "C:\/Users\/Fuegan\/AppData\/Local\/Temp\/Lens Studio-fVFFeE\/\/system\/\/emergencyFiles\/emergencyJs.js",
-                                        "additional": ""
+                                        "publicId": "26028",
+                                        "source": "",
+                                        "additional": "",
+                                        "resources": [
+                                            {
+                                                "name": "LocalizationModule",
+                                                "type": "4",
+                                                "subtype": "0",
+                                                "resourceId": "180",
+                                                "dependency": "0",
+                                                "hidden": "false",
+                                                "uid": "1659618201347539:49405",
+                                                "fileId": "380",
+                                                "originalId": "18446744073709551615",
+                                                "publicId": "26023",
+                                                "source": "C:\/Users\/Fuegan\/AppData\/Local\/Snap\/Lens Studio\/cache\/temp\/StudioPvFgjMnptinm\/\/system\/\/emergencyFiles\/emergencyJs.js",
+                                                "additional": ""
+                                            },
+                                            {
+                                                "name": "LocalizationDatas",
+                                                "type": "4",
+                                                "subtype": "0",
+                                                "resourceId": "181",
+                                                "dependency": "0",
+                                                "hidden": "false",
+                                                "uid": "1659618201370573:49421",
+                                                "fileId": "381",
+                                                "originalId": "18446744073709551615",
+                                                "publicId": "26024",
+                                                "source": "C:\/Users\/Fuegan\/AppData\/Local\/Snap\/Lens Studio\/cache\/temp\/StudioPvFgjMnptinm\/\/system\/\/emergencyFiles\/emergencyJs.js",
+                                                "additional": ""
+                                            }
+                                        ]
                                     }
                                 ]
                             },
@@ -1663,15 +2121,8 @@
         },
         "InspectorController": {
             "selection": {
-                "resources": [
-                    {
-                        "uid": "1624896167648872:85372",
-                        "path_list": [
-                            "Scripts",
-                            "Misc",
-                            "SubScene"
-                        ]
-                    }
+                "objects": [
+                    "1624895878614175:43855"
                 ]
             }
         },

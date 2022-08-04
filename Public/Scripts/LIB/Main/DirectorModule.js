@@ -3,6 +3,8 @@
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
 
+// Doc : https://www.notion.so/atomicdigitaldesign/Director-Module-3f898a08c75e4baea1b8a7006400acfe
+
 
 function DirectorEvent (_script, _type, _callback)
 {

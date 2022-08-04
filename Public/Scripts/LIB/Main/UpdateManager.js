@@ -3,6 +3,8 @@
 // Dependencies : None
 // Authors : Gautier Jacquet
 
+// Doc : https://www.notion.so/atomicdigitaldesign/Update-Manager-8b3509ed00604b09a775c8d073222f1e
+
 
 var UpdateManager = new UpdateManagerClass();
 

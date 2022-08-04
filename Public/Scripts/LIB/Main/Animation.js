@@ -3,6 +3,7 @@
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet, Guillaume Bertrand
 
+// Doc : https://www.notion.so/atomicdigitaldesign/Animation-Module-2f30ec117cae45e192fe1367effac6ee
 
 
 // Enum to set the repeat rules
