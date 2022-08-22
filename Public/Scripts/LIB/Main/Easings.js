@@ -901,11 +901,11 @@ global.Lerp = function (min, max, coef, clamp)
 	return coef * (max - min) + min;
 }
 
-global.InverseLerp = function (min, max, coef, clamp)
+global.InverseLerp = function (min, max, value, clamp)
 {
     if (clamp !== false){
-        coef = Math.max(min,Math.min(coef,max));
+        value = Math.max(min,Math.min(value,max));
     }    
     
-	return (coef - min) / (max - min);
+	return (value - min) / (max - min);
 }
