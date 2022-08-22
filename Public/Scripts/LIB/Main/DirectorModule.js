@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 3.0.1
+// Version : 3.1.0
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
 
@@ -98,17 +98,19 @@ function SceneCallDispatcher (_caller)
 {
     //#region private var
     var _this = this;
-    this._caller = _caller;
+    this._callers = [_caller];
     this._id = _caller.GetId();
     this._listeners = [];
+    this._params = _caller.GetParams();
     //#endregion
 
     //#region public functions
     this.GetId = function () {return this._id;};
-    this.GetParams = function () {return this._caller.GetParams();};
+    this.GetParams = function () {return this._params;};
 
     this.Call = function (params)
     {
+        this._params = params;
         for (var i = 0; i < this._listeners.length; ++i)
         {
             this._listeners[i].callback(params);
@@ -126,9 +128,20 @@ function SceneCallDispatcher (_caller)
         }
     }
 
+    this.AddCaller = function (_caller)
+    {
+        var i = this._callers.indexOf(_caller);
+        if (i === -1)
+        {
+            this._callers.push(_caller);
+            this._params = _caller.GetParams();
+            _caller.SetDispatcher(_this);
+        }
+    }
+
     this.AddListener = function (_listener, _setup)
     {
-        var i = this._listeners.indexOf(_listener)
+        var i = this._listeners.indexOf(_listener);
         if (i === -1)
         {
             this._listeners.push(_listener);
@@ -137,6 +150,16 @@ function SceneCallDispatcher (_caller)
                 _listener.setupCallback(this.GetParams());
             }
         }
+    }
+
+    this.RemoveCaller = function (_caller)
+    {
+        var i = this._callers.indexOf(_caller);
+        if (i >= 0)
+        {
+            this._callers.splice(i, 1);
+        }
+        return this._callers.length;
     }
 
     this.RemoveListener = function (_listener)
@@ -150,11 +173,17 @@ function SceneCallDispatcher (_caller)
 
     this.Destroy = function ()
     {
-        this._caller.SetDispatcher(null);
+        for (var i = 0; i < this._callers.length; ++i)
+        {
+            this._callers[i].SetDispatcher(null);
+        }
     }
     //#endregion
 
-    this._caller.SetDispatcher(_this);
+    for (var i = 0; i < this._callers.length; ++i)
+    {
+        this._callers[i].SetDispatcher(_this);
+    }
 }
 
 
@@ -568,30 +597,30 @@ global.Scene = function (_script, _subScenesScript)
         }
     }
 
-    this.CreateSceneDispatcher = function (_caller)
+    this.AddCallerToDispatcher = function (_caller)
     {
-        var b = true;
+        var dispatcher = null;
         for (var i = 0; i < this._sceneDispatchers.length; ++i)
         {
             if (this._sceneDispatchers[i].GetId() === _caller.GetId())
             {
-                b = false;
+                dispatcher = this._sceneDispatchers[i];
                 break;
             }
         }
 
-        if (b)
+        if (dispatcher === null)
         {
             dispatcher = new SceneCallDispatcher(_caller);
             _this._sceneDispatchers.push(dispatcher);
         }
         else
         {
-            print("Warning : Un dispatcher pour le caller " + _caller.GetId() + " a été demandé mais existe déjà !");
+            dispatcher.AddCaller(_caller);
         }
     }
 
-    this.RemoveSceneDispatcher = function (_caller)
+    this.RemoveCallerFromDispatcher = function (_caller)
     {
         var id = -1;
         for (var i = 0; i < this._sceneDispatchers.length; ++i)
@@ -605,7 +634,10 @@ global.Scene = function (_script, _subScenesScript)
         
         if (id >= 0)
         {
-            _this._sceneDispatchers.splice(i, 1);
+            if (_this._sceneDispatchers[i].RemoveCaller(_caller) <= 0) // Retourne la taille du tableau des callers restant, on supprime le dispatcher si la liste est vide.
+            {
+                _this._sceneDispatchers.splice(i, 1);
+            }
         }
         else
         {
@@ -925,7 +957,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
 
         if (this._active && this._initialized)
         {
-            this._sceneScript.api.scene.CreateSceneDispatcher(caller);
+            this._sceneScript.api.scene.AddCallerToDispatcher(caller);
         }
 
         return caller;
@@ -935,7 +967,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     {
         if (this._active && this._initialized)
         {
-            this._sceneScript.api.scene.RemoveSceneDispatcher(_caller);
+            this._sceneScript.api.scene.RemoveCallerFromDispatcher(_caller);
         }
 
         var i = _this._callers.indexOf(_caller);
@@ -976,7 +1008,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     {
         for (var i = 0; i < this._callers.length; ++i)
         {
-            this._sceneScript.api.scene.CreateSceneDispatcher(this._callers[i]);
+            this._sceneScript.api.scene.AddCallerToDispatcher(this._callers[i]);
         }
     }
 
