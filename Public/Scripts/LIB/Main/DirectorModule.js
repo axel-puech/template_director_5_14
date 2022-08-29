@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 3.1.0
+// Version : 3.1.1
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
 
@@ -68,11 +68,11 @@ function SubSceneCaller (_id, _defaultParams)
     //#region public functions
     this.Call = function (params)
     {
-        this._params = params;
         if (this._dispatcher !== null)
         {
             this._dispatcher.Call(params);
         }
+        this._params = params;
     }
 
     this.Setup = function ()
@@ -110,11 +110,12 @@ function SceneCallDispatcher (_caller)
 
     this.Call = function (params)
     {
-        this._params = params;
         for (var i = 0; i < this._listeners.length; ++i)
         {
-            this._listeners[i].callback(params);
+            this._listeners[i].callback(params,this._params);
         }
+        
+        this._params = params;
     }
 
     this.Setup = function (params)
