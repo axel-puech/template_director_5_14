@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Animation Module
-// Version : 2.1.1
+// Version : 2.1.2
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet, Guillaume Bertrand
 
@@ -337,7 +337,7 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
 
 
 // Function AnimationGroup, defined by an array of animations, a speed factor and a repeatMode
-global.AnimationGroup = function(_animations, _speedFactor, _repeatMode)
+global.AnimationGroup = function(_obj, _animations, _speedFactor, _repeatMode)
 {
     //#region public vars
     this.speedFactor = _speedFactor;
@@ -352,7 +352,7 @@ global.AnimationGroup = function(_animations, _speedFactor, _repeatMode)
     this._ratioRemap = [];
     this._currentAnim = 0;
     
-    this._anim = new Animation(1, function(ratio){_this._InternalUpdate(ratio);}, _repeatMode);
+    this._anim = new Animation(_obj, 1, function(ratio){_this._InternalUpdate(ratio);}, _repeatMode);
     //#endregion
 
 
@@ -450,6 +450,7 @@ global.AnimationGroup = function(_animations, _speedFactor, _repeatMode)
 
                 if (ratioCurrent > 1)
                 {
+
                     do
                     {
                         this._animations[this._currentAnim].JumpTo(1);
@@ -507,17 +508,36 @@ global.AnimationGroup = function(_animations, _speedFactor, _repeatMode)
 
     this._UpdateAllAnims = function (ratio)
     {
-        for (var i = 0; i < this._animCount; ++i)
+        if (this._anim.IsGoingUp())
         {
-            var ratioStart = i > 0 ? this._ratioRemap[i - 1] : 0
-            var ratioEnd = this._ratioRemap[i];
-            var ratioCurrent = (ratio - ratioStart) / (ratioEnd - ratioStart);
-            
-            this._animations[i].JumpTo(Math.min(Math.max(ratioCurrent, 0), 1));
-
-            if (ratioCurrent >= 0 && ratioCurrent <= 1)
+            for (var i = this._animCount - 1; i >=0 ;--i)
             {
-                this._currentAnim = i;
+                var ratioStart = i > 0 ? this._ratioRemap[i - 1] : 0
+                var ratioEnd = this._ratioRemap[i];
+                var ratioCurrent = (ratio - ratioStart) / (ratioEnd - ratioStart);
+                
+                this._animations[i].JumpTo(Math.min(Math.max(ratioCurrent, 0), 1));
+    
+                if (ratioCurrent >= 0 && ratioCurrent <= 1)
+                {
+                    this._currentAnim = i;
+                }
+            }
+        }
+        else
+        {
+            for (var i = 0; i < this._animCount; ++i)
+            {
+                var ratioStart = i > 0 ? this._ratioRemap[i - 1] : 0
+                var ratioEnd = this._ratioRemap[i];
+                var ratioCurrent = (ratio - ratioStart) / (ratioEnd - ratioStart);
+                
+                this._animations[i].JumpTo(Math.min(Math.max(ratioCurrent, 0), 1));
+
+                if (ratioCurrent >= 0 && ratioCurrent <= 1)
+                {
+                    this._currentAnim = i;
+                }
             }
         }
     }
