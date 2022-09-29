@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 3.1.1
+// Version : 3.1.2
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
 
@@ -48,7 +48,7 @@ function SubSceneListener (_id, _callback, _setupCallback)
 
     //#region public vars
     this.callback = _callback;
-    this.setupCallback = _setupCallback !== undefined ? _setupCallback : _callback;
+    this.setupCallback = _setupCallback !== undefined ? _setupCallback : function(){};
     //#endregion
     
     //#region public functions
