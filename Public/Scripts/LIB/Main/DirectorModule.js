@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 3.2.0
+// Version : 3.2.1
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet
 
@@ -1066,7 +1066,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
 
         if (this._active && this._initialized)
         {
-            this._sceneScript.api.scene.AddSubSceneListener(listener, true);
+            this._sceneScript.api.scene.AddDirectorListener(listener, true);
         }
 
         return listener;
@@ -1098,7 +1098,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     {
         for (var i = 0; i < this._listeners.length; ++i)
         {
-            this._sceneScript.api.scene.AddSubSceneListener(this._listeners[i], _setup);
+            this._sceneScript.api.scene.AddDirectorListener(this._listeners[i], _setup);
         }
     }
     //#endregion
