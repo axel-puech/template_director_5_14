@@ -8,6 +8,10 @@ script.api.subScene.OnLateStart = LateStart
 script.api.subScene.OnStop = Stop
 
 
+// EVENTS
+//var onTappedEvent = script.api.subScene.CreateEvent('TapEvent', OnTap);
+
+
 // FUNCTIONS //
 function Start () {
     
@@ -27,4 +31,8 @@ function Clear (){
 }
 
 function Update (){
+}
+
+function OnTap () {
+    //print('tap')
 }
