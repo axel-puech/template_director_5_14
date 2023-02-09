@@ -2,7 +2,7 @@
 
 global.CreateSubSceneWithAnim = function (_script, _subSceneParent, _animDuration, _animUpdate)
 {
-    var anim = new global.Animation(_animDuration, _animUpdate);
+    var anim = new global.Animation(_subSceneParent, _animDuration, _animUpdate);
     anim.OnStart = function(){_subSceneParent.enabled = true;}
     anim.OnEnd = function(ratio){if (ratio <= 0) _subSceneParent.enabled = false;}
 
@@ -18,7 +18,7 @@ global.CreateSubSceneWithAnim = function (_script, _subSceneParent, _animDuratio
 
 global.CreateSubSceneWithAudio = function (_script, _subSceneParent, _animDuration, _audioComponent, _volumeStart, _loopCount)
 {
-    var anim = new global.Animation(_animDuration, AudioAnim);
+    var anim = new global.Animation(_subSceneParent, _animDuration, AudioAnim);
     anim.OnStart = Start;
     anim.OnEnd = End;
 
