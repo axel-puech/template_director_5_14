@@ -1,0 +1,33 @@
+{
+    "1676987673476904:356": {
+        "IResourceController": {
+            "name": "VideoController",
+            "type": 4,
+            "subtype": 0,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1623935325336765:434634",
+            "fileId": "1676987673476923:377",
+            "publicId": "1676987673476935:398",
+            "expected_hash": "d1507a21614cc60bc4eada6105c97ed8"
+        },
+        "IResourceManager": {
+            "uid": "1623935325336765:434634",
+            "name": "Files/File_1676987673476923_377.js",
+            "flags": 1
+        }
+    },
+    "1676987673476923:377": {
+        "IFileManager": {
+            "path": "Files/File_1676987673476923_377.js"
+        }
+    },
+    "1676987673476935:398": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/LIB/Main/VideoController.js",
+                "hash": "d1507a21614cc60bc4eada6105c97ed8"
+            }
+        }
+    }
+}

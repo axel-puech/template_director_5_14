@@ -1,0 +1,33 @@
+{
+    "1676987673476903:349": {
+        "IResourceController": {
+            "name": "Animation",
+            "type": 4,
+            "subtype": 0,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1614606656188431:149054",
+            "fileId": "1676987673476917:371",
+            "publicId": "1676987673476933:388",
+            "expected_hash": "52402a1bffd563544cf7cdf7b8df47ef"
+        },
+        "IResourceManager": {
+            "uid": "1614606656188431:149054",
+            "name": "Files/File_1676987673476917_371.js",
+            "flags": 1
+        }
+    },
+    "1676987673476917:371": {
+        "IFileManager": {
+            "path": "Files/File_1676987673476917_371.js"
+        }
+    },
+    "1676987673476933:388": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/LIB/Main/Animation.js",
+                "hash": "52402a1bffd563544cf7cdf7b8df47ef"
+            }
+        }
+    }
+}

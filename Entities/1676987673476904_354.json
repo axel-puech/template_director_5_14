@@ -1,0 +1,33 @@
+{
+    "1676987673476904:354": {
+        "IResourceController": {
+            "name": "Hints",
+            "type": 4,
+            "subtype": 0,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1623858509412353:2496013",
+            "fileId": "1676987673476922:376",
+            "publicId": "1676987673476935:397",
+            "expected_hash": "38563276e33ce42900ebf80c32ef13a6"
+        },
+        "IResourceManager": {
+            "uid": "1623858509412353:2496013",
+            "name": "Files/File_1676987673476922_376.js",
+            "flags": 1
+        }
+    },
+    "1676987673476922:376": {
+        "IFileManager": {
+            "path": "Files/File_1676987673476922_376.js"
+        }
+    },
+    "1676987673476935:397": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/Misc/Hints.js",
+                "hash": "38563276e33ce42900ebf80c32ef13a6"
+            }
+        }
+    }
+}

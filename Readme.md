@@ -1,3 +1,3 @@
 Lens Studio Project
 
-Lens Studio Version *TO SET*
+Lens Studio Version 4.40.1

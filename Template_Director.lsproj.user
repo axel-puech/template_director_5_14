@@ -1,0 +1,260 @@
+{
+    "InspectorUiComponent": {
+        "collapsedList": [
+            [
+                "1620039363478451:636130"
+            ]
+        ]
+    },
+    "MapUiComponent": {},
+    "Material::UiComponent": {
+        "active_graph_asset": "-1:-1"
+    },
+    "MetaInfoUIComponent": {},
+    "ObjectTracking3DUIComponent": {
+        "foldedOwnerSceneObjects": []
+    },
+    "PreviewUiComponent": {},
+    "ResourceUiComponent": {
+        "collapsedList": [
+            [
+                [
+                    "Others"
+                ],
+                [
+                    "Others",
+                    "Physics Root World Settings"
+                ],
+                [
+                    "Scripts"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Localization"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Localization",
+                    "LocalizationDatas"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Localization",
+                    "LocalizationModule"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Main"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Main",
+                    "Animation"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Main",
+                    "AudioManager"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Main",
+                    "DirectorModule"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Main",
+                    "Easings"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Main",
+                    "UpdateManager"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Main",
+                    "VideoController"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Others"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Others",
+                    "ParallaxManager"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Others",
+                    "PoolManager"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Others",
+                    "SubSceneCreator"
+                ],
+                [
+                    "Scripts",
+                    "LIB",
+                    "Others",
+                    "TextToTexture"
+                ],
+                [
+                    "Scripts",
+                    "Misc",
+                    "Director"
+                ],
+                [
+                    "Scripts",
+                    "Misc",
+                    "Hints"
+                ],
+                [
+                    "Scripts",
+                    "Misc",
+                    "Scene"
+                ],
+                [
+                    "Scripts",
+                    "Misc",
+                    "SubScene"
+                ],
+                [
+                    "Textures"
+                ],
+                [
+                    "Textures",
+                    "Envmaps"
+                ],
+                [
+                    "Textures",
+                    "Envmaps",
+                    "Echopark"
+                ],
+                [
+                    "Textures",
+                    "Envmaps",
+                    "Echopark",
+                    "Diff"
+                ],
+                [
+                    "Textures",
+                    "Envmaps",
+                    "Echopark",
+                    "Specular"
+                ],
+                [
+                    "Textures",
+                    "RenderTargets"
+                ],
+                [
+                    "Textures",
+                    "RenderTargets",
+                    "BaseRenderTarget"
+                ],
+                [
+                    "Textures",
+                    "RenderTargets",
+                    "Device Camera Texture"
+                ],
+                [
+                    "Textures",
+                    "RenderTargets",
+                    "Render Target Live"
+                ]
+            ]
+        ]
+    },
+    "SceneTreeUiComponent": {
+        "collapsedList": [
+            [
+                "101:100",
+                "1517446348227994:84813",
+                "1614606250700498:95730",
+                "1614606250746057:95796",
+                "1614606895437696:179743",
+                "1620039363478451:636130",
+                "1620116646747682:30522",
+                "1620123745623248:1118501",
+                "1620123745841717:1118617",
+                "1620123745868492:1118743",
+                "1620124229498099:1196164",
+                "1620211184816467:593009",
+                "1621947046731452:967144",
+                "1623763366984572:216109",
+                "1623763632403795:282810",
+                "1623763931382334:338908",
+                "1623764017287164:361513",
+                "1623764501860863:454533",
+                "1623764538475179:493625",
+                "1623770417360882:49288",
+                "1623771017572655:221168",
+                "1623771444246262:439732",
+                "1623771593238045:486043",
+                "1623771607976306:508942",
+                "1623771806149343:575210",
+                "1623772135023539:666824",
+                "1623772173699890:715210",
+                "1623772288484083:766203",
+                "1623772294629042:769964",
+                "1623851754830684:583247",
+                "1623851756112363:583418",
+                "1623851757278195:583581",
+                "1623851758476926:583741",
+                "1623851759510772:583881",
+                "1623851761454593:584133",
+                "1623851763801739:584465",
+                "1623851765487738:584689",
+                "1623860787898190:3021301",
+                "1623860788054942:3021378",
+                "1623860788060996:3021394"
+            ]
+        ],
+        "selectionSetList": {}
+    },
+    "Script::UiComponent": {
+        "active_graph_asset": "-1:-1"
+    },
+    "VFX::UiComponent": {
+        "active_graph_asset": "-1:-1"
+    },
+    "IFileManager": {},
+    "IResourceManager": {},
+    "InspectorComponent": {},
+    "LayerComponent": {},
+    "RemoteApi::ModelManager": {},
+    "RenderOrderComponent": {},
+    "WorldComponent": {},
+    "AssetImportController": {},
+    "DigitalGoodsController": {},
+    "IResourceController": {
+        "sourcePaths": {
+            "1676988501005454:57588": "C:/Users/Fuegan/AppData/Local/Snap/Lens Studio/cache/temp/StudioDsaQvpIAoSSe//system//emergencyFiles/emergencyJs.js"
+        }
+    },
+    "InspectorController": {
+        "selection": {
+            "objects": [
+                "1624895896454814:46032"
+            ]
+        }
+    },
+    "ObjectPrefabController": {},
+    "ObjectTracking3DController": {}
+}

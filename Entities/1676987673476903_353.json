@@ -1,0 +1,33 @@
+{
+    "1676987673476903:353": {
+        "IResourceController": {
+            "name": "Director",
+            "type": 4,
+            "subtype": 0,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1623762238178651:134891",
+            "fileId": "1676987673476921:375",
+            "publicId": "1676987673476935:396",
+            "expected_hash": "63479901e602fe56e82d014019f65330"
+        },
+        "IResourceManager": {
+            "uid": "1623762238178651:134891",
+            "name": "Files/File_1676987673476921_375.js",
+            "flags": 1
+        }
+    },
+    "1676987673476921:375": {
+        "IFileManager": {
+            "path": "Files/File_1676987673476921_375.js"
+        }
+    },
+    "1676987673476935:396": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/Misc/Director.js",
+                "hash": "63479901e602fe56e82d014019f65330"
+            }
+        }
+    }
+}
