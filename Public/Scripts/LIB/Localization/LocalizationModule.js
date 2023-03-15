@@ -164,7 +164,7 @@ function LocalizedFunction (_id)
         this._localizedObjects.push(new LocalizedObject(_parent, _callback));
         if (this._currentData != null)
         {
-            _callback(this._currentTex);
+            _callback(this._currentData);
         }
     }
 
