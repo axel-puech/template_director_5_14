@@ -1,0 +1,22 @@
+{
+    "1679479100589071:12564": {
+        "IResourceController": {
+            "name": "Envmaps",
+            "type": 0,
+            "subtype": -1,
+            "dependency": 0,
+            "hidden": false,
+            "publicId": "1679479100589354:12565",
+            "resources": [
+                "1679479498352770:13727"
+            ]
+        }
+    },
+    "1679479100589354:12565": {
+        "IResourceController": {
+            "public": {
+                "path": "Textures/Envmaps"
+            }
+        }
+    }
+}

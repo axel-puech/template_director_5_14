@@ -9,7 +9,7 @@
             "uid": "1659618201347539:49405",
             "fileId": "1676987673476926:381",
             "publicId": "1676987673476936:403",
-            "expected_hash": "f933b2414eebdb9294d1d8f666b87bf4"
+            "expected_hash": "39b45c5c21a6a04f197d836934f2f630"
         },
         "IResourceManager": {
             "uid": "1659618201347539:49405",
@@ -26,7 +26,7 @@
         "IResourceController": {
             "public": {
                 "path": "Scripts/LIB/Localization/LocalizationModule.js",
-                "hash": "f933b2414eebdb9294d1d8f666b87bf4"
+                "hash": "39b45c5c21a6a04f197d836934f2f630"
             }
         }
     }
