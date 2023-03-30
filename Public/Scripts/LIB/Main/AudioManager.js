@@ -1,9 +1,11 @@
 // Lib Lens Atomic : AudioManager
-// Version : 1.0.0
+// Version : 2.0.0
 // Dependencies : None
 // Authors : Gautier Jacquet
 
 // Doc : https://www.notion.so/atomicdigitaldesign/Audio-Manager-69eb5c159176478a9692a31d3ed56492
+
+//@input SceneObject audioParent
 
 
 global.AudioManager = new AudioManagerClass();
@@ -13,26 +15,35 @@ function AudioManagerClass ()
 {
     //#region private vars
     var _obj = script.getSceneObject();
+    var _audioComps = [];
     var _audioSystems = [];
     //#endregion
 
 
     //#region public functions
-    this.CreateAudioSystem = function (_name, _audioComp, _maxInstance, _audioTracks)
+    this.CreateAudioSystem = function (_name, _maxInstance, _audioTracks)
     {
-        for (var i = 0; i < _audioSystems.length; ++i)
+        var _audioComp = this.GetAudioComp(_name);
+        if (_audioComp !== null)
         {
-            if (_audioSystems[i].GetName() === _name)
+            for (var i = 0; i < _audioSystems.length; ++i)
             {
-                print("Warning : AudioSystem already existing with the name " + _name + " ! Returning it instead of a new one.");
-                return _audioSystems[i];
+                if (_audioSystems[i].GetName() === _name)
+                {
+                    print("Warning : AudioSystem already existing with the name " + _name + " ! Returning it instead of a new one.");
+                    return _audioSystems[i];
+                }
             }
+        
+            var system = new AudioSystem (_obj, _name, _audioComp, _maxInstance, _audioTracks);
+            _audioSystems.push(system);
+        
+            return system;
         }
-    
-        var system = new AudioSystem (_obj, _name, _audioComp, _maxInstance, _audioTracks);
-        _audioSystems.push(system);
-    
-        return system;
+        else
+        {
+            print("Warning : AudioComponent with name " + _name + " was not found !");
+        }
     }
     
     
@@ -81,6 +92,42 @@ function AudioManagerClass ()
         }
     }
     //#endregion
+
+
+    //#region private functions
+    this.GetAudioComp = function (name)
+    {
+        for (var i = 0; i < _audioComps.length; ++i)
+        {
+            if (_audioComps[i].getSceneObject().name === name)
+            {
+                return _audioComps[i];
+            }
+        }
+        
+        return null;
+    }
+
+
+    this.GetAudios = function (parent)
+    {
+        childCount = parent.getChildrenCount();
+        for (var i = 0; i < childCount; ++i)
+        {
+            var obj = parent.getChild(i);
+            var audio = obj.getComponent("Component.AudioComponent");
+            if (audio !== undefined && audio !== null)
+            {
+                _audioComps.push(audio);
+            }
+            this.GetAudios(obj);
+        }
+    }
+    //#endregion
+
+    //#region setup
+    this.GetAudios(script.audioParent);
+    //#endregion
 }
 
 
@@ -119,7 +166,7 @@ function AudioSystem (_obj, _name, _audioComp, _maxInstance, _audioTracks)
         {
             var audio = _this._audioControls[i];
             _this._currentTrack = _this.GetNextTrackIndex(_this._currentTrack);
-            audio.PlayAudio(this._audioTracks[_this._currentTrack], _loops, _parent, _callback);
+            audio.PlayAudio(_this._audioComponentRef, this._audioTracks[_this._currentTrack], _loops, _parent, _callback);
             return audio;
         }
         else
@@ -151,6 +198,13 @@ function AudioSystem (_obj, _name, _audioComp, _maxInstance, _audioTracks)
             _this._audioControls[i].UpdateSettings(_this._audioComponentRef);
         }
     }
+
+
+    this.SetAudioFades = function (_fadeInTime, _fadeOutTime)
+    {
+        _this._audioComponentRef.fadeInTime = _fadeInTime;
+        _this._audioComponentRef.fadeOutTime = _fadeOutTime;
+    }
     //#endregion
 
 
@@ -180,8 +234,7 @@ function AudioSystem (_obj, _name, _audioComp, _maxInstance, _audioTracks)
 
     this.Setup = function ()
     {
-        _this._audioControls.push(new AudioControl(_audioComp));
-        for (var i = 0; i < _this._maxInstance - 1; ++i)
+        for (var i = 0; i < _this._maxInstance; ++i)
         {
             var audio = _obj.copySceneObject(_audioComp.getSceneObject());
             audio.getComponent("Component.AudioComponent").audioTrack = _this._audioComponentRef.audioTrack;
@@ -220,11 +273,12 @@ function AudioControl (_audioComp)
     }
 
 
-    this.PlayAudio = function (_audioTrack, _loops, _parent, _callback)
+    this.PlayAudio = function (_audioCompRef, _audioTrack, _loops, _parent, _callback)
     {
         if (!_this.IsActive())
         {
             _this._audioComp.audioTrack = _audioTrack;
+            _this.UpdateSettings(_audioCompRef);
             _this._audioObj.setParent(_parent !== undefined ? _parent : null);
             _this._audioComp.play(_loops !== undefined ? _loops : 1);
             if (_callback !== undefined)

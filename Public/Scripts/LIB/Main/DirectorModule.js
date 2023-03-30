@@ -1,6 +1,6 @@
 // Lib Lens Atomic : Director Module
-// Version : 3.2.1
-// Dependencies : Update Manager Module
+// Version : 3.3.0
+// Dependencies : Update Manager Module, Audio Manager Module
 // Authors : Gautier Jacquet
 
 // Doc : https://www.notion.so/atomicdigitaldesign/Director-Module-3f898a08c75e4baea1b8a7006400acfe
@@ -410,6 +410,8 @@ global.Scene = function (_script, _subScenesScript)
     this._listeners = [];
     this._activationCount = 0;
     this._sceneDispatchers = [];
+    this._audioSystems = [];
+    this._fadeAudioOnStop = true;
     //#endregion
     
     //#region public events
@@ -765,6 +767,26 @@ global.Scene = function (_script, _subScenesScript)
             this.AddDirectorListener(this._listeners[i], _setup);
         }
     }
+
+    this.CreateAudioSystem = function (_name, _maxInstance, _audioTracks)
+    {
+        var audioSystem = global.AudioManager.CreateAudioSystem(_name, _maxInstance, _audioTracks);
+        if (audioSystem !== null)
+        {
+            this._audioSystems.push(audioSystem);
+            return audioSystem;
+        }
+        else
+        {
+            print("AudioSystem with name " + _name + " was not added to the subScene " + this._name + " !");
+            return null;
+        }
+    }
+
+    this.SetAudioFadeOnStop = function (_fade)
+    {
+        this._fadeAudioOnStop = _fade;
+    }
     //#endregion
 
     //#region private functions
@@ -798,6 +820,8 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
     this._callers = [];
     this._listeners = [];
     this._activationCount = 0;
+    this._audioSystems = [];
+    this._fadeAudioOnStop = true;
     //#endregion
 
     //#region public events
@@ -923,6 +947,11 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
                 {
                     this._events[i].RemoveEvent();
                 }
+            }
+
+            for (var i = 0; i < this._audioSystems.length; ++i)
+            {
+                this._audioSystems[i].StopAudios(this._fadeAudioOnStop);
             }
 
             this._hiding = true;
@@ -1100,6 +1129,26 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         {
             this._sceneScript.api.scene.AddDirectorListener(this._listeners[i], _setup);
         }
+    }
+
+    this.CreateAudioSystem = function (_name, _maxInstance, _audioTracks)
+    {
+        var audioSystem = global.AudioManager.CreateAudioSystem(_name, _maxInstance, _audioTracks);
+        if (audioSystem !== null)
+        {
+            this._audioSystems.push(audioSystem);
+            return audioSystem;
+        }
+        else
+        {
+            print("AudioSystem with name " + _name + " was not added to the subScene " + this._name + " !");
+            return null;
+        }
+    }
+
+    this.SetAudioFadeOnStop = function (_fade)
+    {
+        this._fadeAudioOnStop = _fade;
     }
     //#endregion
 }
