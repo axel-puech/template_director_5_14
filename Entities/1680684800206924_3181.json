@@ -1,0 +1,33 @@
+{
+    "1680684800203322:3180": {
+        "IFileManager": {
+            "path": "Files/File_1680684800203322_3180.js"
+        }
+    },
+    "1680684800206924:3181": {
+        "IResourceController": {
+            "name": "SubSceneCreator",
+            "type": 4,
+            "subtype": 0,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1680684800206937:3182",
+            "fileId": "1680684800203322:3180",
+            "publicId": "1680684800216554:3192",
+            "expected_hash": "19834046d11ae6baac62087691a73105"
+        },
+        "IResourceManager": {
+            "uid": "1680684800206937:3182",
+            "name": "Files/File_1680684800203322_3180.js",
+            "flags": 1
+        }
+    },
+    "1680684800216554:3192": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/LIB/Others/SubSceneCreator.js",
+                "hash": "19834046d11ae6baac62087691a73105"
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "1680684799964694:3027": {
+        "IResourceController": {
+            "name": "Misc",
+            "type": 0,
+            "subtype": -1,
+            "dependency": 0,
+            "hidden": false,
+            "publicId": "1680684799964862:3028",
+            "resources": [
+                "1680684799953476:3012",
+                "1680684799973764:3031",
+                "1680684799989790:3044",
+                "1680684800006598:3059"
+            ]
+        }
+    },
+    "1680684799964862:3028": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/Misc"
+            }
+        }
+    }
+}

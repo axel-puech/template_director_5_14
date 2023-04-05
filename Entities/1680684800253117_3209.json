@@ -1,0 +1,33 @@
+{
+    "1680684800249216:3208": {
+        "IFileManager": {
+            "path": "Files/File_1680684800249216_3208.js"
+        }
+    },
+    "1680684800253117:3209": {
+        "IResourceController": {
+            "name": "TextToTexture",
+            "type": 4,
+            "subtype": 0,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1680684800253141:3210",
+            "fileId": "1680684800249216:3208",
+            "publicId": "1680684800263943:3222",
+            "expected_hash": "e84f91956864a5c8ffda3cba86806657"
+        },
+        "IResourceManager": {
+            "uid": "1680684800253141:3210",
+            "name": "Files/File_1680684800249216_3208.js",
+            "flags": 1
+        }
+    },
+    "1680684800263943:3222": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/LIB/Others/TextToTexture.js",
+                "hash": "e84f91956864a5c8ffda3cba86806657"
+            }
+        }
+    }
+}

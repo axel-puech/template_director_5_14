@@ -1,0 +1,33 @@
+{
+    "1680684800225578:3195": {
+        "IFileManager": {
+            "path": "Files/File_1680684800225578_3195.js"
+        }
+    },
+    "1680684800229122:3196": {
+        "IResourceController": {
+            "name": "PoolManager",
+            "type": 4,
+            "subtype": 0,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1680684800229133:3197",
+            "fileId": "1680684800225578:3195",
+            "publicId": "1680684800239604:3207",
+            "expected_hash": "1151d6ee1ac0de4c244bc90acbc3bbce"
+        },
+        "IResourceManager": {
+            "uid": "1680684800229133:3197",
+            "name": "Files/File_1680684800225578_3195.js",
+            "flags": 1
+        }
+    },
+    "1680684800239604:3207": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/LIB/Others/PoolManager.js",
+                "hash": "1151d6ee1ac0de4c244bc90acbc3bbce"
+            }
+        }
+    }
+}

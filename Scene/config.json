@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "core_version": 195,
+    "core_version": 201,
     "lifecycleMode": {
         "value": 0,
         "description": "legacy"
@@ -22,7 +22,7 @@
         "description": "ByCameraOrder"
     },
     "renderOutput": "1:1",
-    "previewOutput": "1623859942570618:2822158",
+    "previewOutput": "1680684800318150:3254",
     "overlayOutput": "-1:-1",
     "logstreamingsystem": {
         "mobileStudioLogStreamingExperienceId": ""

@@ -1,0 +1,25 @@
+{
+    "1680684800193526:3177": {
+        "IResourceController": {
+            "name": "Others",
+            "type": 0,
+            "subtype": -1,
+            "dependency": 0,
+            "hidden": false,
+            "publicId": "1680684800193749:3178",
+            "resources": [
+                "1680684800182852:3164",
+                "1680684800206924:3181",
+                "1680684800229122:3196",
+                "1680684800253117:3209"
+            ]
+        }
+    },
+    "1680684800193749:3178": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/LIB/Others"
+            }
+        }
+    }
+}

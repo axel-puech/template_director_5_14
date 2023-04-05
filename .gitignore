@@ -2,4 +2,4 @@
 .vscode/
 Support/
 jsconfig.json
-*lsproj.user
+*.lsproj.user

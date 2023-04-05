@@ -1,7 +1,7 @@
 {
     "lens_id": "",
-    "document_id": "h77w4ikrf-7JdSS117-S",
-    "original_document_id": "wehy7duROn0crBtoDDvq",
+    "document_id": "p9x4wbrULaY-zY0V6IUK",
+    "original_document_id": "p9x4wbrULaY-zY0V6IUK",
     "version": "31",
     "preview": "icon.png",
     "videoPreview": "preview.mp4",
@@ -13,16 +13,16 @@
     "studioVersion": {
         "createdWith": {
             "type": "Public",
-            "major": "3",
-            "minor": "3",
-            "patch": "3",
+            "major": "4",
+            "minor": "43",
+            "patch": "0",
             "build": "0"
         },
         "lastSavedWith": {
             "type": "Public",
             "major": "4",
-            "minor": "40",
-            "patch": "1",
+            "minor": "43",
+            "patch": "0",
             "build": "0"
         }
     },
@@ -33,15 +33,12 @@
         },
         "Material::UiComponent": "",
         "MetaInfoUIComponent": {
-            "icon_hash": "56814dbefc6c60009fe6066406087653",
-            "icon_path": "icon.png",
-            "hints": [
-                ""
-            ],
-            "lens": "Template Director",
+            "hints": "",
+            "lens": "Untitled",
             "applicability": "3",
             "lens_descriptors": "",
             "sg": "false",
+            "git_friendly": "true",
             "Spectacles2021UseAllowed": "false"
         },
         "ObjectTracking3DUIComponent": "",
@@ -59,15 +56,15 @@
                 "front_preview_is_favorite": "false"
             },
             "preview_videos_project_config": {
-                "back_preview_id": "bundle:Preview\/Videos\/Sky.webm",
+                "back_preview_id": "bundle:Preview\/Videos\/Beach.webm",
                 "back_preview_is_favorite": "false",
                 "front_preview_id": "bundle:Preview\/Videos\/Idle Person 1.webm",
                 "front_preview_is_favorite": "false"
             },
             "preview_ie_project_config": {
-                "back_preview_id": "bundle:Preview\/InteractiveEnvironments\/Home",
+                "back_preview_id": "bundle:Preview\/InteractiveEnvironments\/Colorful Home",
                 "back_preview_is_favorite": "false",
-                "front_preview_id": "bundle:Preview\/InteractiveEnvironments\/Home",
+                "front_preview_id": "bundle:Preview\/InteractiveEnvironments\/Colorful Home",
                 "front_preview_is_favorite": "false"
             }
         },
@@ -85,7 +82,7 @@
         },
         "InspectorComponent": "",
         "LayerComponent": {
-            "nextLayerId": "12",
+            "nextLayerId": "3",
             "showOrthographicLayer": "true",
             "layersInfo": [
                 {
@@ -133,35 +130,12 @@
             "state": {
                 "objectToInfo": ""
             },
-            "importInfo": [
-                {
-                    "k": "1620037384894124:309153",
-                    "v": [
-                        {
-                            "k": "",
-                            "v": "1620376176875325:110833"
-                        },
-                        {
-                            "k": [
-                                "Sphere"
-                            ],
-                            "v": "1620376176883775:110839"
-                        },
-                        {
-                            "k": [
-                                "Sphere",
-                                "Component.RenderMeshVisual"
-                            ],
-                            "v": "1620376176884466:110841"
-                        }
-                    ]
-                }
-            ]
+            "importInfo": ""
         },
         "ObjectTracking3DController": {
             "hand_tracking_mode": "0"
         }
     },
-    "templateName": "",
-    "templateUrl": ""
+    "templateName": "Empty Project",
+    "templateUrl": "Lens Studio version 4.43.0"
 }

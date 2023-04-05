@@ -1,0 +1,20 @@
+{
+    "1680684800318153:3255": {
+        "IResourceController": {
+            "name": "Render Target Live",
+            "type": 1,
+            "subtype": 1,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1680684800318150:3254",
+            "additional": {
+                "RenderTargetRole": "0"
+            }
+        },
+        "IResourceManager": {
+            "uid": "1680684800318150:3254",
+            "name": "Render Target",
+            "flags": 0
+        }
+    }
+}

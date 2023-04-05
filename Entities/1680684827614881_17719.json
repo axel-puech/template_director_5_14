@@ -1,0 +1,22 @@
+{
+    "1680684827614881:17719": {
+        "IResourceController": {
+            "name": "Others",
+            "type": 0,
+            "subtype": -1,
+            "dependency": 0,
+            "hidden": false,
+            "publicId": "1680684827615101:17720",
+            "resources": [
+                "1671640852722112:121"
+            ]
+        }
+    },
+    "1680684827615101:17720": {
+        "IResourceController": {
+            "public": {
+                "path": "Others"
+            }
+        }
+    }
+}
