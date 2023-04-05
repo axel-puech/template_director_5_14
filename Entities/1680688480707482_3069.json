@@ -1,0 +1,33 @@
+{
+    "1680688480703196:3068": {
+        "IFileManager": {
+            "path": "Files/File_1680688480703196_3068.js"
+        }
+    },
+    "1680688480707482:3069": {
+        "IResourceController": {
+            "name": "ParallaxManager",
+            "type": 4,
+            "subtype": 0,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1680688480707496:3070",
+            "fileId": "1680688480703196:3068",
+            "publicId": "1680688480717831:3082",
+            "expected_hash": "b659e95af3a3b3852bae354ca4f9d3a0"
+        },
+        "IResourceManager": {
+            "uid": "1680688480707496:3070",
+            "name": "Files/File_1680688480703196_3068.js",
+            "flags": 1
+        }
+    },
+    "1680688480717831:3082": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/LIB/Others/ParallaxManager.js",
+                "hash": "b659e95af3a3b3852bae354ca4f9d3a0"
+            }
+        }
+    }
+}

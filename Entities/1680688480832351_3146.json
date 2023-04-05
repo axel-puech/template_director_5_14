@@ -1,0 +1,33 @@
+{
+    "1680688480828654:3143": {
+        "IFileManager": {
+            "path": "Files/File_1680688480828654_3143.js"
+        }
+    },
+    "1680688480832351:3146": {
+        "IResourceController": {
+            "name": "LocalizationDatas",
+            "type": 4,
+            "subtype": 0,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1680688480832362:3147",
+            "fileId": "1680688480828654:3143",
+            "publicId": "1680688480841342:3157",
+            "expected_hash": "5aa2b284813b86efb9adc7127ad49b37"
+        },
+        "IResourceManager": {
+            "uid": "1680688480832362:3147",
+            "name": "Files/File_1680688480828654_3143.js",
+            "flags": 1
+        }
+    },
+    "1680688480841342:3157": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/LIB/Localization/LocalizationDatas.js",
+                "hash": "5aa2b284813b86efb9adc7127ad49b37"
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "1680688480562394:2988": {
+        "IResourceController": {
+            "name": "LIB",
+            "type": 0,
+            "subtype": -1,
+            "dependency": 0,
+            "hidden": false,
+            "publicId": "1680688480562647:2989",
+            "resources": [
+                "1680688480563610:2990",
+                "1680688480716101:3080",
+                "1680688480816506:3140"
+            ]
+        }
+    },
+    "1680688480562647:2989": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/LIB"
+            }
+        }
+    }
+}
