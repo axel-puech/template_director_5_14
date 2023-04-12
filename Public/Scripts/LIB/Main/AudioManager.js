@@ -1,5 +1,5 @@
 // Lib Lens Atomic : AudioManager
-// Version : 2.0.0
+// Version : 2.0.1
 // Dependencies : None
 // Authors : Gautier Jacquet
 
@@ -111,7 +111,7 @@ function AudioManagerClass ()
 
     this.GetAudios = function (parent)
     {
-        childCount = parent.getChildrenCount();
+        var childCount = parent.getChildrenCount();
         for (var i = 0; i < childCount; ++i)
         {
             var obj = parent.getChild(i);
