@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Director Module
-// Version : 3.3.0
+// Version : 3.3.1
 // Dependencies : Update Manager Module, Audio Manager Module
 // Authors : Gautier Jacquet
 
@@ -237,7 +237,7 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
         return this._scenesAll[sceneName];
     }
 
-    //TODO add delay
+
     this.GoToScene = function (name, instantShow, instantHide, forceRestart)
     {
         if (instantHide)
@@ -872,6 +872,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         this._activationCount++;
         if (!this._active)
         {
+            this._active = true;
             this._hiding = false;
             if (this.OnStart !== null && this.OnStart !== undefined)
             {
@@ -924,8 +925,6 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         {
             this.OnLateStart();
         }
-
-        this._active = true;
     }
 
     this.Stop = function (hideInstant)

@@ -14,7 +14,7 @@
             "uid": "1680688480682588:3055",
             "fileId": "1680688480678267:3053",
             "publicId": "1680688480694909:3065",
-            "expected_hash": "e6c711b6c4a693eae85eb0ecfb8e5808"
+            "expected_hash": "e4e4396ab080295aec53c5a503a3d8cb"
         },
         "IResourceManager": {
             "uid": "1680688480682588:3055",
@@ -26,7 +26,7 @@
         "IResourceController": {
             "public": {
                 "path": "Scripts/LIB/Main/AudioManager.js",
-                "hash": "e6c711b6c4a693eae85eb0ecfb8e5808"
+                "hash": "e4e4396ab080295aec53c5a503a3d8cb"
             }
         }
     }

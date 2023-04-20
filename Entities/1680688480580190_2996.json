@@ -14,7 +14,7 @@
             "uid": "1680688480580205:2997",
             "fileId": "1680688480575572:2995",
             "publicId": "1680688480596681:3007",
-            "expected_hash": "49f4ecb5b4b0a04644bc9596a9fc9f6e"
+            "expected_hash": "d1b06cbd8b245caa5e4fe67ab671f78d"
         },
         "IResourceManager": {
             "uid": "1680688480580205:2997",
@@ -26,7 +26,7 @@
         "IResourceController": {
             "public": {
                 "path": "Scripts/LIB/Main/DirectorModule.js",
-                "hash": "49f4ecb5b4b0a04644bc9596a9fc9f6e"
+                "hash": "d1b06cbd8b245caa5e4fe67ab671f78d"
             }
         }
     }
