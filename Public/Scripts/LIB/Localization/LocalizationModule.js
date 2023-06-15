@@ -274,7 +274,7 @@ function LocalizationClass (_parent, _localizedTexts, _localizedTextures, _local
                     langDatas = this._languageDatas[i];
                     break;
                 }
-                else if (this._languageDatas[i].GetId().length < langDatas.GetId().length
+                else if (this._languageDatas[i].GetId().length <= langDatas.GetId().length
                         && this._languageDatas[i].GetId().startsWith(_langShort))
                 {
                     langDatas = this._languageDatas[i];
