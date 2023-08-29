@@ -1,25 +1,28 @@
 // Lib Lens Atomic : Director Module
-// Version : 3.3.1
+// Version : 3.4.0
 // Dependencies : Update Manager Module, Audio Manager Module
 // Authors : Gautier Jacquet
 
 // Doc : https://www.notion.so/atomicdigitaldesign/Director-Module-3f898a08c75e4baea1b8a7006400acfe
 
 
-function DirectorEvent (_script, _type, _callback)
+class DirectorEvent 
 {
-    //#region private vars
-    this._script = _script;
-    this._type = _type;
-    //#endregion
+    constructor (_script, _type, _callback)
+    {
+        //#region private vars
+        this._script = _script;
+        this._type = _type;
+        this.callback = _callback;
+        //#endregion
 
-    //#region public vars
-    this.event = null;
-    this.callback = _callback;
-    //#endregion
+        //#region public vars
+        this.event = null;
+        //#endregion
+    }
 
     //#region public functions
-    this.AddEvent = function ()
+    AddEvent ()
     {
         if (this.event === null)
         {
@@ -28,7 +31,7 @@ function DirectorEvent (_script, _type, _callback)
         }
     }
 
-    this.RemoveEvent = function ()
+    RemoveEvent ()
     {
         if (this.event !== null)
         {
@@ -40,33 +43,42 @@ function DirectorEvent (_script, _type, _callback)
 }
 
 
-function DirectorListener (_id, _callback, _setupCallback)
+class DirectorListener 
 {
-    //#region private vars
-    this._id = _id;
-    //#endregion
-
-    //#region public vars
-    this.callback = _callback;
-    this.setupCallback = _setupCallback !== undefined ? _setupCallback : function(){};
-    //#endregion
+    constructor (_id, _callback, _setupCallback)
+    {
+        //#region private vars
+        this._id = _id;
+        //#endregion
+    
+        //#region public vars
+        this.callback = _callback;
+        this.setupCallback = _setupCallback !== undefined ? _setupCallback : () => {};
+        //#endregion
+    }
     
     //#region public functions
-    this.GetId = function () {return this._id;};
+    GetId ()
+    {
+        return this._id;
+    }
     //#endregion
 }
 
 
-function DirectorCaller (_id, _defaultParams)
+class DirectorCaller
 {
-    //#region private vars
-    this._id = _id;
-    this._dispatcher = null;
-    this._params = _defaultParams;
-    //#endregion
+    constructor (_id, _defaultParams)
+    {
+        //#region private vars
+        this._id = _id;
+        this._dispatcher = null;
+        this._params = _defaultParams;
+        //#endregion
+    }
 
     //#region public functions
-    this.Call = function (params)
+    Call (params)
     {
         if (this._dispatcher !== null)
         {
@@ -75,7 +87,7 @@ function DirectorCaller (_id, _defaultParams)
         this._params = params;
     }
 
-    this.Setup = function ()
+    Setup ()
     {
         if (this._dispatcher !== null)
         {
@@ -83,10 +95,17 @@ function DirectorCaller (_id, _defaultParams)
         }
     }
 
-    this.GetId = function () {return this._id;};
-    this.GetParams = function () {return this._params;};
+    GetId ()
+    {
+        return this._id;
+    }
+    
+    GetParams ()
+    {
+        return this._params;
+    }
 
-    this.SetDispatcher = function (_dispatcher)
+    SetDispatcher (_dispatcher)
     {
         this._dispatcher = _dispatcher;
     }
@@ -94,23 +113,38 @@ function DirectorCaller (_id, _defaultParams)
 }
 
 
-function SceneCallDispatcher (_caller)
+class SceneCallDispatcher 
 {
-    //#region private var
-    var _this = this;
-    this._callers = [_caller];
-    this._id = _caller.GetId();
-    this._listeners = [];
-    this._params = _caller.GetParams();
-    //#endregion
+    constructor (_caller)
+    {
+        //#region private var
+        this._callers = [_caller];
+        this._id = _caller.GetId();
+        this._listeners = [];
+        this._params = _caller.GetParams();
+        //#endregion
+
+        for (let i = 0; i < this._callers.length; ++i)
+        {
+            this._callers[i].SetDispatcher(this);
+        }
+    }
 
     //#region public functions
-    this.GetId = function () {return this._id;};
-    this.GetParams = function () {return this._params;};
-
-    this.Call = function (params)
+    GetId ()
     {
-        for (var i = 0; i < this._listeners.length; ++i)
+        return this._id;
+    }
+
+
+    GetParams ()
+    {
+        return this._params;
+    }
+
+    Call (params)
+    {
+        for (let i = 0; i < this._listeners.length; ++i)
         {
             this._listeners[i].callback(params,this._params);
         }
@@ -118,9 +152,9 @@ function SceneCallDispatcher (_caller)
         this._params = params;
     }
 
-    this.Setup = function (params)
+    Setup (params)
     {
-        for (var i = 0; i < this._listeners.length; ++i)
+        for (let i = 0; i < this._listeners.length; ++i)
         {
             if (this._listeners[i].setupCallback !== null)
             {
@@ -129,20 +163,20 @@ function SceneCallDispatcher (_caller)
         }
     }
 
-    this.AddCaller = function (_caller)
+    AddCaller (_caller)
     {
-        var i = this._callers.indexOf(_caller);
+        const i = this._callers.indexOf(_caller);
         if (i === -1)
         {
             this._callers.push(_caller);
             this._params = _caller.GetParams();
-            _caller.SetDispatcher(_this);
+            _caller.SetDispatcher(this);
         }
     }
 
-    this.AddListener = function (_listener, _setup)
+    AddListener (_listener, _setup)
     {
-        var i = this._listeners.indexOf(_listener);
+        const i = this._listeners.indexOf(_listener);
         if (i === -1)
         {
             this._listeners.push(_listener);
@@ -153,9 +187,9 @@ function SceneCallDispatcher (_caller)
         }
     }
 
-    this.RemoveCaller = function (_caller)
+    RemoveCaller (_caller)
     {
-        var i = this._callers.indexOf(_caller);
+        const i = this._callers.indexOf(_caller);
         if (i >= 0)
         {
             this._callers.splice(i, 1);
@@ -163,88 +197,97 @@ function SceneCallDispatcher (_caller)
         return this._callers.length;
     }
 
-    this.RemoveListener = function (_listener)
+    RemoveListener (_listener)
     {
-        var i = this._listeners.indexOf(_listener)
+        const i = this._listeners.indexOf(_listener);
         if (i >= 0)
         {
             this._listeners.splice(i, 1);
         }
     }
 
-    this.Destroy = function ()
+    Destroy ()
     {
-        for (var i = 0; i < this._callers.length; ++i)
+        for (let i = 0; i < this._callers.length; ++i)
         {
             this._callers[i].SetDispatcher(null);
         }
     }
     //#endregion
-
-    for (var i = 0; i < this._callers.length; ++i)
-    {
-        this._callers[i].SetDispatcher(_this);
-    }
 }
 
 
-global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEndFunction)
+global.Director = class
 {
-    //#region private vars
-    var _this = this;
-    this._sceneNames = [];
-    this._scenesAll = [];
-    this._scenesCommonNames = [];
-    this._scenesFrontNames = [];
-    this._scenesBackNames = [];
-    this._activeScene = null;
-    this._script = _script;
-    this._sceneObj = this._script.getSceneObject();
-    this._useFrontBack = _useFrontBack;
-    this._frontParent = null;
-    this._backParent = null;
-    this._commonParent = null;
-
-    this._subSceneParent = _subSceneParent;
-    this._subScenes = [];
- 
-    this._camBackEvent = this._script.createEvent("CameraBackEvent");
-    this._camFrontEvent = this._script.createEvent("CameraFrontEvent");
-
-    this._camBackEvent.bind(function(){_this.OnCamBack();});
-    this._camFrontEvent.bind(function(){_this.OnCamFront();});
-    //#endregion
-
-    //#region public events
-    this.OnSceneEnded = _onSceneEndFunction;
-    this.OnCamFront = function (){};
-    this.OnCamBack = function (){};
-    //#endregion
-
-    //#region private events
-    if (this._useFrontBack)
+    constructor (_script, _subSceneParent, _useFrontBack, _onSceneEndFunction)
     {
-        this.OnCamFront = function(){this.GoToScene(this._scenesFrontNames[0], true, true);};
-        this.OnCamBack = function(){this.GoToScene(this._scenesBackNames[0], true, true);};
+        //#region private vars
+        this._sceneNames = [];
+        this._scenesAll = [];
+        this._scenesCommonNames = [];
+        this._scenesFrontNames = [];
+        this._scenesBackNames = [];
+        this._activeScene = null;
+        this._script = _script;
+        this._sceneObj = this._script.getSceneObject();
+        this._useFrontBack = _useFrontBack;
+        this._frontParent = null;
+        this._backParent = null;
+        this._commonParent = null;
+
+        this._subSceneParent = _subSceneParent;
+        this._subScenes = [];
+
+        this._camBackEvent = this._script.createEvent("CameraBackEvent");
+        this._camFrontEvent = this._script.createEvent("CameraFrontEvent");
+
+        this._camBackEvent.bind(() => {this.OnCamBack();});
+        this._camFrontEvent.bind(() => {this.OnCamFront();});
+        //#endregion
+
+        //#region public events
+        this.OnSceneEnded = _onSceneEndFunction;
+        this.OnCamFront = () => {};
+        this.OnCamBack = () => {};
+        //#endregion
+
+        //#region private events
+        if (this._useFrontBack)
+        {
+            this.OnCamFront = function(){this.GoToScene(this._scenesFrontNames[0], true, true);};
+            this.OnCamBack = function(){this.GoToScene(this._scenesBackNames[0], true, true);};
+        }
+        //#endregion
+
+        
+        this.Setup();
+        this.HideAllInstant();
+
+        if (!this._useFrontBack)
+        {
+            this.GoToScene(this._scenesCommonNames[0], true);
+        }
     }
-    //#endregion
 
     //#region public functions
-    this.GetActiveScene = function(){return this._scenesAll[this._activeScene];};
+    GetActiveScene ()
+    {
+        return this._scenesAll[this._activeScene];
+    }
 
-    this.GetScene = function (sceneName)
+    GetScene (sceneName)
     {
         return this._scenesAll[sceneName];
     }
 
 
-    this.GoToScene = function (name, instantShow, instantHide, forceRestart)
+    GoToScene (name, instantShow, instantHide, forceRestart)
     {
         if (instantHide)
         {
-            for (var i = 0; i < this._subScenes.length; ++i)
+            for (let i = 0; i < this._subScenes.length; ++i)
             {
-                var sub = this._subScenes[i];
+                const sub = this._subScenes[i];
                 if (sub.IsVisible() && sub.IsHiding())
                 {
                     sub.HideInstant();
@@ -252,8 +295,8 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
             }
         }
 
-        var subScenesOld = undefined;
-        var subScenesNew = this._scenesAll[name].GetSubScenes();
+        let subScenesOld = undefined;
+        const subScenesNew = this._scenesAll[name].GetSubScenes();
         if(this._activeScene !== null)
         {
             subScenesOld = this._scenesAll[this._activeScene].GetSubScenes();
@@ -266,7 +309,7 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
 
 
     //#region private functions
-    this.HideAllInstant = function ()
+    HideAllInstant ()
     {
         for (var i = 0; i < this._sceneNames.length; ++i)
         {
@@ -277,15 +320,14 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
         {
             if (this._subScenes[i].IsActive())
             {
-                print("Warning : La sous scène " + this._subScenes[i].GetName() + " n'est présente dans aucune scène !");
+                print(`Warning : La sous scène ${this._subScenes[i].GetName()} n'est présente dans aucune scène !`);
                 this._subScenes[i].Stop();
             }
         }
     }
 
 
-    this.AddScene = function (sceneName, sceneScript, isCommon, isFront)
-    {
+    AddScene (sceneName, sceneScript, isCommon, isFront) {
         this._scenesAll[sceneName] = sceneScript.api.scene;
         this._sceneNames.push(sceneName);
         if (isCommon)
@@ -304,12 +346,12 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
     }
 
 
-    this.GetParents = function ()
+    GetParents ()
     {
-        var childCount = this._sceneObj.getChildrenCount();
-        for (var i = 0; i < childCount; ++i)
+        const childCount = this._sceneObj.getChildrenCount();
+        for (let i = 0; i < childCount; ++i)
         {
-            var obj = this._sceneObj.getChild(i);
+            const obj = this._sceneObj.getChild(i);
             if (obj.name.toUpperCase() == "FRONT")
             {
                 this._frontParent = obj;
@@ -325,10 +367,10 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
         }
     }
 
-    this.Setup = function ()
+    Setup ()
     {
         this.GetParents();
-        var childCount = 0;
+        let childCount = 0;
         if (this._useFrontBack)
         {
             if (this._frontParent !== null)
@@ -364,78 +406,79 @@ global.Director = function (_script, _subSceneParent, _useFrontBack, _onSceneEnd
         this.GetSubScenes(this._subSceneParent);
     }
 
-    this.GetSubScenes = function (parent)
+    GetSubScenes (parent)
     {
-        childCount = parent.getChildrenCount();
-        for (var i = 0; i < childCount; ++i)
+        const childCount = parent.getChildrenCount();
+        for (let i = 0; i < childCount; ++i)
         {
-            var obj = parent.getChild(i);
-            var script = obj.getComponent("Component.ScriptComponent");
+            const obj = parent.getChild(i);
+            const script = obj.getComponent("Component.ScriptComponent");
             if (script !== undefined && script !== null)
             {
-                var subScene = script.api.subScene;
+                const subScene = script.api.subScene;
                 if (subScene !== undefined && subScene !== null)
                 {
-                    _this._subScenes.push(subScene);
+                    this._subScenes.push(subScene);
                 }
             }
-            _this.GetSubScenes(obj);
+            this.GetSubScenes(obj);
         }
     }
     //#endregion
-    this.Setup();
-    this.HideAllInstant();
-
-    if (!this._useFrontBack)
-    {
-        this.GoToScene(this._scenesCommonNames[0], true);
-    }
 }
 
 
-global.Scene = function (_script, _subScenesScript)
+global.Scene = class
 {
-    //#region private vars
-    var _this = this;
-    this._director = null;
-    this._script = _script;
-    this._name = this._script.getSceneObject().name;
-    this._subScenes = [];
-    this._active = true;
-    this._initialized = false;
-    this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, function(){_this._Update()});;
-    this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, function(){_this._LateUpdate()});
-    this._events = [];
-    this._callers = [];
-    this._listeners = [];
-    this._activationCount = 0;
-    this._sceneDispatchers = [];
-    this._audioSystems = [];
-    this._fadeAudioOnStop = true;
-    //#endregion
-    
-    //#region public events
-    this.OnStart = function(){};
-    this.OnLateStart = function(){};
-    this.OnStop = function(){};
-    this.OnLateStop = function(){};
-    //#endregion
+    constructor (_script, _subScenesScript)
+    {
+        //#region private vars
+        this._director = null;
+        this._script = _script;
+        this._name = this._script.getSceneObject().name;
+        this._subScenes = [];
+        this._active = true;
+        this._initialized = false;
+        this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, () => {this._Update()});;
+        this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, () => {this._LateUpdate()});
+        this._events = [];
+        this._callers = [];
+        this._listeners = [];
+        this._activationCount = 0;
+        this._sceneDispatchers = [];
+        this._audioSystems = [];
+        this._fadeAudioOnStop = true;
+        //#endregion
 
-    //#region private events
-    this._Update = null;
-    this._LateUpdate = null;
-    //#endregion
+        //#region public events
+        this.OnStart = () => {};
+        this.OnLateStart = () => {};
+        this.OnStop = () => {};
+        this.OnLateStop = () => {};
+        //#endregion
+
+        //#region private events
+        this._Update = null;
+        this._LateUpdate = null;
+        //#endregion
+        
+        for (let i = 0; i < _subScenesScript.length; ++i)
+        {
+            this._subScenes.push(_subScenesScript[i].api.subScene);
+        }
+    }
+    
 
     //#region public functions
-    this.IsActive = function(){return this._active;};
-    this.IsInitialized = function(){return this._initialized;};
-    this.GetName = function(){return this._name;};
-    this.GetSubScenes = function(){return this._subScenes;};
-    this.SetDirector = function(director){this._director = director;};
-    this.GetDirector = function(){return this._director};
-    this.GetActivationCount = function(){return this._activationCount;};
+    IsActive (){return this._active;};
+    IsInitialized (){return this._initialized;};
+    GetName (){return this._name;};
+    GetSubScenes (){return this._subScenes;};
+    SetDirector (director){this._director = director;};
+    GetDirector (){return this._director};
+    GetActivationCount (){return this._activationCount;};
 
-    this.Start = function (showInstant, oldScenes, forceRestart)
+    Start (showInstant, oldScenes, forceRestart)
     {
         this._initialized = true;
         this._active = true;
@@ -446,7 +489,7 @@ global.Scene = function (_script, _subScenesScript)
         for (var i = 0; i < this._subScenes.length; ++i)
         {
             this._subScenes[i].SetSceneScript(this._script);
-            if (forceRestart || oldScenes === undefined || oldScenes.indexOf(this._subScenes[i]) === -1)
+            if (forceRestart || oldScenes === undefined || !oldScenes.includes(this._subScenes[i]))
             {
                 this._subScenes[i].Start(showInstant);
             }
@@ -458,7 +501,7 @@ global.Scene = function (_script, _subScenesScript)
 
         for (var i = 0; i < this._subScenes.length; ++i)
         {
-            var setup = forceRestart || oldScenes === undefined || oldScenes.indexOf(this._subScenes[i]) === -1;
+            const setup = forceRestart || oldScenes === undefined || !oldScenes.includes(this._subScenes[i]);
             this._subScenes[i].SetListeners(setup);
         }
 
@@ -480,7 +523,7 @@ global.Scene = function (_script, _subScenesScript)
 
         for (var i = 0; i < this._subScenes.length; ++i)
         {
-            if (forceRestart || oldScenes === undefined || oldScenes.indexOf(this._subScenes[i]) === -1)
+            if (forceRestart || oldScenes === undefined || !oldScenes.includes(this._subScenes[i]))
             {
                 this._subScenes[i].LateStart();
             }
@@ -488,7 +531,7 @@ global.Scene = function (_script, _subScenesScript)
         }
     }
 
-    this.Stop = function (hideInstant, newScenes, forceRestart)
+    Stop (hideInstant, newScenes, forceRestart)
     {
         if (this._initialized)
         {
@@ -518,7 +561,7 @@ global.Scene = function (_script, _subScenesScript)
         
         for (var i = 0; i < this._subScenes.length; ++i)
         {
-            if (forceRestart || newScenes === undefined || newScenes.indexOf(this._subScenes[i]) === -1)
+            if (forceRestart || newScenes === undefined || !newScenes.includes(this._subScenes[i]))
             {
                 this._subScenes[i].Stop(hideInstant);
             }
@@ -527,12 +570,12 @@ global.Scene = function (_script, _subScenesScript)
         this.OnLateStop();
     }
 
-    this.SceneEnded = function (params)
+    SceneEnded (params)
     {
         this._director.OnSceneEnded(this._name, params);
     }
 
-    this.SetUpdate = function (_function)
+    SetUpdate (_function)
     {
         this._Update = _function;
         if (_function && this._active && this._initialized && !this._update.IsAdded())
@@ -545,7 +588,7 @@ global.Scene = function (_script, _subScenesScript)
         }
     }
 
-    this.SetLateUpdate = function (_function)
+    SetLateUpdate (_function)
     {
         this._LateUpdate = _function;
         if (_function && this._active && this._initialized && !this._lateUpdate.IsAdded())
@@ -558,58 +601,58 @@ global.Scene = function (_script, _subScenesScript)
         }
     }
 
-    this.ChangeUpdateOrder = function (_order)
+    ChangeUpdateOrder (_order)
     {
         this._update.ChangeOrder(_order);
     }
 
-    this.ChangeLateUpdateOrder = function (_order)
+    ChangeLateUpdateOrder (_order)
     {
         this._lateUpdate.ChangeOrder(_order);
     }
 
-    this.SetEnableUpdate = function (_enabled)
+    SetEnableUpdate (_enabled)
     {
         this._update.enabled = _enabled;
     }
 
-    this.SetEnableLateUpdate = function (_enabled)
+    SetEnableLateUpdate (_enabled)
     {
         this._lateUpdate.enabled = _enabled;
     }
 
-    this.CreateEvent = function (_type, _callback)
+    CreateEvent (_type, _callback)
     {
-        var event = new DirectorEvent(_this._script, _type, _callback);
+        const event = new DirectorEvent(this._script, _type, _callback);
 
-        if (_this._active && _this._initialized)
+        if (this._active && this._initialized)
         {
             event.AddEvent();
         }
 
-        _this._events.push(event);
+        this._events.push(event);
 
         return event;
     }
 
-    this.DeleteEvent = function (_event)
+    DeleteEvent (_event)
     {
-        if (_this._active && _this._initialized)
+        if (this._active && this._initialized)
         {
             _event.RemoveEvent();
         }
 
-        var i = _this._events.indexOf(_event);
+        const i = this._events.indexOf(_event);
         if (i >= 0)
         {
-            _this._events.splice(i, 1);
+            this._events.splice(i, 1);
         }
     }
 
-    this.AddCallerToDispatcher = function (_caller)
+    AddCallerToDispatcher (_caller)
     {
-        var dispatcher = null;
-        for (var i = 0; i < this._sceneDispatchers.length; ++i)
+        let dispatcher = null;
+        for (let i = 0; i < this._sceneDispatchers.length; ++i)
         {
             if (this._sceneDispatchers[i].GetId() === _caller.GetId())
             {
@@ -621,7 +664,7 @@ global.Scene = function (_script, _subScenesScript)
         if (dispatcher === null)
         {
             dispatcher = new SceneCallDispatcher(_caller);
-            _this._sceneDispatchers.push(dispatcher);
+            this._sceneDispatchers.push(dispatcher);
         }
         else
         {
@@ -629,9 +672,9 @@ global.Scene = function (_script, _subScenesScript)
         }
     }
 
-    this.RemoveCallerFromDispatcher = function (_caller)
+    RemoveCallerFromDispatcher (_caller)
     {
-        var id = -1;
+        let id = -1;
         for (var i = 0; i < this._sceneDispatchers.length; ++i)
         {
             if (this._sceneDispatchers[i].GetId() === _caller.GetId())
@@ -643,21 +686,21 @@ global.Scene = function (_script, _subScenesScript)
         
         if (id >= 0)
         {
-            if (_this._sceneDispatchers[i].RemoveCaller(_caller) <= 0) // Retourne la taille du tableau des callers restant, on supprime le dispatcher si la liste est vide.
+            if (this._sceneDispatchers[i].RemoveCaller(_caller) <= 0) // Retourne la taille du tableau des callers restant, on supprime le dispatcher si la liste est vide.
             {
-                _this._sceneDispatchers.splice(i, 1);
+                this._sceneDispatchers.splice(i, 1);
             }
         }
         else
         {
-            print("Warning : Le dispatcher pour le caller " + _caller.GetId() + " n'existe pas, il ne peut donc pas être supprimé !");
+            print(`Warning : Le dispatcher pour le caller ${_caller.GetId()} n'existe pas, il ne peut donc pas être supprimé !`);
         }
     }
 
-    this.AddDirectorListener = function (_listener, _setup)
+    AddDirectorListener (_listener, _setup)
     {
-        var id = -1;
-        for (var i = 0; i < this._sceneDispatchers.length; ++i)
+        let id = -1;
+        for (let i = 0; i < this._sceneDispatchers.length; ++i)
         {
             if (this._sceneDispatchers[i].GetId() === _listener.GetId())
             {
@@ -672,14 +715,14 @@ global.Scene = function (_script, _subScenesScript)
         }
         else if (_listener.GetId() !== "SceneEnded")
         {
-            print("Warning : Un listener pour " + _listener.GetId() + " doit être ajouté mais aucun caller n'a cet ID !");
+            print(`Warning : Un listener pour ${_listener.GetId()} doit être ajouté mais aucun caller n'a cet ID !`);
         }
     }
 
-    this.RemoveDirectorListener = function (_listener)
+    RemoveDirectorListener (_listener)
     {
-        var id = -1;
-        for (var i = 0; i < this._sceneDispatchers.length; ++i)
+        let id = -1;
+        for (let i = 0; i < this._sceneDispatchers.length; ++i)
         {
             if (this._sceneDispatchers[i].GetId() === _listener.GetId())
             {
@@ -694,13 +737,13 @@ global.Scene = function (_script, _subScenesScript)
         }
         else
         {
-            print("Warning : Un listener pour " + _listener.GetId() + " doit être supprimé mais n'existe pas dans la liste !");
+            print(`Warning : Un listener pour ${_listener.GetId()} doit être supprimé mais n'existe pas dans la liste !`);
         }
     }
 
-    this.CreateCaller = function (_id, _defaultParams)
+    CreateCaller (_id, _defaultParams)
     {
-        var caller = new DirectorCaller (_id, _defaultParams);
+        const caller = new DirectorCaller (_id, _defaultParams);
         this._callers.push(caller);
 
         if (this._active && this._initialized)
@@ -711,23 +754,23 @@ global.Scene = function (_script, _subScenesScript)
         return caller;
     }
 
-    this.DeleteCaller = function (_caller)
+    DeleteCaller (_caller)
     {
         if (this._active && this._initialized)
         {
             this.RemoveCallerFromDispatcher(_caller);
         }
 
-        var i = _this._callers.indexOf(_caller);
+        const i = this._callers.indexOf(_caller);
         if (i >= 0)
         {
-            _this._callers.splice(i, 1);
+            this._callers.splice(i, 1);
         }
     }
 
-    this.CreateListener = function (_id, _callback, _setupCallback)
+    CreateListener (_id, _callback, _setupCallback)
     {
-        var listener = new DirectorListener (_id, _callback, _setupCallback);
+        const listener = new DirectorListener (_id, _callback, _setupCallback);
         this._listeners.push(listener);
 
         if (this._active && this._initialized)
@@ -738,39 +781,39 @@ global.Scene = function (_script, _subScenesScript)
         return listener;
     }
 
-    this.DeleteListener = function (_listener)
+    DeleteListener (_listener)
     {
         if (this._active && this._initialized)
         {
             this.RemoveListener(_listener);
         }
 
-        var i = this._listeners.indexOf(_listener);
+        const i = this._listeners.indexOf(_listener);
         if (i >= 0)
         {
             this._listeners.splice(i, 1);
         }
     }
 
-    this.SetCallers = function ()
+    SetCallers ()
     {
-        for (var i = 0; i < this._callers.length; ++i)
+        for (let i = 0; i < this._callers.length; ++i)
         {
             this.AddCallerToDispatcher(this._callers[i]);
         }
     }
 
-    this.SetListeners = function (_setup)
+    SetListeners (_setup)
     {
-        for (var i = 0; i < this._listeners.length; ++i)
+        for (let i = 0; i < this._listeners.length; ++i)
         {
             this.AddDirectorListener(this._listeners[i], _setup);
         }
     }
 
-    this.CreateAudioSystem = function (_name, _maxInstance, _audioTracks)
+    CreateAudioSystem (_name, _maxInstance, _audioTracks)
     {
-        var audioSystem = global.AudioManager.CreateAudioSystem(_name, _maxInstance, _audioTracks);
+        const audioSystem = global.AudioManager.CreateAudioSystem(_name, _maxInstance, _audioTracks);
         if (audioSystem !== null)
         {
             this._audioSystems.push(audioSystem);
@@ -778,95 +821,86 @@ global.Scene = function (_script, _subScenesScript)
         }
         else
         {
-            print("AudioSystem with name " + _name + " was not added to the subScene " + this._name + " !");
+            print(`AudioSystem with name ${_name} was not added to the subScene ${this._name} !`);
             return null;
         }
     }
 
-    this.SetAudioFadeOnStop = function (_fade)
+    SetAudioFadeOnStop (_fade)
     {
         this._fadeAudioOnStop = _fade;
     }
     //#endregion
-
-    //#region private functions
-    this.Setup = function ()
-    {
-        for (var i = 0; i < _subScenesScript.length; ++i)
-        {
-            this._subScenes.push(_subScenesScript[i].api.subScene);
-        }
-    }
-    //#endregion
-
-    this.Setup();
 }
 
 
-global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideInstant)
+global.SubScene = class
 {
-    //#region private vars
-    var _this = this;
-    this._script = _script;
-    this._sceneScript = null;
-    this._name = this._script.getSceneObject().name;
-    this._parent = _parent;
-    this._active = true;
-    this._initialized = false;
-    this._hiding = false;
-    this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, function(){_this._Update()});
-    this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, function(){_this._LateUpdate()});
-    this._events = [];
-    this._callers = [];
-    this._listeners = [];
-    this._activationCount = 0;
-    this._audioSystems = [];
-    this._fadeAudioOnStop = true;
-    //#endregion
+    constructor (_script, _parent, _show, _hide, _showInstant, _hideInstant)
+    {
+        //#region private vars
+        this._script = _script;
+        this._sceneScript = null;
+        this._name = this._script.getSceneObject().name;
+        this._parent = _parent;
+        this._active = true;
+        this._initialized = false;
+        this._hiding = false;
+        this._update = new global.Update(_script.getSceneObject(), UpdateType.Update, () => {this._Update()});
+        this._lateUpdate = new global.Update(_script.getSceneObject(), UpdateType.LateUpdate, () => {this._LateUpdate()});
+        this._events = [];
+        this._callers = [];
+        this._listeners = [];
+        this._activationCount = 0;
+        this._audioSystems = [];
+        this._fadeAudioOnStop = true;
+        //#endregion
 
-    //#region public events
-    this.Show = _show !== undefined ? _show :
-                            function(){this._parent.enabled = true;};
-    this.Hide = _hide !== undefined ? _hide :
-                            function(){this._parent.enabled = false;};
-    this.ShowInstant = _showInstant !== undefined ? _showInstant :
-                            function(){this._parent.enabled = true;};
-    this.HideInstant = _hideInstant !== undefined ? _hideInstant :
-                            function(){this._parent.enabled = false;};
+        //#region public events
+        this.Show = _show !== undefined ? _show :
+                                () => {this._parent.enabled = true;};
+        this.Hide = _hide !== undefined ? _hide :
+                                () => {this._parent.enabled = false;};
+        this.ShowInstant = _showInstant !== undefined ? _showInstant :
+                                () => {this._parent.enabled = true;};
+        this.HideInstant = _hideInstant !== undefined ? _hideInstant :
+                                () => {this._parent.enabled = false;};
 
-    this.OnStart = function(){};
-    this.OnLateStart = function(){};
-    this.OnSceneChanged = function(){};
-    this.OnStop = function(){};
-    //#endregion
+        this.OnStart = () => {};
+        this.OnLateStart = () => {};
+        this.OnSceneChanged = () => {};
+        this.OnStop = () => {};
+        //#endregion
 
-    //#region private events
-    this._Update = null;
-    this._LateUpdate = null;
-    //#endregion
+        //#region private events
+        this._Update = null;
+        this._LateUpdate = null;
+        //#endregion
+    }
+    
 
     //#region public functions
-    this.IsActive = function(){return this._active;};
-    this.IsInitialized = function(){return this._initialized;};
-    this.IsVisible = function(){return this._parent.enabled;};
-    this.IsHiding = function(){return this._hiding;};
-    this.GetActivationCount = function(){return this._activationCount;};
-    this.GetName = function(){return this._name;};
-    this.GetParent = function(){return this._parent;};
-    this.GetSceneScript = function(){return this._sceneScript;};
-    this.SetSceneScript = function(sceneScript){this._sceneScript = sceneScript;};
+    IsActive (){return this._active;};
+    IsInitialized (){return this._initialized;};
+    IsVisible (){return this._parent.enabled;};
+    IsHiding (){return this._hiding;};
+    GetActivationCount (){return this._activationCount;};
+    GetName (){return this._name;};
+    GetParent (){return this._parent;};
+    GetSceneScript (){return this._sceneScript;};
+    SetSceneScript (sceneScript){this._sceneScript = sceneScript;};
 
-    this.CallEnd = function (_params)
+    CallEnd (_params)
     {
         this.GetSceneScript().api.scene.SceneEnded(_params);
     }
 
-    this.ChangeScene = function ()
+    ChangeScene ()
     {
         this.OnSceneChanged();
     }
 
-    this.Start = function (showInstant)
+    Start (showInstant)
     {
         this._initialized = true;
         this._activationCount++;
@@ -886,7 +920,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
                 }
                 else
                 {
-                    print("WARNING : ShowInstant for subscene " + this.GetName() + " was called but is undefined or null");
+                    print(`WARNING : ShowInstant for subscene ${this.GetName()} was called but is undefined or null`);
                     this._parent.enabled = true;
                 }
             }
@@ -898,7 +932,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
                 }
                 else
                 {
-                    print("WARNING : Show for subscene " + this.GetName() + " was called but is undefined or null");
+                    print(`WARNING : Show for subscene ${this.GetName()} was called but is undefined or null`);
                     this._parent.enabled = true;
                 }
             }
@@ -912,14 +946,14 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
                 this._lateUpdate.Add();
             }
 
-            for (var i = 0; i < this._events.length; ++i)
+            for (let i = 0; i < this._events.length; ++i)
             {
                 this._events[i].AddEvent();
             }
         }
     }
 
-    this.LateStart = function()
+    LateStart ()
     {
         if (this.OnLateStart !== null && this.OnLateStart !== undefined)
         {
@@ -927,7 +961,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         }
     }
 
-    this.Stop = function (hideInstant)
+    Stop (hideInstant)
     {
         if (this._active)
         {
@@ -966,7 +1000,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
                 }
                 else
                 {
-                    print("WARNING : HideInstant for subscene " + this.GetName() + " was called but is undefined or null");
+                    print(`WARNING : HideInstant for subscene ${this.GetName()} was called but is undefined or null`);
                     this._parent.enabled = false;
                 }
             }
@@ -978,7 +1012,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
                 }
                 else
                 {
-                    print("WARNING : Hide for subscene " + this.GetName() + " was called but is undefined or null");
+                    print(`WARNING : Hide for subscene ${this.GetName()} was called but is undefined or null`);
                     this._parent.enabled = false;
                 }
             }
@@ -986,7 +1020,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         }
     }
 
-    this.SetUpdate = function (_function)
+    SetUpdate (_function)
     {
         this._Update = _function;
         if (_function && this._active && this._initialized && !this._update.IsAdded())
@@ -999,7 +1033,7 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         }
     }
 
-    this.SetLateUpdate = function (_function)
+    SetLateUpdate (_function)
     {
         this._LateUpdate = _function;
         if (_function && this._active && this._initialized && !this._lateUpdate.IsAdded())
@@ -1012,57 +1046,57 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         }
     }
 
-    this.ChangeUpdateOrder = function (_order)
+    ChangeUpdateOrder (_order)
     {
         this._update.ChangeOrder(_order);
     }
 
-    this.ChangeLateUpdateOrder = function (_order)
+    ChangeLateUpdateOrder (_order)
     {
         this._lateUpdate.ChangeOrder(_order);
     }
 
-    this.SetEnableUpdate = function (_enabled)
+    SetEnableUpdate (_enabled)
     {
         this._update.enabled = _enabled;
     }
 
-    this.SetEnableLateUpdate = function (_enabled)
+    SetEnableLateUpdate (_enabled)
     {
         this._lateUpdate.enabled = _enabled;
     }
 
-    this.CreateEvent = function (_type, _callback)
+    CreateEvent (_type, _callback)
     {
-        var event = new DirectorEvent(_this._script, _type, _callback);
+        const event = new DirectorEvent(this._script, _type, _callback);
 
         if (this._active && this._initialized)
         {
             event.AddEvent();
         }
 
-        _this._events.push(event);
+        this._events.push(event);
 
         return event;
     }
 
-    this.DeleteEvent = function (_event)
+    DeleteEvent (_event)
     {
-        if (_this._active && _this._initialized)
+        if (this._active && this._initialized)
         {
             _event.RemoveEvent();
         }
 
-        var i = _this._events.indexOf(_event);
+        const i = this._events.indexOf(_event);
         if (i >= 0)
         {
-            _this._events.splice(i, 1);
+            this._events.splice(i, 1);
         }
     }
 
-    this.CreateCaller = function (_id, _defaultParams)
+    CreateCaller (_id, _defaultParams)
     {
-        var caller = new DirectorCaller (_id, _defaultParams);
+        const caller = new DirectorCaller (_id, _defaultParams);
         this._callers.push(caller);
 
         if (this._active && this._initialized)
@@ -1073,23 +1107,23 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         return caller;
     }
 
-    this.DeleteCaller = function (_caller)
+    DeleteCaller (_caller)
     {
         if (this._active && this._initialized)
         {
             this._sceneScript.api.scene.RemoveCallerFromDispatcher(_caller);
         }
 
-        var i = _this._callers.indexOf(_caller);
+        const i = this._callers.indexOf(_caller);
         if (i >= 0)
         {
-            _this._callers.splice(i, 1);
+            this._callers.splice(i, 1);
         }
     }
 
-    this.CreateListener = function (_id, _callback, _setupCallback)
+    CreateListener (_id, _callback, _setupCallback)
     {
-        var listener = new DirectorListener (_id, _callback, _setupCallback);
+        const listener = new DirectorListener (_id, _callback, _setupCallback);
         this._listeners.push(listener);
 
         if (this._active && this._initialized)
@@ -1100,39 +1134,39 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         return listener;
     }
 
-    this.DeleteListener = function (_listener)
+    DeleteListener (_listener)
     {
         if (this._active && this._initialized)
         {
             this._sceneScript.api.scene.RemoveListener(_listener);
         }
 
-        var i = this._listeners.indexOf(_listener);
+        const i = this._listeners.indexOf(_listener);
         if (i >= 0)
         {
             this._listeners.splice(i, 1);
         }
     }
 
-    this.SetCallers = function ()
+    SetCallers ()
     {
-        for (var i = 0; i < this._callers.length; ++i)
+        for (let i = 0; i < this._callers.length; ++i)
         {
             this._sceneScript.api.scene.AddCallerToDispatcher(this._callers[i]);
         }
     }
 
-    this.SetListeners = function (_setup)
+    SetListeners (_setup)
     {
-        for (var i = 0; i < this._listeners.length; ++i)
+        for (let i = 0; i < this._listeners.length; ++i)
         {
             this._sceneScript.api.scene.AddDirectorListener(this._listeners[i], _setup);
         }
     }
 
-    this.CreateAudioSystem = function (_name, _maxInstance, _audioTracks)
+    CreateAudioSystem (_name, _maxInstance, _audioTracks)
     {
-        var audioSystem = global.AudioManager.CreateAudioSystem(_name, _maxInstance, _audioTracks);
+        const audioSystem = global.AudioManager.CreateAudioSystem(_name, _maxInstance, _audioTracks);
         if (audioSystem !== null)
         {
             this._audioSystems.push(audioSystem);
@@ -1140,12 +1174,12 @@ global.SubScene = function (_script, _parent, _show, _hide, _showInstant, _hideI
         }
         else
         {
-            print("AudioSystem with name " + _name + " was not added to the subScene " + this._name + " !");
+            print(`AudioSystem with name ${_name} was not added to the subScene ${this._name} !`);
             return null;
         }
     }
 
-    this.SetAudioFadeOnStop = function (_fade)
+    SetAudioFadeOnStop (_fade)
     {
         this._fadeAudioOnStop = _fade;
     }

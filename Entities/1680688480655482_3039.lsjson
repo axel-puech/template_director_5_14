@@ -1,0 +1,33 @@
+{
+    "1680688480651347:3038": {
+        "IFileManager": {
+            "path": "Files/File_1680688480651347_3038.js"
+        }
+    },
+    "1680688480655482:3039": {
+        "IResourceController": {
+            "name": "UpdateManager",
+            "type": 4,
+            "subtype": 0,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1680688480655496:3040",
+            "fileId": "1680688480651347:3038",
+            "publicId": "1680688480667688:3052",
+            "expected_hash": "012888cb37a9326f1acdaaef1f0a61f3"
+        },
+        "IResourceManager": {
+            "uid": "1680688480655496:3040",
+            "name": "Files/File_1680688480651347_3038.js",
+            "flags": 1
+        }
+    },
+    "1680688480667688:3052": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/LIB/Main/UpdateManager.js",
+                "hash": "012888cb37a9326f1acdaaef1f0a61f3"
+            }
+        }
+    }
+}

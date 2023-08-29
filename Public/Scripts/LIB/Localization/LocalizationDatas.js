@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Localization Datas
-// Version : 1.0.0
+// Version : 1.1.0
 // Dependencies : None
 // Authors : Gautier Jacquet
 
@@ -24,7 +24,7 @@
 // Il faut ensuite les rentrer dans ce tableau, en respectant l'ordre pour les IDs
 // de la même manière que pour les textes et textures.
 // Le tableau peut rester vide.
-var extras = [];
+const extras = [];
 
 // On appel ensuite la création du dataset.
 // La fonction prend l'id de la langue ainsi que les trois tableaux de données.

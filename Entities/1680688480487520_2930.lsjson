@@ -1,0 +1,25 @@
+{
+    "1680688480487520:2930": {
+        "IResourceController": {
+            "name": "DirectorBasics",
+            "type": 0,
+            "subtype": -1,
+            "dependency": 0,
+            "hidden": false,
+            "publicId": "1680688480487674:2931",
+            "resources": [
+                "1680688480477357:2917",
+                "1680688480498866:2934",
+                "1680688480515579:2949",
+                "1680688480531783:2964"
+            ]
+        }
+    },
+    "1680688480487674:2931": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/DirectorBasics"
+            }
+        }
+    }
+}

@@ -1,73 +1,69 @@
 // Lib Lens Atomic : Update Manager Module
-// Version : 1.0.0
+// Version : 1.1.0
 // Dependencies : None
 // Authors : Gautier Jacquet
 
 // Doc : https://www.notion.so/atomicdigitaldesign/Update-Manager-8b3509ed00604b09a775c8d073222f1e
 
 
-var UpdateManager = new UpdateManagerClass();
-
-
 global.UpdateType = {PreUpdate : 0, Update : 10, InterUpdate : 20, LateUpdate : 30, PostUpdate : 40}
 
-
-global.Update = function (_obj, _type, _callback, _enabled, _order)
+global.Update = class
 {
-    //#region public vars
-    this.callback = _callback;
-    this.enabled = _enabled !== undefined ? _enabled : true;
-    this.obj = _obj;
-    //#endregion
+    constructor (_obj, _type, _callback, _enabled, _order)
+    {
+        //#region public vars
+        this.callback = _callback;
+        this.enabled = _enabled !== undefined ? _enabled : true;
+        this.obj = _obj;
+        //#endregion
 
+        //#region private vars
+        this._added = false;
+        this._order = _order !== undefined ? _order : 0;
+        this._type = _type;
+        //#endregion
 
-    //#region private vars
-    var _this = this;
-    this._added = false;
-    this._order = _order !== undefined ? _order : 0;
-    this._type = _type;
-    //#endregion
-
+        //#region public functions
+        this.IsAdded = () => {return this._added;};
+        this.GetOrder = () => {return this._order};
+    }
     
-    //#region public functions
-    this.IsAdded = function(){return this._added;};
-    this.GetOrder = function(){return this._order};
-
-    this.Add = function ()
+    Add ()
     {
         if (!this._added)
         {
-            var added = true;
+            let added = true;
             switch (this._type)
             {
                 case UpdateType.PreUpdate:
-                    UpdateManager.AddPreUpdate(_this);
+                    UpdateManager.AddPreUpdate(this);
                     break;
                 case UpdateType.Update:
-                    UpdateManager.AddUpdate(_this);
+                    UpdateManager.AddUpdate(this);
                     break;
                 case UpdateType.InterUpdate:
-                    UpdateManager.AddInterUpdate(_this);
+                    UpdateManager.AddInterUpdate(this);
                     break;
                 case UpdateType.LateUpdate:
-                    UpdateManager.AddLateUpdate(_this);
+                    UpdateManager.AddLateUpdate(this);
                     break;
                 case UpdateType.PostUpdate:
-                    UpdateManager.AddPostUpdate(_this);
+                    UpdateManager.AddPostUpdate(this);
                     break;
                 default:
-                    print("Warning : update wasn't added -> no valid type ! obj object is : " + this.obj.name);
+                    print(`Warning : update wasn't added -> no valid type ! obj object is : ${this.obj.name}`);
                     added = false;
             }
             this._added = added;
         }
         else
         {
-            print("Warning : update wasn't added -> already added ! obj object is : " + this.obj.name);
+            print(`Warning : update wasn't added -> already added ! obj object is : ${this.obj.name}`);
         }
     }
 
-    this.ChangeOrder = function (_order)
+    ChangeOrder (_order)
     {
         this._order = _order;
 
@@ -95,7 +91,7 @@ global.Update = function (_obj, _type, _callback, _enabled, _order)
         }
     }
 
-    this.ChangeType = function (_type)
+    ChangeType (_type)
     {
         if (this._added)
         {
@@ -109,35 +105,35 @@ global.Update = function (_obj, _type, _callback, _enabled, _order)
         }
     }
 
-    this.Remove = function ()
+    Remove ()
     {
         if (this._added)
         {
             switch (this._type)
             {
                 case UpdateType.PreUpdate:
-                    UpdateManager.RemovePreUpdate(_this);
+                    UpdateManager.RemovePreUpdate(this);
                     break;
                 case UpdateType.Update:
-                    UpdateManager.RemoveUpdate(_this);
+                    UpdateManager.RemoveUpdate(this);
                     break;
                 case UpdateType.InterUpdate:
-                    UpdateManager.RemoveInterUpdate(_this);
+                    UpdateManager.RemoveInterUpdate(this);
                     break;
                 case UpdateType.LateUpdate:
-                    UpdateManager.RemoveLateUpdate(_this);
+                    UpdateManager.RemoveLateUpdate(this);
                     break;
                 case UpdateType.PostUpdate:
-                    UpdateManager.RemovePostUpdate(_this);
+                    UpdateManager.RemovePostUpdate(this);
                     break;
                 default:
-                    print("Warning : update wasn't removed -> no valid type ! object is : " + this.obj.name);
+                    print(`Warning : update wasn't removed -> no valid type ! object is : ${this.obj.name}`);
             }
             this._added = false;
         }
         else
         {
-            print("Warning : update wasn't added -> not currently added ! object is : " + this.obj.name);
+            print(`Warning : update wasn't added -> not currently added ! object is : ${this.obj.name}`);
         }
     }
     //#endregion
@@ -145,102 +141,110 @@ global.Update = function (_obj, _type, _callback, _enabled, _order)
 
 
 
-function UpdateManagerClass ()
+class UpdateManagerClass
 {
-    //#region private vars
-    var _this = this;
+    constructor ()
+    {
+        //#region private vars
+        const _this = this;
 
-    this._preUpdates = [];
-    this._updates = [];
-    this._interUpdates = [];
-    this._lateUpdates = [];
-    this._postUpdates = []; 
+        this._preUpdates = [];
+        this._updates = [];
+        this._interUpdates = [];
+        this._lateUpdates = [];
+        this._postUpdates = []; 
 
-    this._preUpdatesReorder = false;
-    this._updatesReorder = false;
-    this._interUpdatesReorder = false;
-    this._lateUpdatesReorder = false;
-    this._postUpdatesReorder = false;
+        this._preUpdatesReorder = false;
+        this._updatesReorder = false;
+        this._interUpdatesReorder = false;
+        this._lateUpdatesReorder = false;
+        this._postUpdatesReorder = false;
 
-    this._updateEvent = script.createEvent("UpdateEvent");
-    this._lateUpdateEvent = script.createEvent("LateUpdateEvent");
-    //#endregion
+        this._updateEvent = script.createEvent("UpdateEvent");
+        this._lateUpdateEvent = script.createEvent("LateUpdateEvent");
+        //#endregion
+
+        //#region setup
+        this._updateEvent.bind(_this._InternalUpdate.bind(this));
+        this._lateUpdateEvent.bind(_this._InternalLateUpdate.bind(this));
+        //#endregion
+    }
 
 
     //#region public functions
-    this.AddPreUpdate = function (_update)
+    AddPreUpdate (_update)
     {
-        this._InternalAddUpdate(_this._preUpdates, _update);
+        this._InternalAddUpdate(this._preUpdates, _update);
     }
 
-    this.AddUpdate = function (_update)
+    AddUpdate (_update)
     {
-        this._InternalAddUpdate(_this._updates, _update);
+        this._InternalAddUpdate(this._updates, _update);
     }
 
-    this.AddInterUpdate = function (_update)
+    AddInterUpdate (_update)
     {
-        this._InternalAddUpdate(_this._interUpdates, _update);
+        this._InternalAddUpdate(this._interUpdates, _update);
     }
 
-    this.AddLateUpdate = function (_update)
+    AddLateUpdate (_update)
     {
-        this._InternalAddUpdate(_this._lateUpdates, _update);
+        this._InternalAddUpdate(this._lateUpdates, _update);
     }
 
-    this.AddPostUpdate = function (_update)
+    AddPostUpdate (_update)
     {
-        this._InternalAddUpdate(_this._postUpdates, _update);
-    }
-
-
-    this.RemovePreUpdate = function (_update)
-    {
-        this._InternalRemoveUpdate(_this._preUpdates, _update);
-    }
-
-    this.RemoveUpdate = function (_update)
-    {
-        this._InternalRemoveUpdate(_this._updates, _update);
-    }
-
-    this.RemoveInterUpdate = function (_update)
-    {
-        this._InternalRemoveUpdate(_this._interUpdates, _update);
-    }
-
-    this.RemoveLateUpdate = function (_update)
-    {
-        this._InternalRemoveUpdate(_this._lateUpdates, _update);
-    }
-
-    this.RemovePostUpdate = function (_update)
-    {
-        this._InternalRemoveUpdate(_this._postUpdates, _update);
+        this._InternalAddUpdate(this._postUpdates, _update);
     }
 
 
-    this.ReorderPreUpdates = function ()
+    RemovePreUpdate (_update)
+    {
+        this._InternalRemoveUpdate(this._preUpdates, _update);
+    }
+
+    RemoveUpdate (_update)
+    {
+        this._InternalRemoveUpdate(this._updates, _update);
+    }
+
+    RemoveInterUpdate (_update)
+    {
+        this._InternalRemoveUpdate(this._interUpdates, _update);
+    }
+
+    RemoveLateUpdate (_update)
+    {
+        this._InternalRemoveUpdate(this._lateUpdates, _update);
+    }
+
+    RemovePostUpdate (_update)
+    {
+        this._InternalRemoveUpdate(this._postUpdates, _update);
+    }
+
+
+    ReorderPreUpdates ()
     {
         this._preUpdatesReorder = true;
     }
 
-    this.ReorderUpdates = function ()
+    ReorderUpdates ()
     {
         this._updatesReorder = true;
     }
 
-    this.ReorderInterUpdates = function ()
+    ReorderInterUpdates ()
     {
         this._interUpdatesReorder = true;
     }
 
-    this.ReorderLateUpdates = function ()
+    ReorderLateUpdates ()
     {
         this._lateUpdatesReorder = true;
     }
 
-    this.ReorderPostUpdates = function ()
+    ReorderPostUpdates ()
     {
         this._postUpdatesReorder = true;
     }
@@ -248,13 +252,13 @@ function UpdateManagerClass ()
 
 
     //#region private functions
-    this._SortUpdate = function (a, b)
+    static _SortUpdate (a, b)
     {
         return a.GetOrder() - b.GetOrder();
     }
 
 
-    this._InternalAddUpdate = function (_array, _update)
+    _InternalAddUpdate (_array, _update)
     {
         if (_array.length == 0)
         {
@@ -262,7 +266,7 @@ function UpdateManagerClass ()
         }
         else
         {
-            for (var i = _array.length - 1; i >= 0; i--)
+            for (let i = _array.length - 1; i >= 0; i--)
             {
                 if (_array[i] && _array[i].GetOrder() <= _update.GetOrder())
                 {
@@ -278,7 +282,7 @@ function UpdateManagerClass ()
     }
 
 
-    this._InternalRemoveUpdate = function (_array, _update)
+    _InternalRemoveUpdate (_array, _update)
     {
         if (_array.length == 0)
         {
@@ -286,7 +290,7 @@ function UpdateManagerClass ()
         }
         else
         {
-            var i = _array.indexOf(_update);
+            const i = _array.indexOf(_update);
             if (i >= 0)
             {
                 _array[i] = null;
@@ -299,16 +303,16 @@ function UpdateManagerClass ()
     }
 
 
-    this._InternalUpdate = function ()
+    _InternalUpdate ()
     {
-        if (_this._preUpdatesReorder)
+        if (this._preUpdatesReorder)
         {
-            _this._preUpdates.sort(_this._SortUpdate);
-            _this._preUpdatesReorder = false;
+            this._preUpdates.sort(this._SortUpdate);
+            this._preUpdatesReorder = false;
         }
-        for (var i = 0; i < _this._preUpdates.length; ++i)
+        for (let i = 0; i < this._preUpdates.length; ++i)
         {
-            var update = _this._preUpdates[i];
+            const update = this._preUpdates[i];
             if (update && !isNull(update.obj))
             {
                 if (update.enabled)
@@ -318,19 +322,19 @@ function UpdateManagerClass ()
             }
             else
             {
-                _this._preUpdates.splice(i, 1);
+                this._preUpdates.splice(i, 1);
                 i--;
             }
         }
 
-        if (_this._updatesReorder)
+        if (this._updatesReorder)
         {
-            _this._updates.sort(_this._SortUpdate);
-            _this._updatesReorder = false;
+            this._updates.sort(this._SortUpdate);
+            this._updatesReorder = false;
         }
-        for (var i = 0; i < _this._updates.length; ++i)
+        for (let i = 0; i < this._updates.length; ++i)
         {
-            var update = _this._updates[i];
+            const update = this._updates[i];
             if (update && !isNull(update.obj))
             {
                 if (update.enabled)
@@ -340,19 +344,19 @@ function UpdateManagerClass ()
             }
             else
             {
-                _this._updates.splice(i, 1);
+                this._updates.splice(i, 1);
                 i--;
             }
         }
 
-        if (_this._interUpdatesReorder)
+        if (this._interUpdatesReorder)
         {
-            _this._interUpdates.sort(_this._SortUpdate);
-            _this._interUpdatesReorder = false;
+            this._interUpdates.sort(this._SortUpdate);
+            this._interUpdatesReorder = false;
         }
-        for (var i = 0; i < _this._interUpdates.length; ++i)
+        for (let i = 0; i < this._interUpdates.length; ++i)
         {
-            var update = _this._interUpdates[i];
+            const update = this._interUpdates[i];
             if (update && !isNull(update.obj))
             {
                 if (update.enabled)
@@ -362,23 +366,23 @@ function UpdateManagerClass ()
             }
             else
             {
-                _this._interUpdates.splice(i, 1);
+                this._interUpdates.splice(i, 1);
                 i--;
             }
         }
     }
 
 
-    this._InternalLateUpdate = function ()
+    _InternalLateUpdate ()
     {
-        if (_this._lateUpdatesReorder)
+        if (this._lateUpdatesReorder)
         {
-            _this._lateUpdates.sort(_this._SortUpdate);
-            _this._lateUpdatesReorder = false;
+            this._lateUpdates.sort(this._SortUpdate);
+            this._lateUpdatesReorder = false;
         }
-        for (var i = 0; i < _this._lateUpdates.length; ++i)
+        for (let i = 0; i < this._lateUpdates.length; ++i)
         {
-            var update = _this._lateUpdates[i];
+            const update = this._lateUpdates[i];
             if (update && !isNull(update.obj))
             {
                 if (update.enabled)
@@ -388,19 +392,19 @@ function UpdateManagerClass ()
             }
             else
             {
-                _this._lateUpdates.splice(i, 1);
+                this._lateUpdates.splice(i, 1);
                 i--;
             }
         }
 
-        if (_this._postUpdatesReorder)
+        if (this._postUpdatesReorder)
         {
-            _this._postUpdates.sort(_this._SortUpdate);
-            _this._postUpdatesReorder = false;
+            this._postUpdates.sort(this._SortUpdate);
+            this._postUpdatesReorder = false;
         }
-        for (var i = 0; i < _this._postUpdates.length; ++i)
+        for (let i = 0; i < this._postUpdates.length; ++i)
         {
-            var update = _this._postUpdates[i];
+            const update = this._postUpdates[i];
             if (update && !isNull(update.obj))
             {
                 if (update.enabled)
@@ -410,15 +414,13 @@ function UpdateManagerClass ()
             }
             else
             {
-                _this._postUpdates.splice(i, 1);
+                this._postUpdates.splice(i, 1);
                 i--;
             }
         }
     }
-    //#endregion
-
-    //#region setup
-    this._updateEvent.bind(_this._InternalUpdate);
-    this._lateUpdateEvent.bind(_this._InternalLateUpdate);
     //#endregion
 }
+
+
+const UpdateManager = new UpdateManagerClass();

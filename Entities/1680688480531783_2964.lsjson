@@ -1,0 +1,33 @@
+{
+    "1680688480527211:2961": {
+        "IFileManager": {
+            "path": "Files/File_1680688480527211_2961.js"
+        }
+    },
+    "1680688480531783:2964": {
+        "IResourceController": {
+            "name": "Scene",
+            "type": 4,
+            "subtype": 0,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1680688480531795:2965",
+            "fileId": "1680688480527211:2961",
+            "publicId": "1680688480539862:2975",
+            "expected_hash": "ff8d933657764dcfd9727504a4679d2d"
+        },
+        "IResourceManager": {
+            "uid": "1680688480531795:2965",
+            "name": "Files/File_1680688480527211_2961.js",
+            "flags": 1
+        }
+    },
+    "1680688480539862:2975": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/DirectorBasics/Scene.js",
+                "hash": "ff8d933657764dcfd9727504a4679d2d"
+            }
+        }
+    }
+}

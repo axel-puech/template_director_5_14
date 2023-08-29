@@ -1,0 +1,33 @@
+{
+    "1680688480575572:2995": {
+        "IFileManager": {
+            "path": "Files/File_1680688480575572_2995.js"
+        }
+    },
+    "1680688480580190:2996": {
+        "IResourceController": {
+            "name": "DirectorModule",
+            "type": 4,
+            "subtype": 0,
+            "dependency": 0,
+            "hidden": false,
+            "uid": "1680688480580205:2997",
+            "fileId": "1680688480575572:2995",
+            "publicId": "1680688480596681:3007",
+            "expected_hash": "2c3ff97eb3850e632b1f743b430830ef"
+        },
+        "IResourceManager": {
+            "uid": "1680688480580205:2997",
+            "name": "Files/File_1680688480575572_2995.js",
+            "flags": 1
+        }
+    },
+    "1680688480596681:3007": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/LIB/Main/DirectorModule.js",
+                "hash": "2c3ff97eb3850e632b1f743b430830ef"
+            }
+        }
+    }
+}

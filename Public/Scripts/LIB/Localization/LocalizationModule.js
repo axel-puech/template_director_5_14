@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Localization Module
-// Version : 1.0.0
+// Version : 1.1.0
 // Dependencies : None
 // Authors : Gautier Jacquet
 
@@ -59,77 +59,46 @@
 //#endregion
 
 
-//#region Setup
-// Stored localization objects.
-var localizedTexts = [];
-var localizedTextures = [];
-var localizedExtras = [];
 
-// For each ID existing we create a localization object.
-for (var i = 0; i < script.textsIds.length; ++i)
-{
-    localizedTexts.push(new LocalizedFunction(script.textsIds[i]));
-}
-
-for (var i = 0; i < script.texturesIds.length; ++i)
-{
-    localizedTextures.push(new LocalizedFunction(script.texturesIds[i]));
-}
-
-for (var i = 0; i < script.extrasIds.length; ++i)
-{
-    localizedExtras.push(new LocalizedFunction(script.extrasIds[i]));
-}
-
-// Generation of the localization system.
-global.Localization = new LocalizationClass(script.getSceneObject(), localizedTexts, localizedTextures, localizedExtras);
-
-
-// startEvent to delay the data collection.
-var startEvent = script.createEvent("OnStartEvent");
-startEvent.bind(Setup);
-
-function Setup ()
-{
-    global.Localization.GetLanguagesDatas();
-    global.Localization.SetLanguage();
-}
-//#endregion
 
 
 //#region Data structure
 // A language data collection, set with an ID and an array for texts, textures and extra info.
 // In each array, datas must be in the same order as the input IDs.
-global.LocalizationDatas = function (_langId, _texts, _textures, _extras)
+global.LocalizationDatas = class
 {
-    //#region private vars
-    this._langId = _langId; // Id of the language.
-    this._texts = _texts; // All texts.
-    this._textures = _textures; // All textures.
-    this._extras = _extras; // All other information potentially needed.
-    //#endregion
+    constructor (_langId, _texts, _textures, _extras)
+    {
+        //#region private vars
+        this._langId = _langId; // Id of the language.
+        this._texts = _texts; // All texts.
+        this._textures = _textures; // All textures.
+        this._extras = _extras; // All other information potentially needed.
+        //#endregion
+    }
+    
 
     //#region public functions
     // Getter for the language ID.
-    this.GetId = function ()
+    GetId ()
     {
         return this._langId;
     }
 
     // Getter for text localization
-    this.GetText = function (id)
+    GetText (id)
     {
         return this._texts[id];
     }
 
     // Getter for texture localization
-    this.GetTexture = function (id)
+    GetTexture (id)
     {
         return this._textures[id];
     }
 
     // Getter for extra information localization
-    this.GetExtra = function (id)
+    GetExtra (id)
     {
         return this._extras[id];
     }
@@ -140,26 +109,32 @@ global.LocalizationDatas = function (_langId, _texts, _textures, _extras)
 
 //#region Localization structures
 // Structure for external object to be localized.
-function LocalizedObject (_parent, _callback)
+class LocalizedObject
 {
-    this._parent = _parent; // SceneObject using the localization.
-    this._callback = _callback; // Function called to apply the localization.
+    constructor (_parent, _callback)
+    {
+        this._parent = _parent; // SceneObject using the localization.
+        this._callback = _callback; // Function called to apply the localization.
+    }
 }
 
 
 // Internal structure to create a link between localizedObjects and localizationDatas.
-function LocalizedFunction (_id)
+class LocalizedFunction
 {
-    //#region private var
-    var _this = this; // accessor to avoid scope problems.
-    this._id = _id; // id of the localization, used by objects to refer to the proper data.
-    this._localizedObjects = []; // array of all objects associated to this id.
-    this._currentData = null; // data storage.
-    //#endregion
+    constructor (_id)
+    {
+        //#region private var
+        this._id = _id; // id of the localization, used by objects to refer to the proper data.
+        this._localizedObjects = []; // array of all objects associated to this id.
+        this._currentData = null; // data storage.
+        //#endregion
+    }
+    
 
     //#region public functions
     // Add a new object associated with the _id of the function.
-    this.Add = function (_parent, _callback)
+    Add (_parent, _callback)
     {
         this._localizedObjects.push(new LocalizedObject(_parent, _callback));
         if (this._currentData != null)
@@ -169,18 +144,18 @@ function LocalizedFunction (_id)
     }
 
     // Simple getter, used to find and compare IDs.
-    this.GetId = function ()
+    GetId ()
     {
         return this._id;
     }
 
     // Function called to update the localization data associated with this id.
-    this.Localize = function (_data)
+    Localize (_data)
     {
         this._currentData = _data;
-        for (var i = 0; i < this._localizedObjects.length; ++i)
+        for (let i = 0; i < this._localizedObjects.length; ++i)
         {
-            var obj = this._localizedObjects[i];
+            const obj = this._localizedObjects[i];
             if (obj._parent === null || obj._parent === undefined)
             {
                 this._localizedObjects.splice(i, 1);
@@ -188,7 +163,7 @@ function LocalizedFunction (_id)
             }
             else
             {
-                obj._callback(_this._currentData);
+                obj._callback(this._currentData);
             }
         }
     }
@@ -199,57 +174,60 @@ function LocalizedFunction (_id)
 
 //#region Localization class
 // LocalizationClass created from a SceneObject and three arrays of localizationFunctions. For texts, textures and extraInformations.
-function LocalizationClass (_parent, _localizedTexts, _localizedTextures, _localizedExtras)
+class LocalizationClass
 {
-    //#region private vars
-    this._parent = _parent; // SceneObject, used to collect children and extract datas from them.
-
-    this._currentLangDatas = null; // Current language used.
-    this._languageDatas = []; // Access to all languages datas.
-
-    // Access to all localizationFunctions
-    this._localizedTexts = _localizedTexts;
-    this._localizedTextures = _localizedTextures;
-    this._localizedExtras = _localizedExtras;
-    //#endregion
+    constructor (_parent, _localizedTexts, _localizedTextures, _localizedExtras)
+    {
+        //#region private vars
+        this._parent = _parent; // SceneObject, used to collect children and extract datas from them.
+    
+        this._currentLangDatas = null; // Current language used.
+        this._languageDatas = []; // Access to all languages datas.
+    
+        // Access to all localizationFunctions
+        this._localizedTexts = _localizedTexts;
+        this._localizedTextures = _localizedTextures;
+        this._localizedExtras = _localizedExtras;
+        //#endregion
+    }
 
 
     //#region public functions
     // Function used to change the current language. Called at the start.
-    this.SetLanguage = function (language)
+    SetLanguage (language)
     {
-        var _lang = language ? language : global.localizationSystem.getLanguage();
+        const _lang = language ? language : global.localizationSystem.getLanguage();
         this._currentLangDatas = this.FindBestOccurence(_lang);
 
-        for (var i = 0; i < this._localizedTexts.length; ++i)
+        for (let i = 0; i < this._localizedTexts.length; ++i)
         {
-            var loc = this._localizedTexts[i];
+            let loc = this._localizedTexts[i];
             loc.Localize(this._currentLangDatas.GetText(i));
         }
 
-        for (var i = 0; i < this._localizedTextures.length; ++i)
+        for (let i = 0; i < this._localizedTextures.length; ++i)
         {
-            var loc = this._localizedTextures[i];
+            let loc = this._localizedTextures[i];
             loc.Localize(this._currentLangDatas.GetTexture(i));
         }
 
-        for (var i = 0; i < this._localizedExtras.length; ++i)
+        for (let i = 0; i < this._localizedExtras.length; ++i)
         {
-            var loc = this._localizedExtras[i];
+            let loc = this._localizedExtras[i];
             loc.Localize(this._currentLangDatas.GetExtra(i));
         }
     }
 
     // Function to get all the localization datas.
-    this.GetLanguagesDatas = function ()
+    GetLanguagesDatas ()
     {
-        var count = this._parent.getChildrenCount();
-        for (var i = 0; i < count; ++i)
+        const count = this._parent.getChildrenCount();
+        for (let i = 0; i < count; ++i)
         {
-            var sc = this._parent.getChild(i).getComponent("Component.ScriptComponent");
+            const sc = this._parent.getChild(i).getComponent("Component.ScriptComponent");
             if (sc != undefined && sc != null)
             {
-                var langData = sc.api.localizationDatas;
+                const langData = sc.api.localizationDatas;
                 if (langData != undefined && langData != null)
                 {
                     this._languageDatas.push(langData);
@@ -259,15 +237,15 @@ function LocalizationClass (_parent, _localizedTexts, _localizedTextures, _local
     }
 
     // Function to return the best language to use based on the code requested.
-    this.FindBestOccurence = function (_lang)
+    FindBestOccurence (_lang)
     {
-        var langDatas = this._languageDatas[0];
+        let langDatas = this._languageDatas[0];
 
         if (this._languageDatas.length > 1)
         {
-            var _langShort = _lang.substring(0, 2);
+            const _langShort = _lang.substring(0, 2);
 
-            for (var i = 0; i < this._languageDatas.length; ++i)
+            for (let i = 0; i < this._languageDatas.length; ++i)
             {
                 if (this._languageDatas[i].GetId() === _lang)
                 {
@@ -289,9 +267,9 @@ function LocalizationClass (_parent, _localizedTexts, _localizedTextures, _local
     // Gets an ID to match to the correct localization.
     // A SceneObject to check object destruction.
     // A callback to be used when the localization data changes.
-    this.LocalizeText = function (_id, _parent, _callback)
+    LocalizeText (_id, _parent, _callback)
     {
-        for (var i = 0; i < this._localizedTexts.length; ++i)
+        for (let i = 0; i < this._localizedTexts.length; ++i)
         {
             if (this._localizedTexts[i].GetId() === _id)
             {
@@ -300,7 +278,7 @@ function LocalizationClass (_parent, _localizedTexts, _localizedTextures, _local
             }
         }
 
-        print("Error, couldn't find localization for object : " + _parent.getName() + " with ID : " + _id);
+        print(`Error, couldn't find localization for object : ${_parent.getName()} with ID : ${_id}`);
     }
 
 
@@ -308,9 +286,9 @@ function LocalizationClass (_parent, _localizedTexts, _localizedTextures, _local
     // Gets an ID to match to the correct localization.
     // A SceneObject to check object destruction.
     // A callback to be used when the localization data changes.
-    this.LocalizeTexture = function (_id, _parent, _callback)
+    LocalizeTexture (_id, _parent, _callback)
     {
-        for (var i = 0; i < this._localizedTextures.length; ++i)
+        for (let i = 0; i < this._localizedTextures.length; ++i)
         {
             if (this._localizedTextures[i].GetId() === _id)
             {
@@ -319,7 +297,7 @@ function LocalizationClass (_parent, _localizedTexts, _localizedTextures, _local
             }
         }
 
-        print("Error, couldn't find localization for object : " + _parent.getName() + " with ID : " + _id);
+        print(`Error, couldn't find localization for object : ${_parent.getName()} with ID : ${_id}`);
     }
 
 
@@ -327,9 +305,9 @@ function LocalizationClass (_parent, _localizedTexts, _localizedTextures, _local
     // Gets an ID to match to the correct localization.
     // A SceneObject to check object destruction.
     // A callback to be used when the localization data changes.
-    this.LocalizeExtra = function (_id, _parent, _callback)
+    LocalizeExtra (_id, _parent, _callback)
     {
-        for (var i = 0; i < this._localizedExtras.length; ++i)
+        for (let i = 0; i < this._localizedExtras.length; ++i)
         {
             if (this._localizedExtras[i].GetId() === _id)
             {
@@ -338,8 +316,47 @@ function LocalizationClass (_parent, _localizedTexts, _localizedTextures, _local
             }
         }
 
-        print("Error, couldn't find localization for object : " + _parent.getName() + " with ID : " + _id);
+        print(`Error, couldn't find localization for object : ${_parent.getName()} with ID : ${_id}`);
     }
     //#endregion
+}
+//#endregion
+
+
+
+
+//#region Setup
+// Stored localization objects.
+const localizedTexts = [];
+const localizedTextures = [];
+const localizedExtras = [];
+
+// For each ID existing we create a localization object.
+for (let i = 0; i < script.textsIds.length; ++i)
+{
+    localizedTexts.push(new LocalizedFunction(script.textsIds[i]));
+}
+
+for (let i = 0; i < script.texturesIds.length; ++i)
+{
+    localizedTextures.push(new LocalizedFunction(script.texturesIds[i]));
+}
+
+for (let i = 0; i < script.extrasIds.length; ++i)
+{
+    localizedExtras.push(new LocalizedFunction(script.extrasIds[i]));
+}
+
+// Generation of the localization system.
+global.Localization = new LocalizationClass(script.getSceneObject(), localizedTexts, localizedTextures, localizedExtras);
+
+// startEvent to delay the data collection.
+const startEvent = script.createEvent("OnStartEvent");
+startEvent.bind(Setup);
+
+function Setup ()
+{
+    global.Localization.GetLanguagesDatas();
+    global.Localization.SetLanguage();
 }
 //#endregion

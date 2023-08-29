@@ -1,0 +1,21 @@
+{
+    "1693323360759587:3065": {
+        "IResourceController": {
+            "public": {
+                "path": "Scripts/SubScenes",
+                "hash": "2ed51057f3fcf0daf2f45089eb67c72e"
+            }
+        }
+    },
+    "1693323360759965:3066": {
+        "IResourceController": {
+            "name": "SubScenes",
+            "type": 0,
+            "subtype": -1,
+            "dependency": 0,
+            "hidden": false,
+            "publicId": "1693323360759587:3065",
+            "resources": []
+        }
+    }
+}

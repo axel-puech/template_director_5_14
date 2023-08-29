@@ -1,5 +1,5 @@
 // Lib Lens Atomic : Animation Module
-// Version : 2.1.2
+// Version : 2.2.0
 // Dependencies : Update Manager Module
 // Authors : Gautier Jacquet, Guillaume Bertrand
 
@@ -13,68 +13,68 @@ global.RepeatMode = {None : 0, Loop : 1, PingPong : 2}
 global.TimeCodeMode = {Ratio : 0, FixedTime : 1}
 
 // Function TimecodeEvent, defined by a timeCode, the callback method
-global.TimeCodeEvent = function(_timeCode, _callback)
+global.TimeCodeEvent = class
 {
-    //#region public vars
-    this.timeCode = _timeCode;
-    //#endregion
-    
-    //#region private vars
-    this.callback = _callback;    
-    //#endregion
-    
+    constructor (_timeCode, _callback)
+    {
+        //#region public vars
+        this.timeCode = _timeCode;
+        //#endregion
+        
+        //#region private vars
+        this.callback = _callback;    
+        //#endregion
+    }
 }
 
 // Function Animation, defined by a duration, an update method and a repeatMode
-global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType, _order)
+global.Animation = class
 {
-    //#region public vars
-    this.duration = _duration;
-    this.durationDown = _duration;
-    this.repeatMode = _repeatMode !== undefined ? _repeatMode : RepeatMode.None;
-    //#endregion
+    constructor (_obj, _duration, _update, _repeatMode, _updateType, _order)
+    {
+        //#region public vars
+        this.duration = _duration;
+        this.durationDown = _duration;
+        this.repeatMode = _repeatMode !== undefined ? _repeatMode : RepeatMode.None;
+        //#endregion
 
+        //#region private vars
+        const _this = this;
+        this._ratio = 0;
+        this._clampedRatio = 0;
+        this._targetRatio = 1;
+        this._goingUp = true;
+        this._repeatCount = 0;
+        this._paused = false;
+        this._arrayTimeCodeEvent = [];
+        this._indexTimeCode;
+        this._updateType = _updateType !== undefined ? _updateType : UpdateType.InterUpdate;
+        this._order = _order !== undefined ? _order : 100;
 
-    //#region private vars
-    var _this = this;
-    this._ratio = 0;
-    this._clampedRatio = 0;
-    this._targetRatio = 1;
-    this._goingUp = true;
-    this._repeatCount = 0;
-    this._paused = false;
-    this._arrayTimeCodeEvent = [];
-    this._indexTimeCode;
-    this._updateType = _updateType !== undefined ? _updateType : UpdateType.InterUpdate;
-    this._order = _order !== undefined ? _order : 100;
+        this._updateEvent = new global.Update(_obj, this._updateType, () => {_this._InternalUpdate();}, false, this._order);
+        this._updateEvent.Add();
+        //#endregion
+
+        //#region public events
+        this.Update = _update;
+        this.Easing = r => r;
+
+        this.OnEnd = r => {};
+        this.OnStart = r => {};
+        this.OnLoop = r => {};
+        //#endregion
+    }
     
-    this._updateEvent = new global.Update(_obj, this._updateType, function(){_this._InternalUpdate();}, false, this._order);
-    this._updateEvent.Add();
-    //#endregion
-
-
-    //#region public events
-    this.Update = _update;
-    this.Easing = function(r){return r;};
-
-    this.OnEnd = function(r){};
-    this.OnStart = function(r){};
-    this.OnLoop = function(r){};
-    //#endregion
-
 
     //#region public functions
-    this.IsPlaying = function(){return this._updateEvent.enabled;};
-    this.IsPaused = function(){return this._paused;};
-    this.IsGoingUp = function(){return this._goingUp;};
-    this.GetRatio = function(){return this._clampedRatio;};
-    this.GetRepeatCount = function(){return this._repeatCount;};
+    IsPlaying (){return this._updateEvent.enabled;};
+    IsPaused (){return this._paused;};
+    IsGoingUp (){return this._goingUp;};
+    GetRatio (){return this._clampedRatio;};
+    GetRepeatCount (){return this._repeatCount;};
 
-    this.Start = function (repeats, offset)
+    Start (repeats = 0, offset = 0)
     {
-        repeats = repeats !== undefined ? repeats : 0;
-        offset = offset !== undefined ? offset : 0;
-
         this._ratio = offset;
         this._clampedRatio = Math.min(Math.max(this._ratio, 0), 1);
         this._targetRatio = 1;
@@ -86,7 +86,7 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
         this.OnStart(this._clampedRatio);
     }
 
-    this.Reset = function ()
+    Reset ()
     {
         this._ratio = 0;
         this._clampedRatio = 0;
@@ -99,13 +99,13 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
         this._paused = false;
     }
 
-    this.Pause = function ()
+    Pause ()
     {
         this._paused = true;
         this._updateEvent.enabled = false;
     }
 
-    this.Resume = function ()
+    Resume ()
     {
         if (this._paused)
         {
@@ -118,7 +118,7 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
         }
     }
 
-    this.GoTo = function (target)
+    GoTo (target)
     {
         this._repeatCount = 0;
         this._targetRatio = Math.min(Math.max(target, 0), 1);
@@ -132,7 +132,7 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
         }
     }
 
-    this.JumpTo = function (target)
+    JumpTo (target)
     {
         this._ratio = Math.min(Math.max(target, 0), 1);
         this._clampedRatio = this._ratio;
@@ -142,15 +142,15 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
         this._updateEvent.enabled = false;
     }
             
-    this.AddTimeCodeEvent = function (_timeCode, _callback, _timeCodeType)
+    AddTimeCodeEvent (_timeCode, _callback, _timeCodeType)
     {
         if(_timeCodeType === TimeCodeMode.FixedTime)
         {
             _timeCode = _timeCode/this.duration;
         }
 
-        var ind = -1;
-        for (var i = 0; i < this._arrayTimeCodeEvent.length; ++i)
+        let ind = -1;
+        for (let i = 0; i < this._arrayTimeCodeEvent.length; ++i)
         {
             if (this._arrayTimeCodeEvent[i].timeCode > _timeCode)
             {
@@ -178,12 +178,12 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
         }
     }
     
-    this.ChangeUpdateType = function (_type)
+    ChangeUpdateType (_type)
     {
         this._updateEvent.ChangeType(_type);
     }
 
-    this.ChangeUpdateOrder = function (_order)
+    ChangeUpdateOrder (_order)
     {
         this._updateEvent.ChangeUpdateOrder(_order);
     }
@@ -191,10 +191,10 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
 
 
     //#region private functions
-    this._InternalUpdate = function ()
+    _InternalUpdate ()
     {
-        var ended = false;
-        var looped = false;
+        let ended = false;
+        let looped = false;
         if (this._goingUp)
         {
             this._ratio += getDeltaTime() / this.duration;
@@ -308,10 +308,10 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
         }
     }
     
-    this._ResetIndexTimeCode = function()
+    _ResetIndexTimeCode ()
     {
-        var ind = -1;
-        for (var i = 0; i < this._arrayTimeCodeEvent.length; i++)
+        let ind = -1;
+        for (let i = 0; i < this._arrayTimeCodeEvent.length; i++)
         {
             if (this._arrayTimeCodeEvent[i].timeCode > this._clampedRatio)
             {
@@ -337,59 +337,65 @@ global.Animation = function (_obj, _duration, _update, _repeatMode, _updateType,
 
 
 // Function AnimationGroup, defined by an array of animations, a speed factor and a repeatMode
-global.AnimationGroup = function(_obj, _animations, _speedFactor, _repeatMode)
+global.AnimationGroup = class
 {
-    //#region public vars
-    this.speedFactor = _speedFactor;
-    //#endregion
-
-
-    //#region private vars
-    var _this = this;
-
-    this._animations = _animations;
-    this._animCount = this._animations.length;
-    this._ratioRemap = [];
-    this._currentAnim = 0;
-    
-    this._anim = new Animation(_obj, 1, function(ratio){_this._InternalUpdate(ratio);}, _repeatMode);
-    //#endregion
-
-
-    //#region public events
-    this.Easing = function(r){return r}
-
-    this.OnEnd = function(r){};
-    this.OnStart = function(r){};
-    this.OnLoop = function(r){};
-    //#endregion
-
-
-    //#region private events
-    this._anim.OnEnd = function(r){_this._UpdateAllAnims(r); _this.OnEnd(r);};
-    this._anim.OnStart = function(r){_this.OnStart(r);};
-    this._anim.OnLoop = function(r){_this._UpdateAllAnims(r); _this.OnLoop(r);};
-    //#endregion
-
-    //#region public functions
-    this.IsPlaying = function(){return this._anim.IsPlaying()};
-    this.IsPaused = function(){return this._anim.IsPaused();};
-    this.IsGoingUp = function(){return this._anim.IsGoingUp();};
-    this.GetRatio = function(){return this._anim.GetRatio();};
-    this.GetRepeatCount = function(){return this._anim.GetRepeatCount();};
-
-    this.UpdateDuration = function ()
+    constructor (_obj, _animations, _speedFactor, _repeatMode)
     {
-        var durationTotal = 0;
-        for (var i = 0; i < this._animCount; ++i)
+        //#region public vars
+        this.speedFactor = _speedFactor;
+        //#endregion
+
+
+        //#region private vars
+        const _this = this;
+
+        this._animations = _animations;
+        this._animCount = this._animations.length;
+        this._ratioRemap = [];
+        this._currentAnim = 0;
+
+        this._anim = new Animation(_obj, 1, ratio => {_this._InternalUpdate(ratio);}, _repeatMode);
+        //#endregion
+
+
+        //#region public events
+        this.Easing = r => r
+
+        this.OnEnd = r => {};
+        this.OnStart = r => {};
+        this.OnLoop = r => {};
+        //#endregion
+
+
+        //#region private events
+        this._anim.OnEnd = r => {_this._UpdateAllAnims(r); _this.OnEnd(r);};
+        this._anim.OnStart = r => {_this.OnStart(r);};
+        this._anim.OnLoop = r => {_this._UpdateAllAnims(r); _this.OnLoop(r);};
+        //#endregion
+
+        // Call to force the duration to be correct when initializing
+        this.UpdateDuration();
+    }
+    
+    //#region public functions
+    IsPlaying (){return this._anim.IsPlaying()};
+    IsPaused (){return this._anim.IsPaused();};
+    IsGoingUp (){return this._anim.IsGoingUp();};
+    GetRatio (){return this._anim.GetRatio();};
+    GetRepeatCount (){return this._anim.GetRepeatCount();};
+
+    UpdateDuration ()
+    {
+        let durationTotal = 0;
+        for (let i = 0; i < this._animCount; ++i)
         {
             durationTotal += this._animations[i].duration;
         }
 
-        var durationAcc = 0;
+        let durationAcc = 0;
         this._ratioRemap = [];
         
-        for (var i = 0; i < this._animCount; ++i)
+        for (let i = 0; i < this._animCount; ++i)
         {
             durationAcc += this._animations[i].duration;
             this._ratioRemap.push(durationAcc / durationTotal);
@@ -398,33 +404,31 @@ global.AnimationGroup = function(_obj, _animations, _speedFactor, _repeatMode)
         this._anim.duration = durationTotal / this.speedFactor;
     }
 
-    this.Start = function (repeats)
-    {
-        repeats = repeats !== undefined ? repeats : 0;
+    Start (repeats = 0) {
         this._anim.Start(repeats, 0);
     }
 
-    this.Reset = function ()
+    Reset ()
     {
         this._anim.Reset();
     }
 
-    this.Pause = function ()
+    Pause ()
     {
         this._anim.Pause();
     }
 
-    this.Resume = function ()
+    Resume ()
     {
         this._anim.Resume();
     }
 
-    this.GoTo = function (target)
+    GoTo (target)
     {
         this._anim.GoTo(target);
     }
 
-    this.JumpTo = function (target)
+    JumpTo (target)
     {
         this._anim.JumpTo(target);
         this._UpdateAllAnims(target);
@@ -433,7 +437,7 @@ global.AnimationGroup = function(_obj, _animations, _speedFactor, _repeatMode)
 
 
     //#region private functions
-    this._InternalUpdate = function (ratio)
+    _InternalUpdate (ratio)
     {
         if (this._anim.IsGoingUp())
         {
@@ -443,10 +447,10 @@ global.AnimationGroup = function(_obj, _animations, _speedFactor, _repeatMode)
             }
             else
             {
-                var ratioStart = this._currentAnim > 0 ? this._ratioRemap[this._currentAnim - 1] : 0
-                var ratioEnd = this._ratioRemap[this._currentAnim];
-                var ratioCurrent = (ratio - ratioStart) / (ratioEnd - ratioStart);
-                var clampedRatio = Math.min(Math.max(ratioCurrent, 0), 1);
+                let ratioStart = this._currentAnim > 0 ? this._ratioRemap[this._currentAnim - 1] : 0
+                let ratioEnd = this._ratioRemap[this._currentAnim];
+                let ratioCurrent = (ratio - ratioStart) / (ratioEnd - ratioStart);
+                let clampedRatio = Math.min(Math.max(ratioCurrent, 0), 1);
 
                 if (ratioCurrent > 1)
                 {
@@ -478,10 +482,10 @@ global.AnimationGroup = function(_obj, _animations, _speedFactor, _repeatMode)
             }
             else
             {
-                var ratioStart = this._currentAnim > 0 ? this._ratioRemap[this._currentAnim - 1] : 0
-                var ratioEnd = this._ratioRemap[this._currentAnim];
-                var ratioCurrent = (ratio - ratioStart) / (ratioEnd - ratioStart);
-                var clampedRatio = Math.min(Math.max(ratioCurrent, 0), 1);
+                let ratioStart = this._currentAnim > 0 ? this._ratioRemap[this._currentAnim - 1] : 0
+                let ratioEnd = this._ratioRemap[this._currentAnim];
+                let ratioCurrent = (ratio - ratioStart) / (ratioEnd - ratioStart);
+                let clampedRatio = Math.min(Math.max(ratioCurrent, 0), 1);
                 
                 if (ratioCurrent < 0)
                 {
@@ -506,15 +510,15 @@ global.AnimationGroup = function(_obj, _animations, _speedFactor, _repeatMode)
         }
     }
 
-    this._UpdateAllAnims = function (ratio)
+    _UpdateAllAnims (ratio)
     {
         if (this._anim.IsGoingUp())
         {
-            for (var i = this._animCount - 1; i >=0 ;--i)
+            for (let i = this._animCount - 1; i >=0 ;--i)
             {
-                var ratioStart = i > 0 ? this._ratioRemap[i - 1] : 0
-                var ratioEnd = this._ratioRemap[i];
-                var ratioCurrent = (ratio - ratioStart) / (ratioEnd - ratioStart);
+                let ratioStart = i > 0 ? this._ratioRemap[i - 1] : 0
+                let ratioEnd = this._ratioRemap[i];
+                let ratioCurrent = (ratio - ratioStart) / (ratioEnd - ratioStart);
                 
                 this._animations[i].JumpTo(Math.min(Math.max(ratioCurrent, 0), 1));
     
@@ -526,11 +530,11 @@ global.AnimationGroup = function(_obj, _animations, _speedFactor, _repeatMode)
         }
         else
         {
-            for (var i = 0; i < this._animCount; ++i)
+            for (let i = 0; i < this._animCount; ++i)
             {
-                var ratioStart = i > 0 ? this._ratioRemap[i - 1] : 0
-                var ratioEnd = this._ratioRemap[i];
-                var ratioCurrent = (ratio - ratioStart) / (ratioEnd - ratioStart);
+                let ratioStart = i > 0 ? this._ratioRemap[i - 1] : 0
+                let ratioEnd = this._ratioRemap[i];
+                let ratioCurrent = (ratio - ratioStart) / (ratioEnd - ratioStart);
                 
                 this._animations[i].JumpTo(Math.min(Math.max(ratioCurrent, 0), 1));
 
@@ -542,7 +546,4 @@ global.AnimationGroup = function(_obj, _animations, _speedFactor, _repeatMode)
         }
     }
     //#endregion
-
-    // Call to force the duration to be correct when initializing
-    this.UpdateDuration();
 }

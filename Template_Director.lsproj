@@ -2,7 +2,7 @@
     "lens_id": "",
     "document_id": "UJ5XYneYFupp-JjE58Yn",
     "original_document_id": "9ZU_ulbDIqRQ-t2qtvVv",
-    "version": "31",
+    "version": "32",
     "preview": "icon.png",
     "videoPreview": "preview.mp4",
     "videoPreviewUpdateTime": "",
@@ -21,7 +21,7 @@
         "lastSavedWith": {
             "type": "Public",
             "major": "4",
-            "minor": "43",
+            "minor": "49",
             "patch": "0",
             "build": "0"
         }
@@ -40,9 +40,14 @@
             ],
             "lens": "Template Director",
             "applicability": "3",
+            "compatibility_descriptors": [
+                "mobile",
+                "web"
+            ],
             "lens_descriptors": "",
             "sg": "false",
             "git_friendly": "true",
+            "activation_camera": "front",
             "Spectacles2021UseAllowed": "false"
         },
         "ObjectTracking3DUIComponent": "",
