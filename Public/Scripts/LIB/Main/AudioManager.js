@@ -267,7 +267,7 @@ class AudioControl
 
 
     //#region public functions
-    IsActive () {this._audioComp.isPlaying() || this._audioComp.isPaused()}
+    IsActive () {return (this._audioComp.isPlaying() || this._audioComp.isPaused())}
 
 
     PlayAudio (_audioCompRef, _audioTrack, _loops, _parent, _callback)
