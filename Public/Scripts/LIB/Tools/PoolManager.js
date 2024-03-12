@@ -89,7 +89,7 @@ global.PoolManager = class
     //#region private functions
     _CreateElement ()
     {
-        this._availableObjects.push(this._prefabObject[this._idPrefabType].instantiate(parent));
+        this._availableObjects.push(this._prefabObject[this._idPrefabType].instantiate(this._parent));
         if (this._prefabType == PrefabType.Order)
         {
             this._idPrefabType = this._idPrefabType + 1 < this._prefabObject.length ? this._idPrefabType + 1 : 0;            
@@ -112,7 +112,7 @@ global.PoolManager = class
     {           
         if (this._instantiateOnStart)
         {
-            for (var instanceNumber = 0; instanceNumber < maxInstances; instanceNumber++)
+            for (var instanceNumber = 0; instanceNumber < this._maxInstances; instanceNumber++)
             {
                 this._CreateElement();
             }
