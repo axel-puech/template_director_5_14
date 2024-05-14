@@ -1,0 +1,33 @@
+studioVersion:
+  major: 5
+  minor: 0
+  patch: 10
+  build: 24042400
+updateCheckpoint: 28
+sceneId: 0a1ccb1a-fe88-4fbb-9883-e3af3c75fd99
+viewConfig:
+  simulation:
+    device: No Simulation
+    cameraFov: 66.519997
+    fullFrameAspect: nan
+    viewport: Normal
+    output: Live
+  cameraType: Front
+metaInfo:
+  hints:
+    []
+  lensName: DirectorTemplate
+  lensDescriptors:
+    []
+  lensApplicability:
+    - Front
+    - Back
+  lensClientCompatibilities:
+    - Mobile
+    - Web
+  iconHash: ""
+  fromTemplateName: Default
+  fromTemplateUrl: Lens Studio 5.0.10.24042400
+  activationCamera: Front
+  hasVideoPreview: false
+  apiAccessLevel: Public

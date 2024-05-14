@@ -1,3 +1,3 @@
 Lens Studio Project
 
-Lens Studio Version 4.43
+Lens Studio Version 5.0.10
