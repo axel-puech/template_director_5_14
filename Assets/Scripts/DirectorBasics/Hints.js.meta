@@ -1,6 +1,6 @@
 - !<AssetImportMetadata/919ba5eb-73f1-4df0-abee-55c8d6b260d3>
   ImportedAssetIds:
-    JavaScriptAsset: 2a402b8d-6097-431f-8554-cd714498b012
+    JavaScriptAsset: !<reference> 2a402b8d-6097-431f-8554-cd714498b012
   ImporterName: JavaScriptAssetImporter
   PrimaryAsset: !<reference> 2a402b8d-6097-431f-8554-cd714498b012
   PackageType: NotAPackage

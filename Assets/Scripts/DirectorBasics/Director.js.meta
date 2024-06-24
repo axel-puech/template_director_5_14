@@ -1,6 +1,6 @@
 - !<AssetImportMetadata/2e2b6c67-6f09-4e19-9601-771effb80292>
   ImportedAssetIds:
-    JavaScriptAsset: fc9d3c0c-54c6-4c33-a462-f0ed28a8f673
+    JavaScriptAsset: !<reference> fc9d3c0c-54c6-4c33-a462-f0ed28a8f673
   ImporterName: JavaScriptAssetImporter
   PrimaryAsset: !<reference> fc9d3c0c-54c6-4c33-a462-f0ed28a8f673
   PackageType: NotAPackage

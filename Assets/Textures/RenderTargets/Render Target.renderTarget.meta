@@ -1,6 +1,6 @@
 - !<AssetImportMetadata/4c56e4f9-87a6-4352-8231-973ba3d1e27d>
   ImportedAssetIds:
-    RenderTarget: 2d36dcc6-2403-42b7-9ce6-570c0f0006a6
+    RenderTarget: !<reference> 2d36dcc6-2403-42b7-9ce6-570c0f0006a6
   ImporterName: RenderTargetImporter
   PrimaryAsset: !<reference> 2d36dcc6-2403-42b7-9ce6-570c0f0006a6
   PackageType: NotAPackage

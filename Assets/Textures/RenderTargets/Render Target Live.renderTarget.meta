@@ -1,6 +1,6 @@
 - !<AssetImportMetadata/c10fadac-97af-41c1-bf6f-5b73880de0bb>
   ImportedAssetIds:
-    RenderTarget: 26bffde9-a933-42f5-9f94-ce41e54f8e40
+    RenderTarget: !<reference> 26bffde9-a933-42f5-9f94-ce41e54f8e40
   ImporterName: RenderTargetImporter
   PrimaryAsset: !<reference> 26bffde9-a933-42f5-9f94-ce41e54f8e40
   PackageType: NotAPackage
