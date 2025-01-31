@@ -1,26 +1,27 @@
 studioVersion:
   major: 5
-  minor: 3
-  patch: 0
-  build: 24111410
-updateCheckpoint: 50
+  minor: 4
+  patch: 1
+  build: 24123021
+  type: Public
+updateCheckpoint: 52
 sceneId: 0a1ccb1a-fe88-4fbb-9883-e3af3c75fd99
 viewConfig:
   simulation:
-    device: No Simulation
-    cameraFov: 66.519997
-    fullFrameAspect: nan
+    device: iPhone 14 Pro
+    cameraFov: 23.830000
+    fullFrameAspect: 0.562500
     viewport: Maximized
     output: Live
     stereoOutputEye: Center
     deviceTypeOverride: Unknown
-  cameraType: Front
+  cameraType: Back
 metaInfo:
   hints:
     []
   tags:
     []
-  lensName: DirectorTemplate
+  lensName: Resize Screen Imag
   lensDescriptors:
     []
   lensApplicability:
@@ -29,7 +30,8 @@ metaInfo:
   lensClientCompatibilities:
     - Mobile
     - Web
-  iconHash: ""
+  platformBundlesEnabled: false
+  iconHash: 7ebeff791926475b110387ebf2762e04
   videoPreviewHash: ""
   fromTemplateName: Default
   fromTemplateUrl: Lens Studio 5.0.10.24042400

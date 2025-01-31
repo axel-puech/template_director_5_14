@@ -16,3 +16,5 @@
     CompressionSettings: !<TextureCompressionSettings/b571a081-d788-4701-bd55-6f834b7021d8>
       Level: Medium
   NativePackageRoot: !<reference> 00000000-0000-0000-0000-000000000000
+  ExtraData:
+    {}

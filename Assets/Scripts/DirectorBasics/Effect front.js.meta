@@ -1,0 +1,46 @@
+- !<AssetImportMetadata/83dfaf8d-ed20-453c-b758-1cae69e521df>
+  ImportedAssetIds:
+    JavaScriptAsset: !<reference> 63a706c8-1645-48b1-b6a9-1b6d5ca0b528
+  ImporterName: JavaScriptAssetImporter
+  PrimaryAsset: !<reference> 63a706c8-1645-48b1-b6a9-1b6d5ca0b528
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  AssetDataMap:
+    JavaScriptAsset: !<own> 9756f838-782b-4f3c-aeae-aaeb52972c65
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings/cc7b90a4-3b2c-419a-95f9-b40c2db9e2dc>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+  NativePackageRoot: !<reference> 00000000-0000-0000-0000-000000000000
+  ExtraData:
+    {}
+- !<ScriptAssetData/9756f838-782b-4f3c-aeae-aaeb52972c65>
+  SvgIcon: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    Dark: false
+    blurMaterial: false
+    easing: false
+    parent: false
+  ScriptTypesHidden:
+    {}
+  DefaultScriptInputs:
+    - parent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      Background: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      Hint: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      TextHint: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      Dark: !<reference.Image> 00000000-0000-0000-0000-000000000000
+      easing: 0
+      blurMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}

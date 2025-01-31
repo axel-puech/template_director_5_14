@@ -13,6 +13,8 @@
     {}
   CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
   NativePackageRoot: !<reference> 00000000-0000-0000-0000-000000000000
+  ExtraData:
+    {}
 - !<ScriptAssetData/4f2943a7-2c35-4230-a226-40f84e7a0c66>
   SvgIcon: ""
   Description: ""
@@ -30,6 +32,9 @@
     {}
   DefaultScriptInputs:
     - parent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      Background: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      Hint: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      TextHint: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}

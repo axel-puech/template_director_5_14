@@ -26,6 +26,7 @@ Assets/**/*.animationMixerLayer !filter !diff !merge text linguist-language=yaml
 Assets/**/*.audioOutput !filter !diff !merge text linguist-language=yaml merge=lens-studio-yaml-merge
 Assets/**/*.bitmojiModule !filter !diff !merge text linguist-language=yaml merge=lens-studio-yaml-merge
 Assets/**/*.bodyDepthTexture !filter !diff !merge text linguist-language=yaml merge=lens-studio-yaml-merge
+Assets/**/*.bodyInstanceSegmentationTexture !filter !diff !merge text linguist-language=yaml merge=lens-studio-yaml-merge
 Assets/**/*.bodyMesh !filter !diff !merge text linguist-language=yaml merge=lens-studio-yaml-merge
 Assets/**/*.bodyNormalsTexture !filter !diff !merge text linguist-language=yaml merge=lens-studio-yaml-merge
 Assets/**/*.bodyTracking3D !filter !diff !merge text linguist-language=yaml merge=lens-studio-yaml-merge
