@@ -13,8 +13,6 @@
     {}
   CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
   NativePackageRoot: !<reference> 00000000-0000-0000-0000-000000000000
-  ExtraData:
-    {}
 - !<ScriptAssetData/b8d0ac26-67e9-4b92-801f-e1f50edfbc86>
   SvgIcon: ""
   Description: ""
