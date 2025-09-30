@@ -4,30 +4,37 @@
   ImporterName: JavaScriptAssetImporter
   PrimaryAsset: !<reference> 37390640-74ee-41f1-a852-a32c32ceec7a
   PackageType: NotAPackage
-  PackagePolicy: CannotBeUnpacked
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
   AssetDataMap:
     JavaScriptAsset: !<own> b8d0ac26-67e9-4b92-801f-e1f50edfbc86
   DependentFiles:
     []
-  ImporterSettings: !<AssetImporterSettings/d211bc3a-19a8-47b8-811e-25a4a1aa421b>
+  ImporterSettings: !<AssetImporterSettings>
     {}
   CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
-  NativePackageRoot: !<reference> 00000000-0000-0000-0000-000000000000
 - !<ScriptAssetData/b8d0ac26-67e9-4b92-801f-e1f50edfbc86>
   SvgIcon: ""
+  SetupScript:
+    code: ""
   Description: ""
-  InternalVersion: 0
   VersionMajor: 0
   VersionMinor: 0
   VersionPatch: 0
-  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ComponentUid: 4e8e9441-65c9-f53a-ab9b-3c7f0a57f2af
   ExportUid: 00000000-0000-0000-0000-000000000000
-  CurrentVisibility: Editable
-  MaxVisibility: Editable
+  PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
     {}
   ScriptTypesHidden:
     {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
   DefaultScriptInputs:
     -
       {}

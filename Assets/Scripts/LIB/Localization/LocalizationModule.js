@@ -227,7 +227,7 @@ class LocalizationClass
             const sc = this._parent.getChild(i).getComponent("Component.ScriptComponent");
             if (sc != undefined && sc != null)
             {
-                const langData = sc.api.localizationDatas;
+                const langData = sc.localizationDatas;
                 if (langData != undefined && langData != null)
                 {
                     this._languageDatas.push(langData);

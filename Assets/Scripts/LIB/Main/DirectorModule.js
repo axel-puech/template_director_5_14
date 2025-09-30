@@ -328,7 +328,7 @@ global.Director = class
 
 
     AddScene (sceneName, sceneScript, isCommon, isFront) {
-        this._scenesAll[sceneName] = sceneScript.api.scene;
+        this._scenesAll[sceneName] = sceneScript.scene;
         this._sceneNames.push(sceneName);
         if (isCommon)
         {
@@ -342,7 +342,7 @@ global.Director = class
         {
             this._scenesBackNames.push(sceneName)
         }
-        sceneScript.api.scene.SetDirector(this);
+        sceneScript.scene.SetDirector(this);
     }
 
 
@@ -415,7 +415,7 @@ global.Director = class
             const script = obj.getComponent("Component.ScriptComponent");
             if (script !== undefined && script !== null)
             {
-                const subScene = script.api.subScene;
+                const subScene = script.subScene;
                 if (subScene !== undefined && subScene !== null)
                 {
                     this._subScenes.push(subScene);
@@ -464,7 +464,7 @@ global.Scene = class
         
         for (let i = 0; i < _subScenesScript.length; ++i)
         {
-            this._subScenes.push(_subScenesScript[i].api.subScene);
+            this._subScenes.push(_subScenesScript[i].subScene);
         }
     }
     
@@ -892,7 +892,7 @@ global.SubScene = class
 
     CallEnd (_params)
     {
-        this.GetSceneScript().api.scene.SceneEnded(_params);
+        this.GetSceneScript().scene.SceneEnded(_params);
     }
 
     ChangeScene ()
@@ -1101,7 +1101,7 @@ global.SubScene = class
 
         if (this._active && this._initialized)
         {
-            this._sceneScript.api.scene.AddCallerToDispatcher(caller);
+            this._sceneScript.scene.AddCallerToDispatcher(caller);
         }
 
         return caller;
@@ -1111,7 +1111,7 @@ global.SubScene = class
     {
         if (this._active && this._initialized)
         {
-            this._sceneScript.api.scene.RemoveCallerFromDispatcher(_caller);
+            this._sceneScript.scene.RemoveCallerFromDispatcher(_caller);
         }
 
         const i = this._callers.indexOf(_caller);
@@ -1128,7 +1128,7 @@ global.SubScene = class
 
         if (this._active && this._initialized)
         {
-            this._sceneScript.api.scene.AddDirectorListener(listener, true);
+            this._sceneScript.scene.AddDirectorListener(listener, true);
         }
 
         return listener;
@@ -1138,7 +1138,7 @@ global.SubScene = class
     {
         if (this._active && this._initialized)
         {
-            this._sceneScript.api.scene.RemoveListener(_listener);
+            this._sceneScript.scene.RemoveListener(_listener);
         }
 
         const i = this._listeners.indexOf(_listener);
@@ -1152,7 +1152,7 @@ global.SubScene = class
     {
         for (let i = 0; i < this._callers.length; ++i)
         {
-            this._sceneScript.api.scene.AddCallerToDispatcher(this._callers[i]);
+            this._sceneScript.scene.AddCallerToDispatcher(this._callers[i]);
         }
     }
 
@@ -1160,7 +1160,7 @@ global.SubScene = class
     {
         for (let i = 0; i < this._listeners.length; ++i)
         {
-            this._sceneScript.api.scene.AddDirectorListener(this._listeners[i], _setup);
+            this._sceneScript.scene.AddDirectorListener(this._listeners[i], _setup);
         }
     }
 

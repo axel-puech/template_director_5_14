@@ -4,12 +4,13 @@
   ImporterName: RenderTargetImporter
   PrimaryAsset: !<reference> 2d36dcc6-2403-42b7-9ce6-570c0f0006a6
   PackageType: NotAPackage
-  PackagePolicy: CannotBeUnpacked
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
   AssetDataMap:
     {}
   DependentFiles:
     []
-  ImporterSettings: !<AssetImporterSettings/1a11ba37-3fe5-4255-9b50-79c2e5451574>
+  ImporterSettings: !<AssetImporterSettings>
     {}
   CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
-  NativePackageRoot: !<reference> 00000000-0000-0000-0000-000000000000

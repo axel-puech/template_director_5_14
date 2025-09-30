@@ -28,5 +28,5 @@ const extras = [];
 
 // On appel ensuite la création du dataset.
 // La fonction prend l'id de la langue ainsi que les trois tableaux de données.
-// script.api.localizationDatas est obligatoire, le module se réfère à cette variable api.
-script.api.localizationDatas = new global.LocalizationDatas(script.language, script.texts, script.textures, extras);
+// script.localizationDatas est obligatoire, le module se réfère à cette variable api.
+script.localizationDatas = new global.LocalizationDatas(script.language, script.texts, script.textures, extras);
