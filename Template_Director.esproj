@@ -10,7 +10,7 @@ updateCheckpoint: 75
 sceneId: 0a1ccb1a-fe88-4fbb-9883-e3af3c75fd99
 viewConfig:
   simulation:
-    device: iPhone 14 Pro
+    device: iPhone 14 Pro Max
     cameraFov: 45.709999
     fullFrameAspect: 0.562500
     resolutionScale: 1.000000
@@ -35,8 +35,6 @@ metaInfo:
     - Back
   lensClientCompatibilities:
     - Mobile
-    - Web
-    - CameraKit
   platformBundlesEnabled: false
   iconHash: ""
   videoPreviewHash: ""
