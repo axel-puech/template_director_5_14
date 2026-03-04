@@ -27,6 +27,7 @@
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
     durationFade: false
+    imageExample: false
     parent: false
   ScriptTypesHidden:
     {}
@@ -38,6 +39,7 @@
     []
   DefaultScriptInputs:
     - parent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      imageExample: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       durationFade: !<float> 0.000000
   ScriptTypes:
     -

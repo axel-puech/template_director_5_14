@@ -1,6 +1,6 @@
 //@input SceneObject parent
 //input SceneObject image3DExample
-//input SceneObject imageExample
+//@input SceneObject imageExample
 //input SceneObject textExample
 //input Asset.Texture[] textureExample
 //input Component.AudioComponent soundExample
@@ -37,60 +37,18 @@ script.subScene.SetUpdate(Update);
 //________DelayEvent________//
 //var DelayedFuncExampleEvent = script.subScene.CreateEvent("DelayedCallbackEvent", DelayedFuncExample);
 //DelayedFuncExampleEvent.event.reset(1)
-//global.currentCyclePhoto=0;
+//global.varGlobalExample=0;
 
-//script.sound_Example.play(1);
+//script.soundExample.play(1);
 
 //var randomInt = Math.floor(Math.random() * 4);//0-3
 
-//script.particule_Example.asset.properties["KillParti"] = 1 // 1->Kill 0->Alive
+//script.particuleExample.asset.properties["KillParti"] = 1 // 1->Kill 0->Alive
 
 //var TodayScript=new Date();
 //var TodayScript=new Date(2025, 6, 2, 1); //8 juin
 //var sceneObjectsArray = [];
 
-
-//__________________________Classes_____________________________//
-class ClassExample {
-    constructor(obj, id){
-        this._obj = obj;
-        this._id = id
-        this._transform = this._obj.getComponent("Component.ScreenTransform")
-        this._image = this._obj.getComponent("Component.Image")
-
-        this._anims = {
-            fade : null
-        }
-        this.initAnimations()
-    }
-
-    initAnimations(){
-        this._anims.fade = new Animation(script.getSceneObject(), 0.5, (ratio)=>{
-            this._image.mainPass.baseColor = new vec4(1,1,1,ratio)
-        })
-
-    }
-
-    cloneMat(){
-        let cloneMat = this._mat.clone()
-        this._image.clearMaterials()
-        this._image.addMaterial(cloneMat)
-    }
-
-    setTexture(tex){
-        this._image.mainPass.baseTex = tex
-    }
-
-    Reset(){
-        this._anims.fade.Reset()
-    }
-}
-function Instantiation()
-{
-    var exampleElem=new ClassExample(script.imageExample,0) // SceneObject,Id
-    sceneObjectsArray.push(exampleElem)
-    sceneObjectsArray[0]._anims.fade.Start(1)
-}
 //_________________________Director functions_____________________//
 function Start() {}
 function OnLateStart() {}
@@ -98,11 +56,11 @@ function Update() {}
 function Stop() {}
 //___________________________Buttons__________________________//
 /*
-script.buttonExample.getComponent("Component.InteractionComponent").onTap.add(function() {
+script.imageExample.getComponent("Component.InteractionComponent").onTouchStart.add(function() {
 print("Tap_Example")
-script.buttonExample.getComponent("Component.InteractionComponent").enabled = false;
-});
-*/
+script.imageExample.getComponent("Component.InteractionComponent").enabled = false;
+});*/
+
 //___________________________Functions__________________________//
 
 function PlayVideoOnce()
@@ -194,15 +152,12 @@ function FadeExample(ratio)
 
 //_________________Scale_________________//
 
-const ScaleExampleAnim = new Animation(script.getSceneObject(), script.durationFade, ScaleExample,RepeatMode.PingPong);
+const ScaleExampleAnim = new Animation(script.getSceneObject(), 0.5, ScaleExample,RepeatMode.PingPong);
 ScaleExampleAnim.Easing=ElasticIn;
 
 function ScaleExample(ratio)
 {    
-    //2D Example :
-    script.imageExample.getComponent("Component.Image").Scale=new vec2(1-ratio,1-ratio);
-    //3D Example :
-    script.imageExample.getComponent("Component.Image").getTransform().setLocalScale(new vec3(1, 1, 1).uniformScale(ratio));
+    script.imageExample.getComponent("Component.Image").getTransform().setLocalScale(new vec3(1, 1, 1).uniformScale((ratio*0.15)+1));
 }  
 
 //_________________Float_________________//
@@ -258,5 +213,48 @@ function Float3DRot(ratio) {
     var result = quat.slerp(baseRot, targetRot, 0.5); // slerp pour les quats
 
     transform.setLocalRotation(result);
+}
+
+
+//__________________________Classes_____________________________//
+class ClassExample {
+    constructor(obj, id){
+        this._obj = obj;
+        this._id = id
+        this._transform = this._obj.getComponent("Component.ScreenTransform")
+        this._image = this._obj.getComponent("Component.Image")
+
+        this._anims = {
+            fade : null
+        }
+        this.initAnimations()
+    }
+
+    initAnimations(){
+        this._anims.fade = new Animation(script.getSceneObject(), 0.5, (ratio)=>{
+            this._image.mainPass.baseColor = new vec4(1,1,1,ratio)
+        })
+
+    }
+
+    cloneMat(){
+        let cloneMat = this._mat.clone()
+        this._image.clearMaterials()
+        this._image.addMaterial(cloneMat)
+    }
+
+    setTexture(tex){
+        this._image.mainPass.baseTex = tex
+    }
+
+    Reset(){
+        this._anims.fade.Reset()
+    }
+}
+function Instantiation()
+{
+    var exampleElem=new ClassExample(script.imageExample,0) // SceneObject,Id
+    sceneObjectsArray.push(exampleElem)
+    sceneObjectsArray[0]._anims.fade.Start(1)
 }
 

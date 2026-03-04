@@ -1270,7 +1270,7 @@
 - !<ScriptComponent/bb23970a-cf03-4f68-bdb1-72304b42ff25>
   PrefabRemaps:
     []
-  Name: Loca_References
+  Name: LocalizationReferences
   Enabled: true
   ScriptAsset: !<reference> 0e867133-6e1d-4474-a3dc-a2acbb273f10
   ScriptInputsDefault:
