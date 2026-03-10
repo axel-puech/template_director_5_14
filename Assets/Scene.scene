@@ -35,6 +35,22 @@
   ScriptTypes:
     "":
       {}
+- !<ScriptComponent/062c37bb-493e-45e0-849b-8d22ebff185b>
+  PrefabRemaps:
+    []
+  Name: SubScene
+  Enabled: true
+  ScriptAsset: !<reference> d6c07b5e-9ded-4599-a9a0-c708b1c0ed20
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      parent: !<reference.SceneObject> 4cd7f418-5027-4521-8ec8-c496e97932a7
+  ScriptTypes:
+    "":
+      {}
 - !<ScriptComponent/0900196b-4ce9-467a-9edd-653120cf8d24>
   PrefabRemaps:
     []
@@ -317,13 +333,13 @@
   Enabled: true
   ScriptAsset: !<reference> 89ec4377-08cb-4c9a-85f2-3d3964c7b6f3
   ScriptInputsDefault:
-    subScenes: true
+    {}
   ScriptTypesDefault:
     {}
   ScriptInputs:
     "":
       subScenes: !<reference.ScriptComponent[]>
-        []
+        - !<reference> 062c37bb-493e-45e0-849b-8d22ebff185b
   ScriptTypes:
     "":
       {}
@@ -1168,6 +1184,7 @@
     HasSegmentScaleCompensation: false
   Children:
     - !<own> fae6cfc1-f01c-4032-81aa-dc41b0a08dd5
+    - !<own> ce3ccbc7-47b1-4d88-9be1-414e20ffd60a
   Components:
     []
 - !<SceneObject/b34df1a6-3010-4a98-b60a-cd35ebe0de12>
@@ -1478,6 +1495,21 @@
     bottom: 0.000000
     right: 0.000000
     top: 0.000000
+- !<SceneObject/ce3ccbc7-47b1-4d88-9be1-414e20ffd60a>
+  PrefabRemaps:
+    []
+  Name: SwapCam
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 062c37bb-493e-45e0-849b-8d22ebff185b
 - !<SceneObject/d1d996fe-1a79-424f-a865-2e396cae9144>
   PrefabRemaps:
     []
