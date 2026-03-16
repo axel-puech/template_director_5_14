@@ -447,6 +447,23 @@
     - !<own> dd3e21b9-20c4-4a64-be9b-3fc155043a98
   Components:
     []
+- !<AudioComponent/52994aff-f7e6-4084-ab19-6c822cb51e5c>
+  PrefabRemaps:
+    []
+  Name: Audio
+  Enabled: true
+  AudioTrack: !<reference> 00000000-0000-0000-0000-000000000000
+  EnableAutoplayLoop: true
+  Volume: 1.000000
+  EnableMixToSnap: false
+  RecordVolume: 1.000000
+  EnableSpatialAudio: false
+  EnableDistanceEffect: false
+  CurveType: Logarithm
+  MinDistance: 0.000000
+  MaxDistance: 100.000000
+  EnableDirectivityEffect: false
+  EnablePositionEffect: false
 - !<ScreenTransform/53538bd7-7854-4704-a169-835463202e52>
   PrefabRemaps:
     []
@@ -889,6 +906,23 @@
     bottom: 0.000000
     right: 0.000000
     top: 0.000000
+- !<AudioComponent/8781a527-f3e5-4fa9-878a-830b649cb520>
+  PrefabRemaps:
+    []
+  Name: Audio
+  Enabled: true
+  AudioTrack: !<reference> 00000000-0000-0000-0000-000000000000
+  EnableAutoplayLoop: false
+  Volume: 1.000000
+  EnableMixToSnap: false
+  RecordVolume: 1.000000
+  EnableSpatialAudio: false
+  EnableDistanceEffect: false
+  CurveType: Logarithm
+  MinDistance: 0.000000
+  MaxDistance: 100.000000
+  EnableDirectivityEffect: false
+  EnablePositionEffect: false
 - !<SceneObject/8c06261f-fc32-405f-883e-526dad2abe22>
   PrefabRemaps:
     []
@@ -904,6 +938,21 @@
     []
   Components:
     - !<own> 7841afd7-b0dc-485e-bcd1-2b70297cc65e
+- !<SceneObject/8df371e8-43ae-41de-9ccf-a9ffb48a9685>
+  PrefabRemaps:
+    []
+  Name: SFX
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> eb3760bd-9118-4196-88cd-7981df609029
+  Components:
+    []
 - !<SceneObject/93e630c8-a1e6-4b70-a643-326da1704a6b>
   PrefabRemaps:
     []
@@ -1199,7 +1248,8 @@
     Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     HasSegmentScaleCompensation: false
   Children:
-    []
+    - !<own> e19e4d36-28ea-429e-9608-b27ed99b8240
+    - !<own> 8df371e8-43ae-41de-9ccf-a9ffb48a9685
   Components:
     []
 - !<ScreenTransform/b4bd63b6-21cc-4228-9856-a9a873c3dd79>
@@ -1712,6 +1762,21 @@
     bottom: 0.000000
     right: 0.000000
     top: 0.000000
+- !<SceneObject/e19e4d36-28ea-429e-9608-b27ed99b8240>
+  PrefabRemaps:
+    []
+  Name: Loop
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> f4af56be-dcd1-4663-83bb-ee9cc454dd1f
+  Components:
+    []
 - !<ScriptComponent/e44f86be-1049-42cb-9f7e-a82b122d68be>
   PrefabRemaps:
     []
@@ -1792,6 +1857,21 @@
   ScriptTypes:
     "":
       {}
+- !<SceneObject/eb3760bd-9118-4196-88cd-7981df609029>
+  PrefabRemaps:
+    []
+  Name: Sfx_1
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 8781a527-f3e5-4fa9-878a-830b649cb520
 - !<Camera/ec4dbff1-7f10-4cc7-99cb-90759f16cb31>
   PrefabRemaps:
     []
@@ -1869,6 +1949,21 @@
     - !<own> e9611291-1759-4188-8786-6727356c6386
   Components:
     []
+- !<SceneObject/f4af56be-dcd1-4663-83bb-ee9cc454dd1f>
+  PrefabRemaps:
+    []
+  Name: Audio
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 52994aff-f7e6-4084-ab19-6c822cb51e5c
 - !<SceneObject/f5cea4b4-7dac-44f8-8f1a-c0359aed30de>
   PrefabRemaps:
     []
