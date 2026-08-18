@@ -8,12 +8,9 @@
     - !<own> b34df1a6-3010-4a98-b60a-cd35ebe0de12
   layers: !<Layers/267ee9a7-aff2-4f9d-9a49-f71214747d03>
     userLayers:
-      - |
-        id: 1
+      - id: 1
         name: Live
         color: 0
-
-    HasOrtho: true
   RenderOutput: !<reference> 2d36dcc6-2403-42b7-9ce6-570c0f0006a6
   RenderPreviewOutput: !<reference> 26bffde9-a933-42f5-9f94-ce41e54f8e40
   RenderOverlayOutput: !<reference> 00000000-0000-0000-0000-000000000000
@@ -417,21 +414,6 @@
     - !<own> 1c8d691c-f01b-454d-9d6f-f042af94f3d7
   Components:
     - !<own> 6823a54f-7ff9-4cff-82e2-c0b5eb0778ad
-- !<SceneObject/50e2d459-1577-4ca8-8a83-7d0d1dc7d077>
-  PrefabRemaps:
-    []
-  Name: Server Communication
-  Enabled: true
-  Layers: 1
-  LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
-    HasSegmentScaleCompensation: false
-  Children:
-    []
-  Components:
-    - !<own> e44f86be-1049-42cb-9f7e-a82b122d68be
 - !<SceneObject/511e4dde-b361-4f8c-83e6-04ebf720c706>
   PrefabRemaps:
     []
@@ -687,21 +669,6 @@
     []
   Components:
     - !<own> 01844936-6862-4323-95f0-c0abe72e667a
-- !<SceneObject/6e94dde7-94c3-4a0c-a435-7ac91fb44b9c>
-  PrefabRemaps:
-    []
-  Name: Mirror
-  Enabled: false
-  Layers: 1
-  LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
-    HasSegmentScaleCompensation: false
-  Children:
-    - !<own> 50e2d459-1577-4ca8-8a83-7d0d1dc7d077
-  Components:
-    []
 - !<SceneObject/6f646f69-8d36-4a6e-8f0e-73b8eb7c2b83>
   PrefabRemaps:
     []
@@ -753,7 +720,7 @@
   PrefabRemaps:
     []
   Name: Localization
-  Enabled: false
+  Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 0.000000, z: 0.000000}
@@ -792,7 +759,6 @@
   renderLayer: 1048579
   LightType: Directional
   Intensity: 1.000000
-  CastShadows: false
   ShadowDensity: 0.300000
   ShadowBlurRadius: 4.000000
   ShadowTextureSize: 512
@@ -814,9 +780,9 @@
   DynamicEnvInputTexture: !<reference> 00000000-0000-0000-0000-000000000000
   InnerConeAngle: 0.000000
   OuterConeAngle: 45.000000
-  DecayType: None
-  DecayLimit: false
-  DecayRange: 1.000000
+  FalloffType: None
+  FalloffRange: .inf
+  ShadowType: None
 - !<SceneObject/81e4e612-ae5d-42a6-8d02-e911d19b3516>
   PrefabRemaps:
     []
@@ -1642,7 +1608,6 @@
     HasSegmentScaleCompensation: false
   Children:
     - !<own> 81e4e612-ae5d-42a6-8d02-e911d19b3516
-    - !<own> 6e94dde7-94c3-4a0c-a435-7ac91fb44b9c
     - !<own> 75a881a0-536f-4414-8aca-80bb0b30ca80
     - !<own> f2b18d58-9f2b-4667-a571-3ea0fe45a003
     - !<own> aff1b28c-52e3-4913-bf8c-b6010c4732ff
@@ -1688,7 +1653,6 @@
   renderLayer: 1048579
   LightType: EnvMap
   Intensity: 0.000000
-  CastShadows: false
   ShadowDensity: 1.000000
   ShadowBlurRadius: 4.000000
   ShadowTextureSize: 512
@@ -1710,9 +1674,9 @@
   DynamicEnvInputTexture: !<reference> 00000000-0000-0000-0000-000000000000
   InnerConeAngle: 0.000000
   OuterConeAngle: 45.000000
-  DecayType: None
-  DecayLimit: false
-  DecayRange: 1.000000
+  FalloffType: None
+  FalloffRange: .inf
+  ShadowType: None
 - !<ScriptComponent/dff7a03f-84e5-4ad6-9c4e-da8ba2ddb2be>
   PrefabRemaps:
     []
@@ -1777,23 +1741,6 @@
     - !<own> f4af56be-dcd1-4663-83bb-ee9cc454dd1f
   Components:
     []
-- !<ScriptComponent/e44f86be-1049-42cb-9f7e-a82b122d68be>
-  PrefabRemaps:
-    []
-  Name: Server Communication
-  Enabled: true
-  ScriptAsset: !<reference> 51cd7e46-e844-4b9d-90e6-ebc029352aed
-  ScriptInputsDefault:
-    {}
-  ScriptTypesDefault:
-    {}
-  ScriptInputs:
-    "":
-      serviceModule: !<reference.RemoteServiceModule> 7bf03827-840e-41b4-a8ef-eb3ea0160eef
-      internetModule: !<reference.InternetModule> 0e49a6e0-b6e2-41b3-9a6f-33d1b91650db
-  ScriptTypes:
-    "":
-      {}
 - !<ScriptComponent/e4dce161-cec5-4f9a-86dd-cee8a743e8ff>
   PrefabRemaps:
     []

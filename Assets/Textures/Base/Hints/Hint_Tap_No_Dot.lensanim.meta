@@ -14,9 +14,8 @@
     - LPD_87_Hint_TAP_out_v01.png
   ImporterSettings: !<AssetImporterSettings>
     {}
-  CompressionSettings: !<SingleCompressionSettings>
-    CompressorName: None
-    CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+  CompressionSettings: !<FileCompressionSettings>
+    {}
 - !<AnimatedTextureData/528c3547-9d41-4598-9fb1-dfff7a74b44d>
   AutoPlay: true
   Reversed: false

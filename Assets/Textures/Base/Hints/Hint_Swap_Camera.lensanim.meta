@@ -14,9 +14,8 @@
     - LPD_9_v02.png
   ImporterSettings: !<AssetImporterSettings>
     {}
-  CompressionSettings: !<SingleCompressionSettings>
-    CompressorName: None
-    CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+  CompressionSettings: !<FileCompressionSettings>
+    {}
 - !<AnimatedTextureData/50c38e94-4bb7-4799-95bb-0fc39ae5e078>
   AutoPlay: true
   Reversed: false
