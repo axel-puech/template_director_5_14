@@ -4,27 +4,10 @@ studioVersion:
   patch: 1
   build: 26062503
   type: Public
-  buildFlavor: release
-  timestamp: 1782332287000
-  commit: 48a9c113a2c2fe7057f0893da6ea7ff55b6492ef
-coreVersion: 328
-clientVersion: 13.580000
+coreVersion: 364
+clientVersion: 13.94
 updateCheckpoint: 101
 sceneId: 0a1ccb1a-fe88-4fbb-9883-e3af3c75fd99
-viewConfig:
-  simulation:
-    device: iPhone 14 Pro
-    cameraFov: 45.709999
-    fullFrameAspect: 0.562500
-    resolutionScale: 1.000000
-    viewport: Maximized
-    output: Live
-    stereoOutputEye: Center
-    deviceTypeOverride: Unknown
-    tint: true
-    screenshot: false
-    videoScreenRecord: false
-  cameraType: Front
 metaInfo:
   hints:
     []
@@ -33,11 +16,16 @@ metaInfo:
   lensName: DirectorTemplate
   lensDescriptors:
     []
+  lensApplicableContext:
+    - live_camera
+    - reply_camera
+    - video_chat
   lensApplicability:
     - Front
     - Back
   lensClientCompatibilities:
     - Mobile
+    - CameraKit
   platformBundlesEnabled: false
   iconHash: ""
   videoPreviewHash: ""
@@ -45,6 +33,7 @@ metaInfo:
   fromTemplateUrl: Lens Studio 5.0.10.24042400
   activationCamera: Front
   sourceMapEnabled: false
+  shaderCacheInvalidationEnabled: false
   usingMinClientVersions: false
   androidMinClientVersion:
     major: 0
@@ -58,3 +47,8 @@ metaInfo:
     build: 0
   documentId: 97f3277d-b61d-4361-bc4a-289b8ee39fa7
   originalDocumentId: 97f3277d-b61d-4361-bc4a-289b8ee39fa7
+  packageId: ""
+  packageVersion: ""
+  spkPrivilegeLevel: Generic
+  gluboEnabled: false
+targetPlatform: Snapchat
